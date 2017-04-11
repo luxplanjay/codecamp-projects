@@ -8,6 +8,10 @@
   color: #0F110C;
 }
 
+a {
+  color: #337ab7;
+}
+
 .app-container {
   width: 600px;
   max-width: 600px;
@@ -76,10 +80,10 @@
         color: #EF8354;
       }
       .tweet-btn__icon {
-        color: darken(blue, 30%);
+        color: darken(#337ab7, 15%);
       }
       &:before {
-        background-color: darken(blue, 30%);
+        background-color: darken(#337ab7, 15%);
         visibility: visible;
         transform: scaleX(1);
       }
