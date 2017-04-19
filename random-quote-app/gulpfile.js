@@ -19,8 +19,8 @@ var paths = {
   src: {
     html: 'src/*.html',
     js: 'src/js/**/*.js',
-    cssGlobalImport: './src/sass/core/tools/',
-    css: ['src/sass/core/*.scss', './src/sass/**/*.scss'],
+    cssGlobalImport: 'src/sass/core/tools/',
+    css: ['src/sass/core/*.scss', 'src/sass/**/*.scss'],
     img: 'src/img/**/*.+(png|jpg|gif|svg)',
     fonts: 'src/fonts/**/*.*'
   },
@@ -30,6 +30,9 @@ var paths = {
     css: 'build/css/',
     img: 'build/img/',
     fonts: 'build/fonts/'
+  },
+  watch: {
+    html: 'src/**/*.html'
   },
   clean: './build'
 };
@@ -106,9 +109,7 @@ gulp.task('bundleFonts', function () {
 
 // Watching for changes in src files
 gulp.task('watch', function () {
-  gulp.watch(paths.build.html, browserSync.reload);
-
-  gulp.watch(paths.src.html, ['bundleHtml']);
+  gulp.watch(paths.watch.html, {cwd: './'}, ['bundleHtml']);
   gulp.watch(paths.src.css, {cwd: './'}, ['bundleCss']);
   gulp.watch(paths.src.js, {cwd: './'}, ['bundleJs']);
   gulp.watch(paths.src.img, ['bundleImg']);
