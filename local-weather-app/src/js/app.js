@@ -1,12 +1,15 @@
 $(document).ready(function () {
 
-  $.getJSON('http://ip-api.com/json/?callback=?')
+  $.getJSON('https://ipapi.co/json/')
     .then(function (response) {
+      console.log(response);
       const currentLocation = {
         city: response.city,
-        country: response.country,
-        countryCode: response.countryCode
+        country: response.country_name,
+        countryCode: response.country
       };
+
+      console.log(currentLocation);
 
       getWeather(currentLocation);
     });
@@ -52,7 +55,7 @@ $(document).ready(function () {
   function getWeather(location) {
     let units = getUnits(location.countryCode),
       unitsObj = {},
-      weatherApiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${location.city},${location.countryCode}&units=${units}&appid=e2db5b0453a25a492e87ad8b03046a7c`;
+      weatherApiUrl = `https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather?q=${location.city},${location.countryCode}&units=${units}&appid=e2db5b0453a25a492e87ad8b03046a7c`;
 
     if (units === 'metric') {
       unitsObj.tempUnits = '°C';
@@ -122,17 +125,17 @@ $(document).ready(function () {
       locationBox = $('.location'),
       weatherBox = $('.weather'),
       windBoxChildren = $('.wind').children(),
-      weatherIconURL = `http://openweathermap.org/img/w/${data.icon}.png`,
+      weatherIconURL = `https://openweathermap.org/img/w/${data.icon}.png`,
       cBtn = $('.metric-btn'),
       fBtn = $('.imperial-btn');
 
     const bckgrndImgUrls = {
-      Thunderstorm: 'http://more-sky.com/data/out/10/IMG_405464.jpg',
-      Drizzle: 'http://img03.deviantart.net/de1c/i/2009/304/3/9/pluo_by_aik_art.jpg',
-      Rain: 'http://webneel.com/wallpaper/sites/default/files/images/04-2013/creative-rain_0.jpg',
-      Snow: 'http://wallpapercave.com/wp/j2pzwKj.jpg',
-      Clear: 'http://www.traemcneely.com/wp-content/uploads/2015/02/wpid-wp-1424111867667.jpeg',
-      Clouds: 'http://wallpaper-gallery.net/images/cloud-wallpaper/cloud-wallpaper-22.jpg'
+      Thunderstorm: 'https://more-sky.com/data/out/10/IMG_405464.jpg',
+      Drizzle: 'https://img03.deviantart.net/de1c/i/2009/304/3/9/pluo_by_aik_art.jpg',
+      Rain: 'https://webneel.com/wallpaper/sites/default/files/images/04-2013/creative-rain_0.jpg',
+      Snow: 'https://wallpapercave.com/wp/j2pzwKj.jpg',
+      Clear: 'https://www.traemcneely.com/wp-content/uploads/2015/02/wpid-wp-1424111867667.jpeg',
+      Clouds: 'https://wallpaper-gallery.net/images/cloud-wallpaper/cloud-wallpaper-22.jpg'
     };
 
     for (let key in bckgrndImgUrls) {
