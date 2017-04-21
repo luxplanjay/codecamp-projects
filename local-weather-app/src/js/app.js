@@ -129,18 +129,18 @@ $(document).ready(function () {
       cBtn = $('.metric-btn'),
       fBtn = $('.imperial-btn');
 
-    const bckgrndImgUrls = {
-      Thunderstorm: 'https://more-sky.com/data/out/10/IMG_405464.jpg',
-      Drizzle: 'https://img03.deviantart.net/de1c/i/2009/304/3/9/pluo_by_aik_art.jpg',
-      Rain: 'https://webneel.com/wallpaper/sites/default/files/images/04-2013/creative-rain_0.jpg',
-      Snow: 'https://wallpapercave.com/wp/j2pzwKj.jpg',
-      Clear: 'https://www.traemcneely.com/wp-content/uploads/2015/02/wpid-wp-1424111867667.jpeg',
-      Clouds: 'https://wallpaper-gallery.net/images/cloud-wallpaper/cloud-wallpaper-22.jpg'
+    const images = {
+      Thunderstorm: 'img/thunderstorm.jpg',
+      Drizzle: 'img/drizzle.jpg',
+      Rain: 'img/rain.jpg',
+      Snow: 'img/snow.jpg',
+      Clear: 'img/clear.jpg',
+      Clouds: 'img/clouds.jpg'
     };
 
-    for (let key in bckgrndImgUrls) {
+    for (let key in images) {
       if (key === data.weather) {
-        page.css({'background-image': `url(${bckgrndImgUrls[data.weather]})`});
+        page.css({'background-image': `url(${images[data.weather]})`});
       } else {
         page.css({'background-color': '#E8F1F2'});
       }
