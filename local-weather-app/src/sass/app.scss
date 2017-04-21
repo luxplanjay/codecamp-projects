@@ -1,0 +1,121 @@
+@import "tools";
+
+* {
+  transition: all 0.5s;
+}
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  @include container-min-width;
+  font-family: 'Roboto', sans-serif;
+  background-size: cover;
+  background: #F6F0ED center center;
+}
+
+.container {
+  @include container-min-width;
+  max-width: 60rem;
+  width: 100%;
+}
+
+.app-container {
+  margin: auto;
+  padding: 0 1rem;
+  color: $primary-dark;
+}
+
+.app-header {
+  padding: 1rem 0;
+}
+
+.app-title {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.875rem;
+  color: $primary-accent;
+
+  @media (min-width: 768px) {
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+  }
+}
+
+.app-author {
+  font-size: 1.125rem;
+  text-align: center;
+  a {
+    color: $primary-accent;
+    text-decoration: none;
+
+    &:hover {
+      color: $secondary-accent;
+      text-decoration: underline;
+    }
+  }
+}
+
+.units-toggle {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  .metric-btn,
+  .imperial-btn {
+    display: block;
+    border: 0;
+    outline: 0;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    padding: 1rem;
+    transition: all 0.5s;
+    &--active {
+      background-color: #2A2B2A;
+      color: #edf3ff;
+    }
+  }
+}
+
+.temp-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1rem;
+  padding: 0.5rem;
+  background-color: rgba(250, 237, 202, 0.8);
+  @media (min-width: 768px) {
+    width: 35%;
+  }
+  &__icon {
+    display: block;
+    width: 3.125rem;
+    height: 3.125rem;
+    margin-right: 1rem;
+    background-repeat: no-repeat;
+  }
+  &__value {
+    font-size: 1.5rem;
+    white-space: nowrap;
+  }
+}
+
+.info-box {
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem 0;
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: rgba(250, 237, 202, 0.8);
+    @media (min-width: 768px) {
+      margin-bottom: 0;
+      font-size: 2rem;
+      width: 32%;
+    }
+  }
+}

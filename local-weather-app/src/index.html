@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <link rel="stylesheet" href="css/style.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <title>Local Weather App</title>
+</head>
+<body class="page">
+<div class="wrapper">
+  <div class="app-container container">
+    <header class="app-header">
+      <h1 class="app-title">Local Weather App</h1>
+      <p class="app-author">by <a href="https://www.freecodecamp.com/axzerk" target="_blank">Zerk</a></p>
+    </header>
+
+    <div class="units-toggle">
+      <button class="metric-btn">metric</button>
+      <button class="imperial-btn">imperial</button>
+    </div>
+
+    <div class="temp-box">
+      <i class="temp-box__icon"></i>
+      <p class="temp-box__value"></p>
+    </div>
+
+    <div class="info-box">
+      <p class="info-box__item location"></p>
+      <p class="info-box__item weather"></p>
+      <p class="info-box__item wind">
+        <span class="wind__direction"></span>
+        <span class="wind__speed"></span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/scripts.min.js"></script>
+</body>
+</html>
