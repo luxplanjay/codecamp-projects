@@ -55,7 +55,7 @@ $(document).ready(function () {
   function getWeather(location) {
     let units = getUnits(location.countryCode),
       unitsObj = {},
-      weatherApiUrl = `https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather?q=${location.city},${location.countryCode}&units=${units}&appid=e2db5b0453a25a492e87ad8b03046a7c`;
+      weatherApiUrl = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=${location.city},${location.countryCode}&units=${units}&appid=e2db5b0453a25a492e87ad8b03046a7c`;
 
     if (units === 'metric') {
       unitsObj.tempUnits = '°C';
