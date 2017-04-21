@@ -2,31 +2,28 @@ $(document).ready(function () {
 
   $.getJSON('https://ipapi.co/json/')
     .then(function (response) {
-      console.log(response);
       const currentLocation = {
         city: response.city,
         country: response.country_name,
         countryCode: response.country
       };
 
-      console.log(currentLocation);
-
       getWeather(currentLocation);
     });
 
   $('.units-toggle').on('click', function (e) {
-    toggleUnits($(e.target));
+    toggleUnits(e.target);
   });
 
   function toggleUnits(el) {
-    let cBtn = $('.metric-btn'),
-      fBtn = $('.imperial-btn'),
+    let metricBtn = $('.metric-btn'),
+      imperialBtn = $('.imperial-btn'),
       tempBox = $('.temp-box__value'),
       windSpeedBox = $('.wind__speed'),
       temp = 0,
       speed = 0;
 
-    if (el.hasClass('metric-btn') && !el.hasClass('metric-btn--active')) {
+    if ($(el).hasClass('metric-btn') && !$(el).hasClass('metric-btn--active')) {
       speed = (windSpeedBox.html()).match(/\d+/g);
       speed = Math.round(speed / 2.237);
       windSpeedBox.html(`${speed} m/s`);
@@ -35,9 +32,9 @@ $(document).ready(function () {
       temp = Math.round((temp - 32) / 1.8);
       tempBox.html(`${temp}, °C`);
 
-      cBtn.addClass('metric-btn--active');
-      fBtn.removeClass('imperial-btn--active');
-    } else if (el.hasClass('imperial-btn') && !el.hasClass('imperial-btn--active')) {
+      metricBtn.addClass('metric-btn--active');
+      imperialBtn.removeClass('imperial-btn--active');
+    } else if ($(el).hasClass('imperial-btn') && !$(el).hasClass('imperial-btn--active')) {
 
       speed = (windSpeedBox.html()).match(/\d+/g);
       speed = Math.round(speed / 0.44704);
@@ -47,8 +44,8 @@ $(document).ready(function () {
       temp = Math.round(temp * 1.8 + 32);
       tempBox.html(`${temp}, °F`);
 
-      fBtn.addClass('imperial-btn--active');
-      cBtn.removeClass('metric-btn--active');
+      imperialBtn.addClass('imperial-btn--active');
+      metricBtn.removeClass('metric-btn--active');
     }
   }
 
@@ -125,9 +122,9 @@ $(document).ready(function () {
       locationBox = $('.location'),
       weatherBox = $('.weather'),
       windBoxChildren = $('.wind').children(),
-      weatherIconURL = `https://openweathermap.org/img/w/${data.icon}.png`,
-      cBtn = $('.metric-btn'),
-      fBtn = $('.imperial-btn');
+      weatherIconUrl = `https://openweathermap.org/img/w/${data.icon}.png`,
+      metricBtn = $('.metric-btn'),
+      imperialBtn = $('.imperial-btn');
 
     const images = {
       Thunderstorm: 'img/thunderstorm.jpg',
@@ -147,12 +144,12 @@ $(document).ready(function () {
     }
 
     if (data.tempUnits === '°C') {
-      cBtn.addClass('metric-btn--active');
+      metricBtn.addClass('metric-btn--active');
     } else {
-      fBtn.addClass('imperial-btn--active');
+      imperialBtn.addClass('imperial-btn--active');
     }
 
-    iconBox.css({'background-image': `url(${weatherIconURL})`});
+    iconBox.css({'background-image': `url(${weatherIconUrl})`});
     tempBox.html(`${data.temp}, ${data.tempUnits}`);
     locationBox.html(`${data.city}, ${data.country}`);
     weatherBox.html(`${data.weather}, ${data.weatherDetails}`);
