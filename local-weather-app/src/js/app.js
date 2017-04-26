@@ -24,7 +24,7 @@ $(document).ready(function () {
       speed = 0;
 
     if ($(el).hasClass('metric-btn') && !$(el).hasClass('metric-btn--active')) {
-      speed = (windSpeedBox.html()).match(/\d+/g);
+      speed = (windSpeedBox.html()).match(/[-.0-9]+/);
       speed = Math.round(speed / 2.237);
       windSpeedBox.html(`${speed} m/s`);
 
@@ -36,7 +36,7 @@ $(document).ready(function () {
       imperialBtn.removeClass('imperial-btn--active');
     } else if ($(el).hasClass('imperial-btn') && !$(el).hasClass('imperial-btn--active')) {
 
-      speed = (windSpeedBox.html()).match(/\d+/g);
+      speed = (windSpeedBox.html()).match(/[-.0-9]+/);
       speed = Math.round(speed / 0.44704);
       windSpeedBox.html(`${speed} mph`);
 
@@ -68,7 +68,7 @@ $(document).ready(function () {
         city: location.city,
         weather: response.weather[0].main,
         weatherDetails: response.weather[0].description,
-        windSpeed: response.wind.speed,
+        windSpeed: Math.round(response.wind.speed),
         windUnits: unitsObj.windUnits,
         windDirection: calcWindDirection(response.wind.deg),
         temp: response.main.temp,
@@ -132,7 +132,8 @@ $(document).ready(function () {
       Rain: 'img/rain.jpg',
       Snow: 'img/snow.jpg',
       Clear: 'img/clear.jpg',
-      Clouds: 'img/clouds.jpg'
+      Clouds: 'img/clouds.jpg',
+      Fog: 'img/fog.jpg'
     };
 
     for (let key in images) {
