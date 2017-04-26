@@ -54,6 +54,7 @@ $(document).ready(function () {
       unitsObj = {},
       weatherApiUrl = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=${location.city},${location.countryCode}&units=${units}&appid=e2db5b0453a25a492e87ad8b03046a7c`;
 
+
     if (units === 'metric') {
       unitsObj.tempUnits = '°C';
       unitsObj.windUnits = 'm/s';
@@ -63,6 +64,7 @@ $(document).ready(function () {
     }
 
     $.getJSON(weatherApiUrl, function (response) {
+      console.log(response);
       const weatherData = {
         country: location.country,
         city: location.city,
