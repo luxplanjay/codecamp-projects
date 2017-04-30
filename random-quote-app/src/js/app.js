@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  'use strict';
+
   let getQuoteBtn = $('.quote-btn'),
     tweetBtn = $('.tweet-btn'),
     quoteTextField = $('.quote-text > span'),
@@ -13,11 +15,11 @@ $(document).ready(function () {
   function getQuote(textField, authorField) {
     $.ajax({
       headers: {
-        "X-Mashape-Key": "OivH71yd3tmshl9YKzFH7BTzBVRQp1RaKLajsnafgL2aPsfP9V",
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
+        'X-Mashape-Key': 'OivH71yd3tmshl9YKzFH7BTzBVRQp1RaKLajsnafgL2aPsfP9V',
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      url: "https://andruxnet-random-famous-quotes.p.mashape.com/cat=",
+      url: 'https://andruxnet-random-famous-quotes.p.mashape.com/cat=',
       success: function (response) {
         let data = JSON.parse(response);
         textField.html(data.quote);

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  'use strict';
 
   $.getJSON('https://ipapi.co/json/')
     .then(function (response) {
