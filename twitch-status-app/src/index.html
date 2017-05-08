@@ -30,7 +30,30 @@
   <div class="results-container"></div>
 </div>
 
+<script type="text/template" id="channel-card">
+  <div class="channel-card">
+    <img src="<%- logo %>" class="channel-card__img" alt="channel image">
+    <div class="channel-card__info">
+      <h2><a href="#" class="channel-card__name"><%- name %></a></h2>
+      <p class="channel-card__descr"><%- statusText %></p>
+    </div>
+    <% if (isOnline) { %>
+    <i class="channel-card__status" data-online="true" title="online">
+      <svg class="channel-card__status-icon">
+        <use xlink:href="img/status.svg#root"></use>
+      </svg>
+    </i>
+    <% } else { %>
+    <i class="channel-card__status" data-online="false" title="offline">
+      <svg class="channel-card__status-icon" style="fill: #FF4242;">
+        <use xlink:href="img/status.svg#root"></use>
+      </svg>
+    </i>
+    <% } %>
+  </div>
+</script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/scripts.min.js"></script>
 </body>

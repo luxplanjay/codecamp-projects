@@ -5,106 +5,123 @@
 $(function () {
   'use strict';
 
-  const channelers = ['mathil1', 'freecodecamp', 'sing_sing', 'dreamhackcs', 'esl_sc2', 'jacksofamerica', 'ogamingsc2', 'faceittv', 'purgegamers'],
-    controls = $('.controls');
+  const app = {
+    channels: ['freecodecamp', 'sing_sing', 'dreamhackcs', 'esl_sc2', 'jacksofamerica', 'ogamingsc2', 'faceittv', 'purgegamers', 'cretetion', 'habathcx', 'noobs2ninjas', 'brunofin', 'comster404'],
+    elements: {
+      controls: $('.controls'),
+      form: $('.search-form'),
+      container: $('.results-container')
+    },
+    // $init
+    init: function () {
+      this.channels.forEach(function (item) {
+        this.getUserData(item);
+      }.bind(this));
 
-  channelers.forEach(function (item) {
-    getUserData(item);
-  });
+      this.elements.controls.on('click', function (event) {
+        if ($(event.target).hasClass('btn--all')) {
+          this.toggleControls($(event.target));
+          this.toggleChannels('all');
+        } else if ($(event.target).hasClass('btn--online')) {
+          this.toggleControls($(event.target));
+          this.toggleChannels('online');
+        } else if ($(event.target).hasClass('btn--offline')) {
+          this.toggleControls($(event.target));
+          this.toggleChannels('offline');
+        }
+      }.bind(this));
 
-  controls.on('click', function (event) {
-    if ($(event.target).hasClass('btn--all')) {
-      toggeleControls($(event.target));
-      toggleChannels('all');
-    } else if ($(event.target).hasClass('btn--online')) {
-      toggeleControls($(event.target));
-      toggleChannels('online');
-    } else if ($(event.target).hasClass('btn--offline')) {
-      toggeleControls($(event.target));
-      toggleChannels('offline');
-    }
-  });
+      this.elements.form.on('submit', function (e) {
+        e.preventDefault();
+        let target = $('.search-form input').val();
 
-  function toggeleControls(el) {
-    controls.find('button').removeClass('btn--active');
-    el.addClass('btn--active');
-  }
+        this.findChannel(target);
+      }.bind(this));
+    },
+    // $getUserData
+    getUserData: function (user, searchQuery) {
+      let category = searchQuery || 'streams',
+        apiKey = 'zw4ez3387m23jod5tuzeebtdbknd0b',
+        apiUrl = `https://api.twitch.tv/kraken/${category}/${user}?client_id=${apiKey}`;
 
-  function getUserData(user, searchQuery) {
-    let category = searchQuery || 'streams',
-      apiKey = 'zw4ez3387m23jod5tuzeebtdbknd0b',
-      apiUrl = `https://api.twitch.tv/kraken/${category}/${user}?client_id=${apiKey}`;
+      $.getJSON(apiUrl)
+        .done(function (data) {
+          if (data.stream) {
+            let channelData = {
+              logo: data.stream.channel.logo,
+              name: data.stream.channel.display_name,
+              isOnline: true,
+              statusText: data.stream.channel.status
+            };
+            this.updateUI(channelData);
+          } else if (data.name === user) {
+            let channelData = {
+              logo: data.logo,
+              name: data.display_name,
+              isOnline: false,
+              statusText: ''
+            };
+            this.updateUI(channelData);
+          } else {
+            this.getUserData(user, 'users');
+          }
+        }.bind(this))
+        .fail(function () {
+          let channelData = {
+            logo: 'img/error.jpg',
+            name: user,
+            isOnline: false,
+            statusText: 'account closed or not found'
+          };
+          this.updateUI(channelData);
+        }.bind(this));
+    },
+    // $updateUI
+    updateUI: function (data) {
+      const tpl = $('#channel-card').html(),
+        compiled = _.template(tpl)(data);
 
-    $.getJSON(apiUrl).done(function (data) {
-      console.log(data);
+      this.elements.container.append(compiled);
+    },
+    // $toggleControls
+    toggleControls: function (el) {
+      this.elements.controls.find('button').removeClass('btn--active');
+      el.addClass('btn--active');
+    },
+    // $toggleChannels
+    toggleChannels: function (status) {
+      const channels = $('.channel-card');
 
-      if (data.stream) {
-        let channelData = {
-          logo: data.stream.channel.logo,
-          name: data.stream.channel.display_name,
-          icon: 'img/online.png',
-          isOnline: true,
-          statusText: data.stream.channel.status
-        };
-        updateUI(channelData);
-      } else if (data.name === user) {
-        let channelData = {
-          logo: data.logo,
-          name: data.display_name,
-          icon: 'img/offline.png',
-          isOnline: false
-        };
-        updateUI(channelData);
+      channels.hide();
+
+      if (status === 'online') {
+        channels.each(function () {
+          if ($(this).find('i').attr('data-online') === 'true') {
+            $(this).show();
+          }
+        });
+      } else if (status === 'offline') {
+        channels.each(function () {
+          if ($(this).find('i').attr('data-online') === 'false') {
+            $(this).show();
+          }
+        });
       } else {
-        getUserData(user, 'users');
+        channels.show();
       }
-    });
-  }
-
-  function updateUI(data) {
-    let statusIcon = '',
-      title = '';
-
-    if (data.isOnline) {
-      let statusSvg = `<svg class="channel-card__status-icon"><use xlink:href="img/status.svg#root"></use></svg>`;
-      statusIcon = `<i class="channel-card__status" data-online="true" title="online">${statusSvg}</i>`;
-    } else {
-      let statusSvg = `<svg class="channel-card__status-icon" style="fill: #FF4242;"><use xlink:href="img/status.svg#root"></use></svg>`;
-      statusIcon = `<i class="channel-card__status" data-online="false" title="offline">${statusSvg}</i>`;
-    }
-
-    if (data.statusText) {
-      title = `<p class="channel-card__descr">${data.statusText}</p>`;
-    }
-
-    let name = `<a href="#" class="channel-card__name">${data.name}</a>`,
-      infoContainer = `<div class="channel-card__info">${name}${title}</div>`,
-      channelImage = `<img class="channel-card__img" src=${data.logo}>`,
-      channelCard = $(`<div class="channel-card">${channelImage}${infoContainer}${statusIcon}</div>`),
-      container = $('.results-container');
-
-    container.append(channelCard);
-  }
-
-  function toggleChannels(status) {
-    const channels = $('.channel-card');
-
-    channels.hide();
-
-    if (status === 'online') {
-      channels.each(function () {
-        if ($(this).find('i').attr('data-online') === 'true') {
-          $(this).show();
+    },
+    // $findChannel
+    findChannel: function (val) {
+      $('.channel-card .channel-card__name').each(function () {
+        let el = $(this);
+        if (el.text().toLowerCase() === val.toLowerCase()) {
+          el.parents('.channel-card').show();
+        } else {
+          el.parents('.channel-card').hide();
         }
       });
-    } else if (status === 'offline') {
-      channels.each(function () {
-        if ($(this).find('i').attr('data-online') === 'false') {
-          $(this).show();
-        }
-      });
-    } else {
-      channels.show();
     }
-  }
+  };
+
+  app.init();
 });
