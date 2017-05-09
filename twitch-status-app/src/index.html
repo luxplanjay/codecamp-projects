@@ -7,7 +7,7 @@
   <link rel="icon" href="img/favicon.png?" type="image/png">
   <link rel="stylesheet" href="css/style.min.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <title>Placeholder</title>
+  <title>Twitch.tv app</title>
 </head>
 <body class="page">
 <div class="app-container">
@@ -34,7 +34,7 @@
   <div class="channel-card">
     <img src="<%- logo %>" class="channel-card__img" alt="channel image">
     <div class="channel-card__info">
-      <h2><a href="#" class="channel-card__name"><%- name %></a></h2>
+      <h2><a href="<%- url %>" class="channel-card__name" target="_blank"><%- name %></a></h2>
       <p class="channel-card__descr"><%- statusText %></p>
     </div>
     <% if (isOnline) { %>

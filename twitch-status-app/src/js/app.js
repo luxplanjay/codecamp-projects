@@ -50,6 +50,7 @@ $(function () {
             let channelData = {
               logo: data.stream.channel.logo,
               name: data.stream.channel.display_name,
+              url: data.stream.channel.url,
               isOnline: true,
               statusText: data.stream.channel.status
             };
@@ -58,6 +59,7 @@ $(function () {
             let channelData = {
               logo: data.logo,
               name: data.display_name,
+              url: `https://www.twitch.tv/${data.name}`,
               isOnline: false,
               statusText: ''
             };
@@ -70,6 +72,7 @@ $(function () {
           let channelData = {
             logo: 'img/error.jpg',
             name: user,
+            url: '',
             isOnline: false,
             statusText: 'account closed or not found'
           };
