@@ -7,3 +7,5 @@ Random Quote App - https://axzerk.github.io/codecamp-projects/random-quote-app/b
 Local Weather App - https://axzerk.github.io/codecamp-projects/local-weather-app/build/
 
 Twitch.tv API app - https://axzerk.github.io/codecamp-projects/twitch-status-app/build/
+
+Calculator app - https://axzerk.github.io/codecamp-projects/calculator-app/build/
