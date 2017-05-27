@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "core/core";
+
 body {
   font-family: Roboto, Arial, sans-serif;
 }
@@ -9,7 +12,8 @@ body {
 }
 
 .app-container {
-  width: 20rem;
+  min-width: 20rem;
+  max-width: 20rem;
   padding: 0.5rem;
   margin: auto;
   background-color: #FFFCF2;
@@ -78,7 +82,3 @@ body {
 .author-field {
 
 }
-
-
-
-
