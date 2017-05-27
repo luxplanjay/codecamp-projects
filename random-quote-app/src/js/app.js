@@ -1,32 +1,29 @@
-$(document).ready(function () {
-  'use strict';
-
-  let getQuoteBtn = $('.quote-btn'),
-    tweetBtn = $('.tweet-btn'),
-    quoteTextField = $('.quote-text > span'),
-    quoteAuthorField = $('.quote-author');
-
-  getQuote(quoteTextField, quoteAuthorField);
-
-  getQuoteBtn.on('click', function () {
-    getQuote(quoteTextField, quoteAuthorField);
-  });
-
-  function getQuote(textField, authorField) {
+export const APP = {
+  elements: {
+    quoteBtn: document.querySelector('.quote-btn'),
+    tweetBtn: document.querySelector('.tweet-btn'),
+    quoteTextField: document.querySelector('.quote-text'),
+    quoteAuthorField: document.querySelector('.quote-author')
+  },
+  getQuote: function () {
+    const apiKey = 'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1';
     $.ajax({
-      headers: {
-        'X-Mashape-Key': 'OivH71yd3tmshl9YKzFH7BTzBVRQp1RaKLajsnafgL2aPsfP9V',
-        Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      url: 'https://andruxnet-random-famous-quotes.p.mashape.com/cat=',
-      success: function (response) {
-        let data = JSON.parse(response);
-        textField.html(data.quote);
-        authorField.html(`&mdash; ${data.author}`);
+      type: 'GET',
+      url: apiKey,
+      success: function (data) {
+        this.elements.quoteTextField.innerHTML = data[0].content;
+        this.elements.quoteAuthorField.innerHTML = `&mdash; ${data[0].title}`;
 
-        tweetBtn.attr('href', `https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=${encodeURIComponent(` ${data.quote} ${data.author}`)}`);
-      }
+        this.elements.tweetBtn.setAttribute('href', `https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=${encodeURIComponent(` ${this.elements.quoteTextField.textContent} ${data[0].title}`)}`);
+      }.bind(this),
+      error: function (error) {
+        alert('ERROR fetching data: ' + error);
+      },
+      cache: false
     });
+  },
+  init: function () {
+    this.getQuote();
+    this.elements.quoteBtn.addEventListener('click', this.getQuote.bind(this));
   }
-});
+};

@@ -11,9 +11,7 @@ var gulp = require('gulp'),
   pngquant = require('imagemin-pngquant'),
   browserSync = require('browser-sync'),
   del = require('del'),
-  sassGlobImport = require('gulp-sass-glob-import'),
-  rigger = require('gulp-rigger'),
-  babel = require("gulp-babel");
+  babel = require('gulp-babel');
 
 var paths = {
   src: {
@@ -21,7 +19,7 @@ var paths = {
     js: 'src/js/**/*.js',
     cssGlobalImport: 'src/sass/core/tools/',
     css: ['src/sass/core/*.scss', 'src/sass/**/*.scss'],
-    img: 'src/img/**/*.+(png|jpg|gif|svg)',
+    img: 'src/img/**/*.+(png|jpg|gif|svg|ico)',
     fonts: 'src/fonts/**/*.*'
   },
   build: {
@@ -39,17 +37,17 @@ var paths = {
 
 var serverConfig = {
   server: {
-    baseDir: "./build"
+    baseDir: './build'
   },
   host: 'localhost',
   port: 9000,
-  logPrefix: "Over9000"
+  logPrefix: 'NASA',
+  notify: false
 };
 
 // Assembling .html
 gulp.task('bundleHtml', function () {
   gulp.src(paths.src.html)
-    .pipe(rigger())
     .pipe(gulp.dest(paths.build.html))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -57,15 +55,11 @@ gulp.task('bundleHtml', function () {
 // Assembling .scss files
 gulp.task('bundleCss', function () {
   return gulp.src(paths.src.css)
-    .pipe(sassGlobImport())
     .pipe(sourcemaps.init())
-    .pipe(sass({
-      outputStyle: 'expanded',
-      includePaths: [paths.src.cssGlobalImport, 'node_modules/susy/sass']
-    }).on('error', sass.logError))
+    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     .pipe(concat('style.min.css'))
     .pipe(autoprefixer({
-      browsers: ['last 5 versions', 'IE 9'],
+      browsers: ['last 5 versions'],
       cascade: true
     }))
     .pipe(cssnano())
@@ -104,7 +98,7 @@ gulp.task('bundleImg', function () {
 // Bundling fonts
 gulp.task('bundleFonts', function () {
   return gulp.src(paths.src.fonts)
-    .pipe(gulp.dest(paths.build.fonts))
+    .pipe(gulp.dest(paths.build.fonts));
 });
 
 // Watching for changes in src files

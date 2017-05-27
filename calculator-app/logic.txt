@@ -1,0 +1,17 @@
+2) need variable to store current total in memory
+3) need variable to store current number on click
+4) need to define the difference between numbers and operations
+5) layout elements:
+  - output text field
+  - controls:
+    - ac clear everything
+    - ce clear entry
+    - 0-9
+    - dot
+    - divide\multiply\add\subtract\equals
+
+    6) create string then parse it into expressions and get result
+
+7) to preserve proper calculations app needs to eval previous operation each time before operator button is pressed
+so that 2+3*3 wont be = 11 but 15 as if it was 2 operations in a row 2+3 then 5*3
+

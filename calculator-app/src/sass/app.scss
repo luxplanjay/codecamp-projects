@@ -1,0 +1,84 @@
+body {
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #1B1B1E;
+}
+
+.app-container {
+  width: 20rem;
+  padding: 0.5rem;
+  margin: auto;
+  background-color: #FFFCF2;
+  border: 1px solid rgba(34, 36, 38, .15);
+  border-radius: 0.25rem;
+}
+
+.output-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #403D39;
+  border-radius: 0.125rem;
+  p {
+    text-align: right;
+    width: 95%;
+  }
+}
+
+.input-field {
+  padding: 0.25rem;
+  font-size: 2.5rem;
+  border-bottom: 1px solid #403D39;
+  user-select: none;
+}
+
+.memory-field {
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+.controls-box {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border: 1px solid #403D39;
+  border-radius: 0.125rem;
+}
+
+.btn {
+  display: block;
+  background-color: #403D39;
+  color: #fefefe;
+  width: 4rem;
+  height: 4rem;
+  font-size: 1.3rem;
+  margin: 0.25rem;
+  user-select: none;
+  border-radius: 0.125rem;
+  &:hover {
+    background-color: #EB5E28;
+    color: #403D39;
+  }
+  &--medium {
+    width: 6.25rem;
+  }
+  &--big {
+    width: 8.5rem;
+  }
+}
+
+.author-field {
+
+}
+
+
+
+
