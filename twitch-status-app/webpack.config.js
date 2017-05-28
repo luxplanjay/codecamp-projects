@@ -84,6 +84,7 @@ const config = {
           }
         ]
       },
+      // svg
       {
         test: /\.svg$/i,
         include: SRC_DIR,
@@ -91,12 +92,21 @@ const config = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
-              outputPath: 'img/',
+              name: '[name].[ext]?[hash]',
+              outputPath: 'img/'
             }
           },
           {
-            loader: 'img-loader'
+            loader: 'img-loader',
+            options: {
+              svgo: {
+                plugins: [
+                  {removeTitle: true},
+                  {cleanupIDs: false},
+                  {convertPathData: false}
+                ]
+              }
+            }
           }
         ]
       },
@@ -169,7 +179,7 @@ const config = {
 if (!isProd) {
   config.devtool = 'source-map';
   config.devServer = {
-    contentBase: SRC_DIR,
+    // contentBase: SRC_DIR,
     open: true,
     compress: true,
     stats: 'errors-only',

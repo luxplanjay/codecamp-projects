@@ -7,9 +7,6 @@ import statusIcon from '../img/status.svg';
 export const APP = (function () {
   'use strict';
 
-  console.log(statusIcon);
-
-
   const channels = ['freecodecamp', 'sing_sing', 'dreamhackcs', 'esl_sc2', 'jacksofamerica', 'ogamingsc2', 'faceittv', 'purgegamers', 'cretetion', 'habathcx', 'noobs2ninjas', 'brunofin', 'comster404'],
     elements = {
       controls: document.querySelector('.controls'),
