@@ -1,0 +1,20 @@
+<div class="channel-card">
+  <img src="{{logo}}" class="channel-card__img" alt="channel image">
+  <div class="channel-card__info">
+    <h2><a href="{{url}}" class="channel-card__name" target="_blank">{{name}}</a></h2>
+    <p class="channel-card__descr">{{statusText}}</p>
+  </div>
+  {{#if isOnline}}
+    <i class="channel-card__status" data-online="online" title="online">
+      <svg class="channel-card__status-icon">
+        <use xlink:href="{{icon}}"></use>
+      </svg>
+    </i>
+  {{else}}
+    <i class="channel-card__status" data-online="offline" title="offline">
+      <svg class="channel-card__status-icon" style="fill: #FF4242;">
+        <use xlink:href="{{icon}}"></use>
+      </svg>
+    </i>
+  {{/if}}
+</div>

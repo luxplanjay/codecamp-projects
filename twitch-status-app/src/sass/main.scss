@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "core/core";
+
 $color-dark: #1D1E2C;
 $color-light: #FBFEF9;
 $accent: #9381FF;
@@ -11,6 +14,7 @@ $desktop: '(min-width: 960px)';
 .page {
   min-height: 100vh;
   background-color: $color-dark;
+  font-family: Roboto, Arial, sans-serif;
 }
 
 // $app-container
@@ -62,7 +66,7 @@ $desktop: '(min-width: 960px)';
   }
 
   input {
-    flex: 0 1 20rem;
+    flex: 1 0 14rem;
     background-color: $color-light;
     outline: 0;
     border: 0;
@@ -196,22 +200,17 @@ $desktop: '(min-width: 960px)';
   &__status {
     display: block;
     flex-shrink: 0;
-
-    svg {
-      height: 2rem;
-      width: 2rem;
-      fill: #9bd44e;
-
-      @media #{$tablet} {
-        height: 3rem;
-        width: 3rem;
-      }
-    }
   }
 
   &__status-icon {
+    height: 2rem;
+    width: 2rem;
+    fill: #9bd44e;
+
+    @media #{$tablet} {
+      height: 3rem;
+      width: 3rem;
+    }
   }
 }
-
-
 

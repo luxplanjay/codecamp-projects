@@ -1,1 +1,1 @@
-Gulp Project Template with basic setup and project structure
+Twitch.tv Status App project for freeCodeCamp course

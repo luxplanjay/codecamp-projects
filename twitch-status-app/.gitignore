@@ -23,7 +23,6 @@
 *.sbr
 *.sdf
 *.pyc
-*.xml
 ipch/
 obj/
 [Bb]in
