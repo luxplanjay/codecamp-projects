@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export const APP = {
   elements: {
     quoteBtn: document.querySelector('.quote-btn'),

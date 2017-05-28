@@ -1,7 +1,7 @@
 {
-  "name": "webpack-boilerplate",
+  "name": "random-quote-app",
   "version": "1.0.0",
-  "description": "Webpack Project Boilerplate",
+  "description": "Random Quote App",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server",
