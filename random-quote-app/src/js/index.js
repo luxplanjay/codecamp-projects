@@ -4,6 +4,7 @@ import {APP} from './app';
 
 document.addEventListener('DOMContentLoaded', function () {
   'use strict';
+
   APP.init();
 });
 
