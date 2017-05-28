@@ -57,6 +57,7 @@ export const APP = (function () {
           logo: data.logo,
           name: data.display_name,
           url: `https://www.twitch.tv/${data.name}`,
+          icon: statusIcon + '#root',
           isOnline: false,
           statusText: ''
         };
