@@ -66,6 +66,13 @@ a {
     cursor: pointer;
     text-decoration: none;
 
+    .tweet-btn__icon {
+      display: block;
+      width: 3rem;
+      height: 3rem;
+      background-image: url('../img/twitter.svg');
+    }
+
     &:before {
       content: "";
       position: absolute;
@@ -82,9 +89,6 @@ a {
     &:hover {
       .tweet-btn__text {
         color: #EF8354;
-      }
-      .tweet-btn__icon {
-        color: darken(#337ab7, 15%);
       }
       &:before {
         background-color: darken(#337ab7, 15%);
