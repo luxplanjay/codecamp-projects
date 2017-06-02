@@ -1,12 +1,3 @@
-@mixin clearfix {
-  &::after {
-    content: '';
-    display: block;
-    visibility: hidden;
-    clear: both;
-  }
-}
-
 @mixin container-min-width {
   min-width: 20rem;
 }

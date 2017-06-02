@@ -1,7 +1,9 @@
-@import "tools";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "core/core";
+@import "core/tools/tools";
 
-* {
-  transition: all 0.5s;
+.page {
+  font-family: 'Roboto', Arial, sans-serif;
 }
 
 .wrapper {
@@ -64,6 +66,7 @@
     display: block;
     border: 0;
     outline: 0;
+    border-radius: 0.125rem;
     font-size: 1.5rem;
     text-transform: uppercase;
     padding: 1rem;
@@ -80,10 +83,11 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
+  border-radius: 0.125rem;
   background-color: rgba(250, 237, 202, 0.8);
   @media (min-width: 768px) {
-    width: 35%;
+    width: 25%;
   }
   &__icon {
     display: block;
@@ -93,7 +97,7 @@
     background-repeat: no-repeat;
   }
   &__value {
-    font-size: 1.5rem;
+    font-size: 2rem;
     white-space: nowrap;
   }
 }
@@ -109,6 +113,7 @@
     align-items: center;
     margin-bottom: 1rem;
     padding: 1rem 0;
+    border-radius: 0.125rem;
     font-size: 1.5rem;
     text-align: center;
     background-color: rgba(250, 237, 202, 0.8);
