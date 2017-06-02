@@ -138,7 +138,7 @@ const config = {
 };
 
 if (!isProd) {
-  config.devtool = 'source-map';
+  config.devtool = '#source-map';
   config.devServer = {
     // contentBase: BUILD_DIR,
     open: true,
