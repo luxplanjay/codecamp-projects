@@ -3,6 +3,7 @@
  */
 
 import {createNode} from './create-node';
+import math from 'mathjs';
 
 export const Calculator = (function () {
   'use strict';
@@ -23,7 +24,7 @@ export const Calculator = (function () {
         currentExpr = math.eval(currentExpr);
 
         if (currentExpr % 1 !== 0) {
-          currentExpr = currentExpr.toFixed(2);
+          currentExpr = currentExpr.toFixed(3);
           updateHTML();
         } else {
           updateHTML();
@@ -75,6 +76,22 @@ export const Calculator = (function () {
             } else {
               currentExpr += '0' + val;
               updateHTML();
+            }
+          } else {
+            const position = currentExpr.search(/[-/*+]/);
+
+            if(position !== -1) {
+              const tmp = currentExpr.slice(position + 1);
+
+              if(tmp.search(/[.]/) === -1) {
+                if (elements.operators.indexOf(currentExpr[currentExpr.length - 1]) === -1) {
+                  currentExpr += val;
+                  updateHTML();
+                } else {
+                  currentExpr += '0' + val;
+                  updateHTML();
+                }
+              }
             }
           }
         } else {
