@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import "core/core";
+
+.page {
+  display: flex;
+  min-height: 100vh;
+  font-family: Roboto, Arial, sans-serif;
+  background-color: #252422;
+  color: #F5E0B7;
+}
+
+// $app
+.app {
+  max-width: 30rem;
+  min-width: 20rem;
+  width: 100%;
+  margin: auto;
+}
+
+// $app-header
+.app-header {
+  text-align: center;
+  h1 {
+    font-size: 2rem;
+  }
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  a {
+    display: block;
+    margin-left: 0.5rem;
+    text-decoration: none;
+    color: #5EEB5B;
+    font-size: 1.5rem;
+  }
+}
+
+.knobs-cont {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+
+  &__title {
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
+
+.controls-cont {
+  margin-top: 2rem;
+  text-align: center;
+
+  &__item {
+    margin-right: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.125rem;
+    background-color: transparent;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+#start {
+  border: 1px solid #5EEB5B;
+  color: #5EEB5B;
+}
+
+#reset {
+  border: 1px solid #FF0022;
+  color: #FF0022;
+}
+
+.clock-cont {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+#clock-text {
+  font-size: 5rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.knob {
+  input, label {
+    font-family: Roboto, Arial, sans-serif !important;
+  }
+}
