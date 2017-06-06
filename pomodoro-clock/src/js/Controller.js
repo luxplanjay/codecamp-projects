@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         breakTime: breakTime,
         onTick: View.onTick,
         onEnd: View.onEnd,
-        onStart: View.onStart,
         onReset: View.onReset
       });
 

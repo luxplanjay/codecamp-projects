@@ -136,6 +136,20 @@ const config = {
             }
           }
         ]
+      },
+      // audio
+      {
+        test: /\.mp3$/,
+        include: SRC_DIR,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'audio/',
+            }
+          }
+        ]
       }
     ]
   },

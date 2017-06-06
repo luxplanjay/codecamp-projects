@@ -48,7 +48,8 @@ export function onTick() {
 }
 
 export function onEnd() {
-  // console.log('END');console.log('END');
+  const audio = new Audio(require('../audio/pomodoro-sound.mp3'));
+  audio.play();
 }
 
 export function onReset() {
