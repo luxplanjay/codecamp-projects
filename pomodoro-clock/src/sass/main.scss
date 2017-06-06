@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import "core/core";
 
+$red: #FF0022;
+$red-alpha: rgba(255, 0, 34, 0.1);
+$green: #5EEB5B;
+$green-alpha: rgba(94, 235, 91, 0.1);
+$yellow: #F5C567;
+$yellow-alpha: rgba(245, 197, 103, 0.1);
+
 .page {
   display: flex;
   min-height: 100vh;
@@ -39,6 +46,7 @@
   }
 }
 
+// $knobs
 .knobs-cont {
   margin-top: 2rem;
   display: flex;
@@ -51,6 +59,13 @@
   }
 }
 
+.knob {
+  input, label {
+    font-family: Roboto, Arial, sans-serif !important;
+  }
+}
+
+// $controls
 .controls-cont {
   margin-top: 2rem;
   text-align: center;
@@ -68,14 +83,29 @@
   }
 }
 
-#start {
-  border: 1px solid #5EEB5B;
-  color: #5EEB5B;
-}
-
-#reset {
-  border: 1px solid #FF0022;
-  color: #FF0022;
+// $btn
+.btn {
+  &--green {
+    border: 1px solid $green;
+    color: $green;
+    &:hover {
+      background-color: $green-alpha;
+    }
+  }
+  &--yellow {
+    border: 1px solid $yellow;
+    color: $yellow;
+    &:hover {
+      background-color: $yellow-alpha;
+    }
+  }
+  &--red {
+    border: 1px solid $red;
+    color: $red;
+    &:hover {
+      background-color: $red-alpha;
+    }
+  }
 }
 
 .clock-cont {
@@ -89,10 +119,4 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-.knob {
-  input, label {
-    font-family: Roboto, Arial, sans-serif !important;
-  }
 }

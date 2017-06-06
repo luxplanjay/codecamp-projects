@@ -2,27 +2,33 @@
  * Created by Zerk on 05-Jun-17.
  */
 
-// $model
-const Timer = function (config) {
+export const Model = function(config) {
+  this.sessionTime = config.sessionTime * 1000 * 60;
+  this.breakTime = config.breakTime * 1000 * 60;
+
   this.targetTime = null;
   this.deltaTime = null;
   this.pauseTime = null;
 
   this.timerID = null;
   this.isActive = false;
+  this.isSession = true;
 
-  this.onStart = config.onStart || null;
   this.onEnd = config.onEnd || null;
   this.onTick = config.onTick || null;
   this.onReset = config.onReset || null;
 
   // $start
-  this.start = (val) => {
-    this.pauseTime = this.deltaTime || (val * 1000 * 60);
-
+  this.start = () => {
     if(!this.isActive) {
-      this.targetTime = new Date(Date.now() + this.pauseTime);
-      this.onStart ? this.onStart() : void 0;
+      if(this.isSession) {
+        this.pauseTime = this.deltaTime || this.sessionTime;
+        this.targetTime = Date.now() + this.pauseTime;
+      } else {
+        this.pauseTime = this.deltaTime || this.breakTime;
+        this.targetTime = Date.now() + this.pauseTime;
+      }
+
       this.timerID = setInterval(this.update, 100);
       this.isActive = true;
     }
@@ -30,11 +36,16 @@ const Timer = function (config) {
 
   // $update
   this.update = () => {
-    this.deltaTime = this.targetTime.getTime() - Date.now();
+    this.deltaTime = this.targetTime - Date.now();
 
     if(this.deltaTime < 0) {
       this.stop();
+
       this.onEnd ? this.onEnd() : void 0;
+      this.deltaTime = null;
+      this.isSession = !this.isSession;
+
+      this.start();
     } else {
       this.onTick ? this.onTick() : void 0;
     }
@@ -60,5 +71,3 @@ const Timer = function (config) {
     return this.deltaTime;
   };
 };
-
-export default Timer;
