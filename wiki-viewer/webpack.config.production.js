@@ -133,10 +133,9 @@ module.exports = {
       name: 'vendor'
     }),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
+      sourceMap: false,
       minimize: true,
       comments: false
     })
-  ],
-  devtool: 'source-map'
+  ]
 };
