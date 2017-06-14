@@ -1,0 +1,29 @@
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 0;
+  &__link {
+    text-transform: uppercase;
+    font-size: 1.125rem;
+    color: #85C7F2;
+    line-height: 1.5;
+    &:hover,
+    &:focus,
+    &:active {
+      color: #e15634;
+    }
+  }
+  &__text {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+  &__input {
+    width: 18rem;
+    border: 0;
+    padding: 0.25rem 0.65rem;
+    font-size: 1.25rem;
+    background-color: #F7FFF7;
+  }
+}

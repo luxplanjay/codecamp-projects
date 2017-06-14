@@ -2,72 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {map} from 'lodash';
 import uuid from 'uuid';
+import './Articles.scss';
 
-export default class Articles extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      articlesData: null
-    };
-  }
-
-  componentDidMount() {
-    this.getArticles('cat');
-  }
-
-  getArticles(searchQuery) {
-    const endpoint = 'https://en.wikipedia.org/w/api.php?',
-          format = 'format=json',
-          action = '&action=query&generator=search&gsrnamespace=0&gsrlimit=8&prop=extracts&exintro&explaintext&exsentences=1&exlimit=max',
-          search = `&gsrsearch=${searchQuery}`,
-          apiUrl = endpoint+format+action+search;
-
-    fetch(apiUrl)
-      .then(response => {
-        if(response.ok) {
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      }).then(data => {
-        let arr = map(data.query.pages, item => {
-          return item;
-        });
-
-        this.setState(() => {
-          return {
-            articlesData: arr
-          };
-        });
-      });
-  }
-
-  render() {
-    let items,
-        pageUrl = 'https://en.wikipedia.org/?curid=';
-
-    if(this.state.articlesData) {
-      items = map(this.state.articlesData, item => {
-        return (
-          <ArticlesItem
-            key={uuid.v4()}
-            title={item.title}
-            text={item.extract}
-            url={`${pageUrl}${item.pageid}`}
-          />
-        );
-      });
-    }
+const Articles = ({articles}) => {
+  const pageUrl = 'https://en.wikipedia.org/?curid=';
+  let  items = map(articles, item => {
     return (
-      <div className="articles-container">
-        {items}
-      </div>
+      <ArticlesItem
+        key={uuid.v4()}
+        title={item.title}
+        text={item.extract}
+        url={`${pageUrl}${item.pageid}`}
+      />
     );
-  }
-}
+  });
+
+  return (
+    <div className="articles-container">
+      {items}
+    </div>
+  );
+};
 
 Articles.propTypes = {
-
+  articles: PropTypes.arrayOf(PropTypes.object)
 };
 
 const ArticlesItem = ({title, text, url}) => {
@@ -86,3 +44,5 @@ ArticlesItem.propTypes = {
   text: PropTypes.string,
   url: PropTypes.string
 };
+
+export default Articles;

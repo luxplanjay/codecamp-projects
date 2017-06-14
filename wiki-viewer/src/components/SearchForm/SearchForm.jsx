@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './SearchForm.scss';
 
 export default class SearchForm extends React.Component {
   constructor(props) {
