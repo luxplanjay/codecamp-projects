@@ -1,1 +1,1 @@
-Gulp Project Template with basic setup and project structure
+freeCodeCamp Weather App project

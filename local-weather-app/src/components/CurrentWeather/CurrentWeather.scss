@@ -1,0 +1,84 @@
+.current-w {
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1;
+  user-select: none;
+  min-width: 20rem;
+  max-width: 24rem;
+
+  &__location {
+    font-size: 1.875rem;
+  }
+
+  &__temp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  &__icon {
+    display: block;
+    width: 6rem;
+    height: 6rem;
+    background-size: cover;
+  }
+
+  &__deg {
+    padding: 0;
+    line-height: 1;
+    font-size: 6rem;
+    margin: 0 0.875rem;
+  }
+
+  &__btns-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__btn {
+    padding: 0.25rem;
+    text-transform: uppercase;
+    outline: 0;
+    background-color: transparent;
+    color: #fefefe;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 0.125rem;
+    &--active {
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__condition {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  &__update {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    list-style: none;
+    @media(max-width: 480px) {
+      flex-direction: column;
+    }
+    li {
+      margin-right: 0.5rem;
+      padding: 0.125rem;
+      font-size: 0.75rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
