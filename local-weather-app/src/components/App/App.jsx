@@ -37,7 +37,7 @@ export default class App extends React.Component {
     let styles = {};
 
     if (this.state.fullWeatherData) {
-      const condition = this.state.fullWeatherData.current.condition.text;
+      const condition = this.state.fullWeatherData.current.condition.text.toLowerCase();
 
       Object.keys(this.images).forEach((item) => {
         if (condition.indexOf(item) !== -1) {
