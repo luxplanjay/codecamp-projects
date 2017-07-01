@@ -1,7 +1,8 @@
 import React from 'react';
+import { map } from 'lodash';
 import SearchForm from '../SearchForm/SearchForm';
-import Articles from '../Articles/Articles';
-import {map} from 'lodash';
+import Gallery from '../Gallery/Gallery';
+import Author from '../Author/Author';
 import './App.scss';
 
 export default class App extends React.Component {
@@ -9,44 +10,52 @@ export default class App extends React.Component {
     super();
 
     this.state = {
-      articlesData: null
+      articlesData: [],
     };
+
+    this.getArticles = this.getArticles.bind(this);
   }
 
   getArticles(searchQuery) {
-    // cors - https://www.mediawiki.org/wiki/Manual:CORS#Description
-    const endpoint = 'https://en.wikipedia.org/w/api.php?origin=*',
-          format = '&format=json',
-          props = '&action=query&generator=search&gsrnamespace=0&gsrlimit=9&prop=extracts&exintro&explaintext&exsentences=1&exlimit=max',
-          search = `&gsrsearch=${searchQuery}`,
-          apiUrl = endpoint+format+props+search;
+    const endpoint = 'https://en.wikipedia.org/w/api.php?';
+    const origin = 'origin=*';
+    const format = '&format=json&formatversion=2';
+    const action = '&action=query&generator=search';
+    const props = '&prop=extracts|pageimages&exchars=300&exintro&explaintext&piprop=thumbnail&pithumbsize=600';
+    const limit = '&gsrlimit=9';
+    const search = `&gsrsearch=${searchQuery}`;
+    const apiUrl = endpoint + origin + format + action + limit + props + search;
 
     fetch(apiUrl)
-      .then(response => {
-        if(response.ok) {
+      .then((response) => {
+        if (response.ok) {
           return response.json();
         }
         throw new Error('Network response was not ok.');
-      }).then(data => {
-        this.setState(() => {
-          return {
-            articlesData: map(data.query.pages, item => item)
-          };
+      }).then((data) => {
+      console.log(data);
+      this.setState({
+          articlesData: map(data.query.pages, (item) => {
+            const img = item.thumbnail ? item.thumbnail.source : 'http://via.placeholder.com/640x480?text=image not found';
+
+            return {
+              title: item.title,
+              text: item.extract,
+              img,
+              url: `https://en.wikipedia.org/?curid=${item.pageid}`,
+            };
+          }),
         });
       });
   }
 
   render() {
-    const link = 'https://www.freecodecamp.com/axzerk';
-
     return (
       <div className="app-container">
-        <h1 className="app-title">
-          React Powered Wiki Viewer
-          <a href={link} target="_blank">by Zerk</a>
-        </h1>
-        <SearchForm onSubmit={this.getArticles.bind(this)}/>
-        <Articles articles={this.state.articlesData}/>
+        <h1 className="app-title">Wiki Viewer</h1>
+        <Author />
+        <SearchForm onSubmit={this.getArticles} />
+        <Gallery articles={this.state.articlesData} />
       </div>
     );
   }

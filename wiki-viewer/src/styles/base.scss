@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Aladin');
+
 * {
   padding: 0;
   margin: 0;
@@ -6,8 +8,10 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
-  color: #EDE6E3;
+  color: #fefefe;
   background-color: #2E282A;
+  background-image: url('../img/background.jpg');
+  background-position: center center;
 }
 
 a {
