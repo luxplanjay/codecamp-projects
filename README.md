@@ -6,7 +6,7 @@
 ## Random Quote App
  [Live page](https://axzerk.github.io/codecamp-projects/random-quote-app/build/)
 
-## Local Weather App
+## Weather App
  [Live page](https://axzerk.github.io/codecamp-projects/weather-app/build/)
 ## Wiki Viewer App
   [Live page](https://axzerk.github.io/codecamp-projects/wiki-viewer/build/)
