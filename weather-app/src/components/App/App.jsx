@@ -11,24 +11,22 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.model = Model();
-
     this.state = {
       fullWeatherData: null,
       formattedWeatherData: null,
     };
 
     this.handleClick = this.handleClick.bind(this);
-    this.images = this.model.importAllImages(
+    this.images = Model.importAllImages(
       require.context('img', false, /\.(png|jpe?g|svg)$/),
     );
   }
 
   componentDidMount() {
-    this.model.init().then((data) => {
+    Model.init().then((data) => {
       this.setState({
         fullWeatherData: data,
-        formattedWeatherData: this.model.formatWeatherData(data, 'metric'),
+        formattedWeatherData: Model.formatWeatherData(data, 'metric'),
       });
     });
   }
@@ -53,7 +51,7 @@ export default class App extends React.Component {
 
   handleClick(units) {
     this.setState({
-      formattedWeatherData: this.model.formatWeatherData(this.state.fullWeatherData, units),
+      formattedWeatherData: Model.formatWeatherData(this.state.fullWeatherData, units),
     });
   }
 

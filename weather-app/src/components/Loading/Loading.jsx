@@ -7,7 +7,6 @@ class Loading extends React.Component {
     super(props);
 
     this.interval = null;
-
     this.state = {
       text: props.text,
     };
@@ -35,9 +34,7 @@ class Loading extends React.Component {
 
   render() {
     return (
-      <p className="placeholder">
-        {this.state.text}
-      </p>
+      <p className="placeholder">{this.state.text}</p>
     );
   }
 }
