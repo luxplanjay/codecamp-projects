@@ -2,12 +2,10 @@
 
 const gulp = require('gulp');
 const sass = require('gulp-sass');
-const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('gulp-cssnano');
 const concat = require('gulp-concat');
 const imagemin = require('gulp-imagemin');
-const pngquant = require('imagemin-pngquant');
 const browserSync = require('browser-sync');
 const del = require('del');
 
@@ -62,12 +60,12 @@ gulp.task('bundleCss', function () {
 // Optimizing images
 gulp.task('bundleImg', function () {
   return gulp.src(paths.src.img)
-    .pipe(imagemin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}],
-      use: [pngquant()],
-      interlaced: true
-    }))
+    .pipe(imagemin([
+      imagemin.gifsicle({interlaced: true}),
+      imagemin.jpegtran({progressive: true}),
+      imagemin.optipng({optimizationLevel: 5}),
+      imagemin.svgo({plugins: [{removeViewBox: true}]})
+    ]))
     .pipe(gulp.dest(paths.dist.img))
     .pipe(browserSync.reload({stream: true}));
 });
