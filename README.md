@@ -1,7 +1,7 @@
 # freeCodeCamp projects repo
 
 ## Tribute Page 
-[Live page](https://axzerk.github.io/codecamp-projects/tribute-page/build/)
+[Live page](https://axzerk.github.io/codecamp-projects/tribute-page/dist/)
 
 ## Random Quote App
  [Live page](https://axzerk.github.io/codecamp-projects/random-quote-app/build/)

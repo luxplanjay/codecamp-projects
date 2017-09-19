@@ -15,11 +15,10 @@ export default class App extends React.Component {
       fullWeatherData: null,
       formattedWeatherData: null,
     };
-
-    this.handleClick = this.handleClick.bind(this);
     this.images = Model.importAllImages(
       require.context('img', false, /\.(png|jpe?g|svg)$/),
     );
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -38,7 +37,7 @@ export default class App extends React.Component {
       const condition = this.state.fullWeatherData.current.condition.text.toLowerCase();
 
       Object.keys(this.images).forEach((item) => {
-        if (condition.indexOf(item) !== -1) {
+        if (condition.includes(item)) {
           styles = {
             backgroundImage: `url(${this.images[item]})`,
           };

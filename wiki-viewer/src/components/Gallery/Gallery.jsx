@@ -19,6 +19,7 @@ const Gallery = ({ articles }) => {
         text={item.text}
         img={item.img}
         url={item.url}
+        alt={item.alt}
       />
     </div>
   ));

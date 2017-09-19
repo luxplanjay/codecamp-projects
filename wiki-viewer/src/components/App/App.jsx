@@ -33,8 +33,7 @@ export default class App extends React.Component {
         }
         throw new Error('Network response was not ok.');
       }).then((data) => {
-      console.log(data);
-      this.setState({
+        this.setState({
           articlesData: map(data.query.pages, (item) => {
             const img = item.thumbnail ? item.thumbnail.source : 'http://via.placeholder.com/640x480?text=image not found';
 
@@ -43,6 +42,7 @@ export default class App extends React.Component {
               text: item.extract,
               img,
               url: `https://en.wikipedia.org/?curid=${item.pageid}`,
+              alt: `${searchQuery}`,
             };
           }),
         });
