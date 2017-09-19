@@ -48,7 +48,6 @@ gulp.task('bundleHtml', () => {
 // Assembling .scss files
 gulp.task('bundleCss', function () {
   return gulp.src(paths.src.css)
-    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('styles.min.css'))
     .pipe(autoprefixer({
@@ -56,7 +55,6 @@ gulp.task('bundleCss', function () {
       cascade: false
     }))
     .pipe(cssnano())
-    .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.dist.css))
     .pipe(browserSync.reload({stream: true}));
 });
