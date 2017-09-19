@@ -1,45 +1,36 @@
 'use strict';
 
-var gulp = require('gulp'),
-  sass = require('gulp-sass'),
-  sourcemaps = require('gulp-sourcemaps'),
-  autoprefixer = require('gulp-autoprefixer'),
-  uglify = require('gulp-uglify'),
-  cssnano = require('gulp-cssnano'),
-  concat = require('gulp-concat'),
-  imagemin = require('gulp-imagemin'),
-  pngquant = require('imagemin-pngquant'),
-  browserSync = require('browser-sync'),
-  del = require('del'),
-  sassGlobImport = require('gulp-sass-glob-import'),
-  rigger = require('gulp-rigger'),
-  babel = require("gulp-babel");
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
+const autoprefixer = require('gulp-autoprefixer');
+const cssnano = require('gulp-cssnano');
+const concat = require('gulp-concat');
+const imagemin = require('gulp-imagemin');
+const pngquant = require('imagemin-pngquant');
+const browserSync = require('browser-sync');
+const del = require('del');
 
-var paths = {
+const paths = {
   src: {
     html: 'src/*.html',
-    js: 'src/js/**/*.js',
-    cssGlobalImport: 'src/sass/core/tools/',
     css: ['src/sass/core/*.scss', 'src/sass/**/*.scss'],
     img: 'src/img/**/*.+(png|jpg|gif|svg)',
-    fonts: 'src/fonts/**/*.*'
   },
-  build: {
-    html: 'build/',
-    js: 'build/js/',
-    css: 'build/css/',
-    img: 'build/img/',
-    fonts: 'build/fonts/'
+  dist: {
+    html: 'dist/',
+    css: 'dist/css/',
+    img: 'dist/img/',
   },
   watch: {
     html: 'src/**/*.html'
   },
-  clean: './build'
+  clean: './dist'
 };
 
-var serverConfig = {
+const serverConfig = {
   server: {
-    baseDir: "./build"
+    baseDir: './dist'
   },
   host: 'localhost',
   port: 9000,
@@ -48,10 +39,9 @@ var serverConfig = {
 };
 
 // Assembling .html
-gulp.task('bundleHtml', function () {
+gulp.task('bundleHtml', () => {
   gulp.src(paths.src.html)
-    .pipe(rigger())
-    .pipe(gulp.dest(paths.build.html))
+    .pipe(gulp.dest(paths.dist.html))
     .pipe(browserSync.reload({stream: true}));
 });
 
@@ -59,31 +49,15 @@ gulp.task('bundleHtml', function () {
 gulp.task('bundleCss', function () {
   return gulp.src(paths.src.css)
     .pipe(sourcemaps.init())
-    .pipe(sass({
-      outputStyle: 'expanded'
-    }).on('error', sass.logError))
-    .pipe(concat('style.min.css'))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(concat('styles.min.css'))
     .pipe(autoprefixer({
-      browsers: ['last 5 versions', 'IE 9'],
-      cascade: true
+      browsers: 'last 2 versions',
+      cascade: false
     }))
     .pipe(cssnano())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(paths.build.css))
-    .pipe(browserSync.reload({stream: true}));
-});
-
-// Assembling .js files
-gulp.task('bundleJs', function () {
-  return gulp.src(paths.src.js)
-    .pipe(concat('scripts.min.js'))
-    .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['env', 'es2015']
-    }))
-    .pipe(sourcemaps.write())
-    .pipe(uglify())
-    .pipe(gulp.dest(paths.build.js))
+    .pipe(gulp.dest(paths.dist.css))
     .pipe(browserSync.reload({stream: true}));
 });
 
@@ -96,23 +70,15 @@ gulp.task('bundleImg', function () {
       use: [pngquant()],
       interlaced: true
     }))
-    .pipe(gulp.dest(paths.build.img))
+    .pipe(gulp.dest(paths.dist.img))
     .pipe(browserSync.reload({stream: true}));
-});
-
-// Bundling fonts
-gulp.task('bundleFonts', function () {
-  return gulp.src(paths.src.fonts)
-    .pipe(gulp.dest(paths.build.fonts))
 });
 
 // Watching for changes in src files
 gulp.task('watch', function () {
-  gulp.watch(paths.watch.html, {cwd: './'}, ['bundleHtml']);
-  gulp.watch(paths.src.css, {cwd: './'}, ['bundleCss']);
-  gulp.watch(paths.src.js, {cwd: './'}, ['bundleJs']);
+  gulp.watch(paths.watch.html, ['bundleHtml']);
+  gulp.watch(paths.src.css, ['bundleCss']);
   gulp.watch(paths.src.img, ['bundleImg']);
-  gulp.watch(paths.src.fonts, ['bundleFonts']);
 });
 
 // BrowserSync server
@@ -120,13 +86,13 @@ gulp.task('webServer', function () {
   browserSync(serverConfig);
 });
 
-// Cleaning build dir
-gulp.task('clean:build', function () {
+// Cleaning dist dir
+gulp.task('clean:dist', function () {
   return del.sync(paths.clean);
 });
 
 // General build task
-gulp.task('build', ['bundleHtml', 'bundleCss', 'bundleJs', 'bundleFonts', 'bundleImg']);
+gulp.task('build', ['bundleHtml', 'bundleCss', 'bundleImg']);
 
 // Default task to run
-gulp.task('default', ['clean:build', 'build', 'webServer', 'watch']);
+gulp.task('default', ['clean:dist', 'build', 'webServer', 'watch']);
