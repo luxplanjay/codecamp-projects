@@ -1,133 +1,161 @@
 @import "reset";
-@import url('https://fonts.googleapis.com/css?family=Alegreya');
 
+//========== page
 .page {
-  font-family: Alegreya, Arial, serif;
-}
-
-.wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #131B23;
-  font-family: 'Alegreya', serif;
+  background: linear-gradient(to top, #131B23, #485563);
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+}
+
+//========== container
+.container {
+  max-width: 37.5rem;
+  min-width: 20rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.125rem;
+  background: linear-gradient(#fbfbff, #fefefe);;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+//========== quote-box
+.quote-box {
   color: #0F110C;
 }
 
-a {
-  color: #337ab7;
-}
-
-.app-container {
-  width: 100%;
-  max-width: 37.5rem;
-  min-width: 20rem;
-  background-color: #FBFBFF;
-  padding: 1rem;
-  border-radius: 0.125rem;
-}
-
-.quote-box {
-  display: flex;
-  flex-direction: column;
-}
-
-.quote-text {
-  padding: 0;
-  p {
-    font-size: 1.5rem;
-    line-height: 1.3;
-
-    &::before {
-      content: '\201c';
-      font-size: 2rem;
-      margin-right: 0.25rem;
-    }
-    &::after {
-      content: '\201d';
-      font-size: 2rem;
-      margin-left: 0.25rem;
-    }
+.quote-text p {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  &::before {
+    content: '\201c';
+    font-size: 2rem;
+    margin-right: 0.25rem;
+  }
+  &::after {
+    content: '\201d';
+    font-size: 2rem;
+    margin-left: 0.25rem;
   }
 }
 
 .quote-author {
-  align-self: flex-end;
-  font-size: 1.125rem;
   margin-top: 1rem;
+  font-size: 1.125rem;
+  text-align: right;
 }
 
+//========== buttons
 .buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.5rem;
-  .tweet-btn {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ccc;
+}
 
-    .tweet-btn__icon {
-      display: block;
-      width: 3rem;
-      height: 3rem;
-      background-image: url('../img/twitter.svg');
-    }
+.tweet-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: #337ab7;
 
-    &:before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 1px;
-      bottom: 0;
-      left: 0;
-      background-color: #000;
-      visibility: hidden;
-      transform: scaleX(0);
-      transition: all 0.3s ease-in-out 0s;
-    }
-
-    &:hover {
-      .tweet-btn__text {
-        color: #EF8354;
-      }
-      &:before {
-        background-color: darken(#337ab7, 15%);
-        visibility: visible;
-        transform: scaleX(1);
-      }
-    }
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -5px;
+    left: 0;
+    background-color: #000;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
   }
-  .quote-btn {
-    padding: 0.625rem 1.25rem;
-    border: 0;
-    outline: 0;
-    background-color: #131B23;
-    font-size: 1rem;
-    color: #F6F0ED;
-    text-transform: uppercase;
-    transition: all 0.25s linear;
-    border-radius: 0.125rem;
 
-    &:hover {
+  &:hover {
+    .tweet-btn__text {
       color: #EF8354;
-      padding-left: 30px;
-      padding-right: 30px;
+    }
+    &:before {
+      background-color: darken(#337ab7, 15%);
+      visibility: visible;
+      transform: scaleX(1);
+    }
+  }
+
+  &__icon {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    background-image: url('../img/twitter.svg');
+  }
+}
+
+.quote-btn {
+  padding: 0.625rem 1.25rem;
+  border: 0;
+  outline: 0;
+  border-radius: 0.125rem;
+  background: linear-gradient(#485563, #29323c);
+  color: #F6F0ED;
+  font-size: 1rem;
+  text-transform: uppercase;
+  transition: all 0.25s linear;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    color: #EF8354;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+//========== author
+.author {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #131B23;
+}
+
+.author-link {
+  position: relative;
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 1.75rem;
+  text-decoration: none;
+  color: #131B23;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: transparent;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.5s ease-in-out 0s;
+  }
+  &:hover {
+    color: #FF9770;
+    &:before {
+      background-color: #FF9770;
+      visibility: visible;
+      transform: scaleX(1);
     }
   }
 }
 
-.legal-info {
-  margin-top: 1rem;
-  font-size: 1.125rem;
-  color: #0F110C;
-  text-align: center;
 
-  &__link:hover {
-    color: #EF8354;
-  }
-}
+
+
+
+

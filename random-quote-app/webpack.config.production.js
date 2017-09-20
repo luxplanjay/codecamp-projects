@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
@@ -10,8 +11,6 @@ module.exports = {
   context: SRC_DIR,
   entry: [
     'babel-polyfill',
-    'webpack-dev-server/client?http://localhost:9000',
-    'webpack/hot/only-dev-server',
     './index.js'
   ],
   output: {
@@ -29,18 +28,20 @@ module.exports = {
       {
         test: /\.scss$/,
         include: SRC_DIR,
-        use: [
-          {loader: 'style-loader'},
-          {loader: 'css-loader', options: {sourceMap: true}},
-          {loader: 'postcss-loader', options: {sourceMap: true}},
-          {loader: 'sass-loader', options: {sourceMap: true}},
-        ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {loader: 'css-loader', options: {sourceMap: true}},
+            {loader: 'postcss-loader', options: {sourceMap: true}},
+            {loader: 'sass-loader', options: {sourceMap: true}},
+          ],
+        }),
       },
       {
         test: /\.html$/,
         use: ['html-loader'],
       },
-      // multiple html, excluding index.html
+      // multiple html excluding index.html
       {
         test: /\.html$/,
         exclude: path.resolve(__dirname, 'src/index.html'),
@@ -54,7 +55,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(jpg|png)$/i,
+        test: /\.(jpeg|png)$/i,
         include: SRC_DIR,
         use: [
           {
@@ -65,7 +66,9 @@ module.exports = {
               limit: 10000,
             },
           },
-          {loader: 'img-loader'},
+          {
+            loader: 'img-loader',
+          },
         ],
       },
       {
@@ -137,18 +140,25 @@ module.exports = {
       inject: true,
       hash: true,
     }),
-    new webpack.LoaderOptionsPlugin({minimize: true}),
-    new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
+    new ExtractTextPlugin({
+      filename: 'styles.min.css',
+      allChunks: true,
+      disable: false,
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      minimize: true,
+      comments: false,
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'commons',
       filename: 'commons.js'
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new webpack.HotModuleReplacementPlugin()
   ],
-  devtool: 'eval-source-map'
 };
-
