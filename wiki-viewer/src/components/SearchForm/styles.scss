@@ -17,11 +17,11 @@
   }
   &__text {
     font-size: 1.3rem;
-    margin-bottom: 0.5rem;
     text-transform: uppercase;
   }
   &__search-box {
     display: flex;
+    margin-top: 0.5rem;
     @media (max-width: 480px) {
       flex-direction: column;
     }
@@ -29,7 +29,7 @@
   &__input {
     width: 18rem;
     border: 0;
-    padding: 0.5rem 0.65rem;
+    padding: 0.75rem 0.65rem;
     font-size: 1.25rem;
     background-color: #F7FFF7;
     border-bottom-left-radius: 0.125rem;
@@ -43,12 +43,11 @@
     border-top-right-radius: 0.125rem;
     font-size: 1.3rem;
     text-transform: uppercase;
-    font-weight: bold;
     color: #fefefe;
-    background-color: #39A9DB;
+    background: linear-gradient(to right bottom, #56CCF2, #2F80ED);
     cursor: pointer;
     &:hover, &:focus {
-      background-color: #FF9770;
+      background: linear-gradient(to left top, #56CCF2, #2F80ED);
       color: #fefefe;
     }
     @media (max-width: 480px) {

@@ -1,19 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
-import uuid from 'uuid';
 import Masonry from 'react-masonry-component';
-import Article from '../Article/Article';
-
-import './Gallery.scss';
+import Article from '../Article/index';
+import './styles.scss';
 
 const masonryOptions = {
   transitionDuration: '0.5s',
 };
 
 const Gallery = ({ articles }) => {
-  const items = map(articles, item => (
-    <div key={uuid.v4()} className="articles-gallery__item">
+  const items = articles.map(item => (
+    <div key={item.title} className="articles-gallery__item">
       <Article
         title={item.title}
         text={item.text}

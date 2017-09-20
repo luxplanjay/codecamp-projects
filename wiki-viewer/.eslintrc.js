@@ -1,5 +1,6 @@
 module.exports = {
   "extends": "airbnb",
+  "parser": "babel-eslint",
   "rules": {
     "max-len": [1, 100, 2, {ignoreComments: true}],
     "quote-props": [1, "consistent-as-needed"],
@@ -8,7 +9,7 @@ module.exports = {
     "func-names": ["error", "never"],
     "linebreak-style": [
       "error",
-      "unix"
+      "windows"
     ],
   },
   "env": {
@@ -21,7 +22,13 @@ module.exports = {
     "jsx-a11y",
     "import"
   ],
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.js"
+      }
+    }
+  },
   "globals": {
-    "_": true
   },
 };

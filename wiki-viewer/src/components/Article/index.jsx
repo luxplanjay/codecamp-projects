@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './Article.scss';
+import './styles.scss';
 
 const Article = ({ title, text, img, url, alt }) => (
   <article className="wiki-article">

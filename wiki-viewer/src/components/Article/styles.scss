@@ -6,11 +6,9 @@
     color: #0F0F0F;
     text-decoration: none;
     background-color: #fefefe;
-    &:hover,
-    &:active,
-    &:focus {
+    &:hover {
       outline: 0;
-      box-shadow: 0 0 4px 4px #FF9770;
+      box-shadow: 0 0 4px 4px rgba(255, 255, 255, 1);
     }
   }
   &__img {
