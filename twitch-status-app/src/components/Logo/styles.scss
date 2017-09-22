@@ -1,0 +1,18 @@
+.logo {
+  color: #9381FF;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-align: center;
+  user-select: none;
+  span {
+    display: block;
+    font-size: 2rem;
+    color: #FBFEF9;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+}

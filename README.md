@@ -13,7 +13,7 @@
 [Live page](https://axzerk.github.io/codecamp-projects/wiki-viewer/dist/)
 
 ## Twitch.tv API app
-[Live page](https://axzerk.github.io/codecamp-projects/twitch-status-app/build/)
+[Live page](https://axzerk.github.io/codecamp-projects/twitch-status-app/dist/)
 
 
 ## Calculator app
