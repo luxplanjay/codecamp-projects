@@ -107,7 +107,7 @@ module.exports = {
       title: 'Twitch.tv viewer',
       filename: 'index.html',
       template: './index.ejs',
-      favicon: './favicon.png',
+      // favicon: './favicon.png',
       inject: true,
       hash: true,
     }),
