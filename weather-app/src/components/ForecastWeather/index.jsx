@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import uuid from 'uuid';
 
-import './ForecastWeather.scss';
+import './styles.scss';
 
 function ForecastWeather({ weatherData }) {
   return (

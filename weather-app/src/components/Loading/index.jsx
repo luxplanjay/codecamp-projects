@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Loading.scss';
+import './styles.scss';
 
 class Loading extends React.Component {
   constructor(props) {

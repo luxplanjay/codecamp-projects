@@ -7,7 +7,7 @@
 [Live page](https://axzerk.github.io/codecamp-projects/random-quote-app/dist/)
 
 ## Weather App
-[Live page](https://axzerk.github.io/codecamp-projects/weather-app/build/)
+[Live page](https://axzerk.github.io/codecamp-projects/weather-app/dist/)
  
 ## Wiki Viewer App
 [Live page](https://axzerk.github.io/codecamp-projects/wiki-viewer/dist/)

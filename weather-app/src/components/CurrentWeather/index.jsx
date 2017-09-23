@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import './CurrentWeather.scss';
+import './styles.scss';
 
 class CurrentWeather extends React.Component {
   constructor(props) {

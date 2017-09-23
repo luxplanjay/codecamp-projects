@@ -1,36 +1,37 @@
-import { map, forEach } from 'lodash';
+const getUserLocation = () =>
+  fetch('https://ipapi.co/json/')
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw Error(response.statusText);
+    });
 
-function getUserLocation() {
-  return new Promise((resolve, reject) => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
-    }
+export function getWeatherData() {
+  const endpoint = 'https://api.apixu.com/v1/forecast.json?';
+  const key = 'key=13e3751010cb4d9d946205535171506';
+  const days = '&days=7';
+  const apiUrl = endpoint + key + days;
+
+  return getUserLocation().then((location) => {
+    const city = `&q=${location.city}`;
+    return fetch(apiUrl + city)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('ERROR while fetching!');
+      })
+      .catch(error => console.error(error));
   });
 }
 
-function getWeatherData({ lat, lon }) {
-  const endpoint = 'https://api.apixu.com/v1/';
-  const resource = 'forecast.json?';
-  const key = 'key=13e3751010cb4d9d946205535171506';
-  const time = '&days=7';
-  const location = `&q=${lat},${lon}`;
-  const apiUrl = endpoint + resource + key + time + location;
-
-
-  return fetch(apiUrl).then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-    throw new Error('ERROR while fetching!');
-  }).catch(error => console.error(error));
-}
-
-function formatWeatherData(data, units) {
+export function formatWeatherData(data, units) {
   let forecast = null;
   let current = null;
 
   if (units === 'metric') {
-    forecast = map(data.forecast.forecastday, (item) => {
+    forecast = data.forecast.forecastday.map((item) => {
       const time = new Date(item.date);
       const day = time.toLocaleString('en-us', { weekday: 'long' }).slice(0, 3);
       const date = time.getDate();
@@ -55,7 +56,7 @@ function formatWeatherData(data, units) {
       icon: `https:${data.current.condition.icon}`,
     };
   } else if (units === 'imperial') {
-    forecast = map(data.forecast.forecastday, (item) => {
+    forecast = data.forecast.forecastday.map((item) => {
       const time = new Date(item.date);
       const day = time.toLocaleString('en-us', { weekday: 'long' }).slice(0, 3);
       const date = time.getDate();
@@ -87,26 +88,12 @@ function formatWeatherData(data, units) {
   };
 }
 
-function importAllImages(r) {
+export function importAllImages(r) {
   const images = {};
 
-  forEach(r.keys(), (item) => {
+  r.keys().forEach((item) => {
     images[item.match(/[a-z]+/i)] = r(item);
   });
 
   return images;
 }
-
-function init() {
-  return getUserLocation()
-      .then(location => getWeatherData({
-        lat: location.coords.latitude,
-        lon: location.coords.longitude,
-      }));
-}
-
-export default {
-  init,
-  importAllImages,
-  formatWeatherData,
-};
