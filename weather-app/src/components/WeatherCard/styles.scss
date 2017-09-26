@@ -1,0 +1,67 @@
+.weather-card {
+  width: 46%;
+  padding: 0.75rem;
+  box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3);
+  border-radius: 0.125rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.75rem;
+
+  &:last-child {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  @media(max-width: 480px) {
+    margin-right: 4%;
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+
+  @media(min-width: 480px) and (max-width: 768px) {
+    width: 32%;
+    margin-right: 2%;
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+
+  @media(min-width: 768px) {
+    width: 6rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__date {
+    font-size: 1.1rem;
+  }
+
+  &__icon {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    margin-top: 0.5rem;
+    background-size: cover;
+  }
+
+  &__temp {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    &-max {
+      font-size: 1.3rem;
+    }
+    &-min {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+  }
+
+  &__condition {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+  }
+}

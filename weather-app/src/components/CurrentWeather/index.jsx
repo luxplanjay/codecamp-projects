@@ -1,84 +1,77 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import * as unitTypes from '@/UnitTypes';
 import './styles.scss';
 
-class CurrentWeather extends React.Component {
-  constructor(props) {
-    super(props);
+export default class CurrentWeather extends React.Component {
+  static propTypes = {
+    weatherData: PropTypes.shape().isRequired,
+    handleClick: PropTypes.func.isRequired,
+  };
 
-    this.state = {
-      units: 'metric',
-    };
-
-    this.handleClick = this.handleClick.bind(this);
-  }
+  state = {
+    units: unitTypes.METRIC,
+  };
 
   getClassNames(val) {
-    return classNames('current-w__btn', {
-      'current-w__btn--active': this.state.units === val,
+    return classNames('current__btn', {
+      'current__btn--active': this.state.units === val,
     });
   }
 
-  handleClick(e) {
+  handleClick = (e) => {
     const value = e.target.dataset.value;
 
-    if (value === 'metric') {
+    if (value === unitTypes.METRIC) {
       this.props.handleClick(value);
       this.setState({
-        units: 'metric',
+        units: unitTypes.METRIC,
       });
-    } else if (value === 'imperial') {
+    } else if (value === unitTypes.IMPERIAL) {
       this.props.handleClick(value);
       this.setState({
-        units: 'imperial',
+        units: unitTypes.IMPERIAL,
       });
     }
-  }
+  };
 
   render() {
+    const { weatherData } = this.props;
+
     const styles = {
-      backgroundImage: `url(${this.props.weatherData.icon})`,
+      backgroundImage: `url(${weatherData.icon})`,
     };
 
     return (
-      <div className="current-w">
-        <p className="current-w__location">
-          {this.props.weatherData.location}
-        </p>
-        <div className="current-w__temp">
-          <i className="current-w__icon" style={styles} />
-          <span className="current-w__deg">{this.props.weatherData.temp}</span>
-          <div className="current-w__btns-box">
+      <div className="current">
+        <p className="current__location">{weatherData.location}</p>
+        <div className="current__temp">
+          <i className="current__icon" style={styles} />
+          <span className="current__deg">{weatherData.temp}</span>
+          <div className="current__btns-box">
             <button
-              className={this.getClassNames('metric')}
+              className={this.getClassNames(unitTypes.METRIC)}
               onClick={this.handleClick}
-              data-value="metric"
+              data-value={unitTypes.METRIC}
             >c</button>
             <button
-              className={this.getClassNames('imperial')}
+              className={this.getClassNames(unitTypes.IMPERIAL)}
               onClick={this.handleClick}
-              data-value="imperial"
+              data-value={unitTypes.IMPERIAL}
             >f</button>
           </div>
         </div>
-        <p className="current-w__condition">{this.props.weatherData.condition}</p>
-        <p className="current-w__update">Updated as of {this.props.weatherData.lastUpdateTime}</p>
-        <ul className="current-w__list">
-          <li>Feels like: {this.props.weatherData.feelsLike}</li>
-          <li>Wind: {this.props.weatherData.wind}</li>
-          <li>Visibility: {this.props.weatherData.visibility}</li>
-          <li>Humidity: {this.props.weatherData.humidity}</li>
+        <p className="current__condition">{weatherData.condition}</p>
+        <p className="current__update">Updated as of {weatherData.lastUpdateTime}</p>
+        <ul className="current__list">
+          <li>Feels like: {weatherData.feelsLike}</li>
+          <li>Wind: {weatherData.wind}</li>
+          <li>Visibility: {weatherData.visibility}</li>
+          <li>Humidity: {weatherData.humidity}</li>
         </ul>
       </div>
     );
   }
 }
 
-CurrentWeather.propTypes = {
-  weatherData: PropTypes.shape().isRequired,
-  handleClick: PropTypes.func.isRequired,
-};
-
-export default CurrentWeather;

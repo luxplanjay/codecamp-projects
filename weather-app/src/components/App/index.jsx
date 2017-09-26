@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import CurrentWeather from '@/components/CurrentWeather';
-import ForecastWeather from '@/components/ForecastWeather';
+import ForecastWeather from '@/components/Forecast';
 import Loading from '@/components/Loading';
-import * as API from '../API';
+import * as api from '@/API';
+import * as unitTypes from '@/UnitTypes';
 import './styles.scss';
 
-const images = API.importAllImages(
+const images = api.importAllImages(
   require.context('img', false, /\.(png|jpe?g|svg)$/),
 );
 
@@ -16,11 +17,11 @@ export default class App extends Component {
   };
 
   componentWillMount() {
-    API.getWeatherData()
+    api.getWeatherData()
       .then((data) => {
         this.setState({
           fullWeatherData: data,
-          formattedWeatherData: API.formatWeatherData(data, 'metric'),
+          formattedWeatherData: api.formatWeatherData(data, unitTypes.METRIC),
         });
       });
   }
@@ -30,6 +31,10 @@ export default class App extends Component {
 
     if (this.state.fullWeatherData) {
       const condition = this.state.fullWeatherData.current.condition.text.toLowerCase();
+
+      styles = {
+        backgroundImage: `url(${images.fallback})`,
+      };
 
       Object.keys(images).forEach((item) => {
         if (condition.includes(item)) {
@@ -45,7 +50,7 @@ export default class App extends Component {
 
   handleClick = (units) => {
     this.setState({
-      formattedWeatherData: API.formatWeatherData(this.state.fullWeatherData, units),
+      formattedWeatherData: api.formatWeatherData(this.state.fullWeatherData, units),
     });
   };
 
@@ -62,9 +67,7 @@ export default class App extends Component {
               weatherData={formattedWeatherData.current}
               handleClick={this.handleClick}
             />
-            <ForecastWeather
-              weatherData={formattedWeatherData.forecast}
-            />
+            <ForecastWeather weatherData={formattedWeatherData.forecast} />
           </div>
         }
       </div>

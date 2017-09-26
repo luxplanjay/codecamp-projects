@@ -1,0 +1,25 @@
+.forecast {
+  min-width: 20rem;
+  margin-top: 2rem;
+  user-select: none;
+  &__title {
+    font-size: 2rem;
+    font-weight: normal;
+    @media(max-width: 480px) {
+      text-align: center;
+    }
+  }
+  &__list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 0.5rem 0 0;
+    padding: 0 0.5rem;
+    list-style: none;
+
+    @media (min-width: 768px) {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+  }
+}

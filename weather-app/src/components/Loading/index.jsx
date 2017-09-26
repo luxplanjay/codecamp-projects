@@ -1,29 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
-class Loading extends React.Component {
-  constructor(props) {
-    super(props);
+export default class Loading extends Component {
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    blinkSpeed: PropTypes.number.isRequired,
+  };
 
-    this.interval = null;
-    this.state = {
-      text: props.text,
-    };
-  }
+  static defaultProps = {
+    text: 'Loading',
+    blinkSpeed: 300,
+  };
+
+  state = {
+    text: this.props.text,
+  };
 
   componentDidMount() {
     const stopper = `${this.props.text}...`;
 
     this.interval = setInterval(() => {
       if (this.state.text !== stopper) {
-        this.setState(prevState => ({
-          text: `${prevState.text}.`,
-        }));
+        this.setState(prevState => ({ text: `${prevState.text}.` }));
       } else {
-        this.setState({
-          text: this.props.text,
-        });
+        this.setState({ text: this.props.text });
       }
     }, this.props.blinkSpeed);
   }
@@ -33,20 +34,6 @@ class Loading extends React.Component {
   }
 
   render() {
-    return (
-      <p className="placeholder">{this.state.text}</p>
-    );
+    return <p className="placeholder">{this.state.text}</p>;
   }
 }
-
-Loading.propTypes = {
-  text: PropTypes.string.isRequired,
-  blinkSpeed: PropTypes.number.isRequired,
-};
-
-Loading.defaultProps = {
-  text: 'Loading',
-  blinkSpeed: 300,
-};
-
-export default Loading;
