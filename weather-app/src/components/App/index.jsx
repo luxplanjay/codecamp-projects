@@ -32,15 +32,11 @@ export default class App extends Component {
     if (this.state.fullWeatherData) {
       const condition = this.state.fullWeatherData.current.condition.text.toLowerCase();
 
-      styles = {
-        backgroundImage: `url(${images.fallback})`,
-      };
+      styles = { backgroundImage: `url(${images.fallback})` };
 
       Object.keys(images).forEach((item) => {
         if (condition.includes(item)) {
-          styles = {
-            backgroundImage: `url(${images[item]})`,
-          };
+          styles = { backgroundImage: `url(${images[item]})` };
         }
       });
     }
@@ -48,9 +44,12 @@ export default class App extends Component {
     return styles;
   }
 
-  handleClick = (units) => {
+  handleUnitsToggle = (units) => {
     this.setState({
-      formattedWeatherData: api.formatWeatherData(this.state.fullWeatherData, units),
+      formattedWeatherData: api.formatWeatherData(
+        this.state.fullWeatherData,
+        units,
+      ),
     });
   };
 
@@ -65,7 +64,7 @@ export default class App extends Component {
           : <div>
             <CurrentWeather
               weatherData={formattedWeatherData.current}
-              handleClick={this.handleClick}
+              onUnitsToggle={this.handleUnitsToggle}
             />
             <ForecastWeather weatherData={formattedWeatherData.forecast} />
           </div>

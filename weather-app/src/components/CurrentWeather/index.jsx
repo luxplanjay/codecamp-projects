@@ -2,74 +2,81 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as unitTypes from '@/UnitTypes';
+import Conditions from './Conditions';
+import Button from './Button';
 import './styles.scss';
 
 export default class CurrentWeather extends React.Component {
   static propTypes = {
     weatherData: PropTypes.shape().isRequired,
-    handleClick: PropTypes.func.isRequired,
+    onUnitsToggle: PropTypes.func.isRequired,
   };
 
   state = {
     units: unitTypes.METRIC,
   };
 
-  getClassNames(val) {
-    return classNames('current__btn', {
-      'current__btn--active': this.state.units === val,
-    });
-  }
-
-  handleClick = (e) => {
-    const value = e.target.dataset.value;
-
-    if (value === unitTypes.METRIC) {
-      this.props.handleClick(value);
-      this.setState({
-        units: unitTypes.METRIC,
-      });
-    } else if (value === unitTypes.IMPERIAL) {
-      this.props.handleClick(value);
-      this.setState({
-        units: unitTypes.IMPERIAL,
-      });
+  handleToggle = (units) => {
+    if (units === unitTypes.METRIC) {
+      this.props.onUnitsToggle(units);
+      this.setState({ units });
+    } else if (units === unitTypes.IMPERIAL) {
+      this.props.onUnitsToggle(units);
+      this.setState({ units });
     }
   };
 
   render() {
-    const { weatherData } = this.props;
+    const getClassNames = units => classNames({
+      'current__btn': true,
+      'current__btn--active': this.state.units === units,
+    });
+
+    const {
+      icon,
+      location,
+      temp,
+      condition,
+      lastUpdateTime,
+      feelsLike,
+      wind,
+      visibility,
+      humidity,
+    } = this.props.weatherData;
 
     const styles = {
-      backgroundImage: `url(${weatherData.icon})`,
+      backgroundImage: `url(${icon})`,
     };
 
     return (
       <div className="current">
-        <p className="current__location">{weatherData.location}</p>
+        <p className="current__location">{location}</p>
         <div className="current__temp">
           <i className="current__icon" style={styles} />
-          <span className="current__deg">{weatherData.temp}</span>
+          <span className="current__deg">{temp}</span>
           <div className="current__btns-box">
-            <button
-              className={this.getClassNames(unitTypes.METRIC)}
-              onClick={this.handleClick}
-              data-value={unitTypes.METRIC}
-            >c</button>
-            <button
-              className={this.getClassNames(unitTypes.IMPERIAL)}
-              onClick={this.handleClick}
-              data-value={unitTypes.IMPERIAL}
-            >f</button>
+            <Button
+              cls={getClassNames(unitTypes.METRIC)}
+              onClick={this.handleToggle}
+              units={unitTypes.METRIC}
+              text="c"
+            />
+            <Button
+              cls={getClassNames(unitTypes.IMPERIAL)}
+              onClick={this.handleToggle}
+              units={unitTypes.IMPERIAL}
+              text="f"
+            />
           </div>
         </div>
-        <p className="current__condition">{weatherData.condition}</p>
-        <p className="current__update">Updated as of {weatherData.lastUpdateTime}</p>
-        <ul className="current__list">
-          <li>Feels like: {weatherData.feelsLike}</li>
-          <li>Wind: {weatherData.wind}</li>
-          <li>Visibility: {weatherData.visibility}</li>
-          <li>Humidity: {weatherData.humidity}</li>
-        </ul>
+        <p className="current__condition">{condition}</p>
+        <p className="current__update">Updated as of {lastUpdateTime}</p>
+        <Conditions
+          feelsLike={feelsLike}
+          wind={wind}
+          visibility={visibility}
+          humidity={humidity}
+        />
       </div>
     );
   }
