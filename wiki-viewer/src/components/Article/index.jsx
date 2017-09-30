@@ -10,7 +10,7 @@ const Article = ({ title, text, img, url, alt }) => (
       <p className="wiki-article__text">{text}</p>
     </a>
   </article>
-  );
+);
 
 Article.propTypes = {
   title: PropTypes.string.isRequired,

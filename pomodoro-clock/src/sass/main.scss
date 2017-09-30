@@ -1,19 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-@import "core/core";
+@import "reset.scss";
 
-$red: #FF0022;
-$red-alpha: rgba(255, 0, 34, 0.1);
-$green: #5EEB5B;
-$green-alpha: rgba(94, 235, 91, 0.1);
-$yellow: #F5C567;
-$yellow-alpha: rgba(245, 197, 103, 0.1);
+$red: #F44336;
+$red-alpha: rgba(244, 67, 54, 0.1);
+$green: #64FFDA;
+$green-alpha: rgba(100, 255, 218, 0.1);
+$yellow: #FFEB3B;
+$yellow-alpha: rgba(255, 255, 59, 0.1);
 
 .page {
   display: flex;
   min-height: 100vh;
   font-family: Roboto, Arial, sans-serif;
-  background-color: #252422;
-  color: #F5E0B7;
+  background: linear-gradient(#141E30, #243B55);
+  color: #ECEFF1;
 }
 
 // $app
@@ -26,51 +25,34 @@ $yellow-alpha: rgba(245, 197, 103, 0.1);
 
 // $app-header
 .app-header {
+  margin-bottom: 4rem;
+  font-size: 2.25rem;
   text-align: center;
-  h1 {
-    font-size: 2rem;
-  }
-  p {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
-  }
-
-  a {
-    display: block;
-    margin-left: 0.5rem;
-    text-decoration: none;
-    color: #5EEB5B;
-    font-size: 1.5rem;
-  }
 }
 
 // $knobs
-.knobs-cont {
-  margin-top: 2rem;
+.knobs {
   display: flex;
   justify-content: space-around;
-
-  &__title {
-    font-size: 0.875rem;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
 }
 
 .knob {
+  &__title {
+    font-size: 1.125rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
   input, label {
     font-family: Roboto, Arial, sans-serif !important;
   }
 }
 
 // $controls
-.controls-cont {
-  margin-top: 2rem;
+.controls {
+  margin-top: 3rem;
   text-align: center;
 
-  &__item {
+  &__btn {
     margin-right: 0.5rem;
     padding: 0.75rem 1.5rem;
     border-radius: 0.125rem;
@@ -80,43 +62,39 @@ $yellow-alpha: rgba(245, 197, 103, 0.1);
     &:last-child {
       margin-right: 0;
     }
-  }
-}
-
-// $btn
-.btn {
-  &--green {
-    border: 1px solid $green;
-    color: $green;
-    &:hover {
-      background-color: $green-alpha;
+    &--green {
+      border: 1px solid $green;
+      color: $green;
+      &:hover {
+        background-color: $green-alpha;
+      }
     }
-  }
-  &--yellow {
-    border: 1px solid $yellow;
-    color: $yellow;
-    &:hover {
-      background-color: $yellow-alpha;
+    &--yellow {
+      border: 1px solid $yellow;
+      color: $yellow;
+      &:hover {
+        background-color: $yellow-alpha;
+      }
     }
-  }
-  &--red {
-    border: 1px solid $red;
-    color: $red;
-    &:hover {
-      background-color: $red-alpha;
+    &--red {
+      border: 1px solid $red;
+      color: $red;
+      &:hover {
+        background-color: $red-alpha;
+      }
     }
   }
 }
 
-.clock-cont {
-  margin-top: 2rem;
+.timer {
+  margin-top: 3rem;
   text-align: center;
+  &__text {
+    font-size: 5rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 }
 
-#clock-text {
-  font-size: 5rem;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}

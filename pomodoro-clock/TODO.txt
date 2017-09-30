@@ -1,1 +1,0 @@
-2) implement reset of knobs when they are reset from within the code

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Masonry from 'react-masonry-component';
-import Article from '../Article/index';
+import Article from '@/components/Article';
 import './styles.scss';
 
 const masonryOptions = {

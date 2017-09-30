@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pomodoro Clock</title>
+<link rel="shortcut icon" href="favicon.png"><link href="styles.min.css?9265e2d3cac97317e34a" rel="stylesheet"></head>
+<body class="page">
+<div class="app">
+  <h1 class="app-header">Pomodoro Clock</h1>
+  <div class="knobs">
+    <div class="knob" id="session-knob">
+      <h2 class="knob__title">Session Length</h2>
+    </div>
+    <div class="knob" id="break-knob">
+      <h2 class="knob__title">Break Length</h2>
+    </div>
+  </div>
+  <div class="controls">
+    <button id="start-btn" class="controls__btn controls__btn--green">start</button>
+    <button id="reset-btn" class="controls__btn controls__btn--red">reset</button>
+  </div>
+  <div class="timer">
+    <p class="timer__text" id="timer-text">00:00:00</p>
+  </div>
+</div>
+<audio id="sounds" preload="auto">
+  <source src="audio/pomodoro-sound.mp3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+<script type="text/javascript" src="commons.js?9265e2d3cac97317e34a"></script><script type="text/javascript" src="main.bundle.js?9265e2d3cac97317e34a"></script></body>
+</html>

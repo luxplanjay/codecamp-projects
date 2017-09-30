@@ -2,23 +2,22 @@
  * Created by Zerk on 06-Jun-17.
  */
 
-import {Model} from './Model';
-import {View} from './View';
+import Model from './Model';
+import * as View from './View';
 
-document.addEventListener('DOMContentLoaded', () => {
-  let timer = null,
-      sessionTime,
-      breakTime;
-
-  const  startBtn = document.querySelector('#start'),
-        resetBtn = document.querySelector('#reset');
+export default function () {
+  let timer = null;
+  let sessionTime;
+  let breakTime;
+  const startBtn = document.querySelector('#start-btn');
+  const resetBtn = document.querySelector('#reset-btn');
 
   startBtn.addEventListener('click', () => {
     sessionTime = View.sessionKnob.children[1].value;
     breakTime = View.breakKnob.children[1].value;
 
-    if(timer) {
-      if(!timer.isActive) {
+    if (timer) {
+      if (!timer.isActive) {
         timer.start();
         View.toggleBtnState('pause');
       } else {
@@ -27,11 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else {
       timer = new Model({
-        sessionTime: sessionTime,
-        breakTime: breakTime,
+        sessionTime,
+        breakTime,
         onTick: View.onTick,
         onEnd: View.onEnd,
-        onReset: View.onReset
+        onReset: View.onReset,
       });
 
       timer.start();
@@ -40,10 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   resetBtn.addEventListener('click', () => {
-    if(timer) {
+    if (timer) {
       timer.reset();
       timer = null;
       View.toggleBtnState('start');
     }
   });
-});
+}

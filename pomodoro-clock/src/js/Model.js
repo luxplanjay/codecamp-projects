@@ -2,26 +2,34 @@
  * Created by Zerk on 05-Jun-17.
  */
 
-export const Model = function(config) {
-  this.sessionTime = config.sessionTime * 1000 * 60;
-  this.breakTime = config.breakTime * 1000 * 60;
+export default class Model {
+  constructor({
+                sessionTime = 0,
+                breakTime = 0,
+                onEnd = null,
+                onTick = null,
+                onReset = null,
+  }) {
+    this.sessionTime = sessionTime * 1000 * 60;
+    this.breakTime = breakTime * 1000 * 60;
 
-  this.targetTime = null;
-  this.deltaTime = null;
-  this.pauseTime = null;
+    this.targetTime = null;
+    this.deltaTime = null;
+    this.pauseTime = null;
 
-  this.timerID = null;
-  this.isActive = false;
-  this.isSession = true;
+    this.timerID = null;
+    this.isActive = false;
+    this.isSession = true;
 
-  this.onEnd = config.onEnd || null;
-  this.onTick = config.onTick || null;
-  this.onReset = config.onReset || null;
+    this.onEnd = onEnd;
+    this.onTick = onTick;
+    this.onReset = onReset;
+  }
 
   // $start
-  this.start = () => {
-    if(!this.isActive) {
-      if(this.isSession) {
+  start = () => {
+    if (!this.isActive) {
+      if (this.isSession) {
         this.pauseTime = this.deltaTime || this.sessionTime;
         this.targetTime = Date.now() + this.pauseTime;
       } else {
@@ -35,31 +43,37 @@ export const Model = function(config) {
   };
 
   // $update
-  this.update = () => {
+  update = () => {
     this.deltaTime = this.targetTime - Date.now();
 
-    if(this.deltaTime < 0) {
+    if (this.deltaTime < 0) {
       this.stop();
 
-      this.onEnd ? this.onEnd() : void 0;
+      if (this.onEnd) {
+        this.onEnd();
+      }
+
       this.deltaTime = null;
       this.isSession = !this.isSession;
 
       this.start();
-    } else {
-      this.onTick ? this.onTick() : void 0;
+    } else if (this.onTick) {
+      this.onTick(this.time);
     }
   };
 
   // $stop
-  this.stop = () => {
+  stop = () => {
     clearInterval(this.timerID);
     this.isActive = false;
   };
 
   // $reset
-  this.reset = () => {
-    this.onReset ? this.onReset() : void 0;
+  reset = () => {
+    if (this.onReset) {
+      this.onReset();
+    }
+
     this.stop();
     this.startTime = null;
     this.deltaTime = null;
@@ -67,7 +81,7 @@ export const Model = function(config) {
   };
 
   // $get
-  this.get = () => {
+  get time() {
     return this.deltaTime;
-  };
-};
+  }
+}
