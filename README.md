@@ -17,7 +17,7 @@
 
 
 ## Calculator app
-[Live page](https://axzerk.github.io/codecamp-projects/calculator-app/build/)
+[Live page](https://axzerk.github.io/codecamp-projects/calculator-app/dist/)
 
 ## Pomodoro Clock
 [Live page](https://axzerk.github.io/codecamp-projects/pomodoro-clock/dist/)

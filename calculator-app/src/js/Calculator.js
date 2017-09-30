@@ -1,194 +1,105 @@
 /**
  * Created by Zerk on 20-May-17.
  */
-
-import {createNode} from './create-node';
 import math from 'mathjs';
 
-export const Calculator = (function () {
-  'use strict';
+export default class Calculator {
+  constructor() {
+    this.operands = ['.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    this.operations = ['ac', 'ce', '='];
+    this.operators = ['+', '-', '/', '*'];
+    this.currentExpr = '0';
+  }
 
-  let currentExpr = '0';
+  isResultNumerical = () =>
+    !isNaN(parseInt(this.currentExpr)) && isFinite(parseInt(this.currentExpr));
 
-  const layoutBtnsArr = ['ac', 'ce', '/', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='],
-        elements = {
-          inputField: {},
-          operations: ['ac', 'ce', '='],
-          operators: ['+', '-', '/', '*'],
-          operands: ['.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-        };
+  reset() {
+    this.currentExpr = '0';
+  }
 
-  const methods = {
-    handleEquals: function () {
-      if( (elements.operators.indexOf(currentExpr[currentExpr.length - 1]) === -1) && (currentExpr[currentExpr.length - 1] !== '.') ) {
-        currentExpr = math.eval(currentExpr);
+  get value() {
+    return this.currentExpr;
+  }
 
-        if (currentExpr % 1 !== 0) {
-          currentExpr = currentExpr.toFixed(3);
-          updateHTML();
-        } else {
-          updateHTML();
-        }
+  handleEquals = () => {
+    const lastChar = this.currentExpr[this.currentExpr.length - 1];
+
+    if (!this.operators.includes(lastChar) && lastChar !== '.') {
+      this.currentExpr = math.eval(this.currentExpr);
+
+      if (this.currentExpr % 1 !== 0) {
+        this.currentExpr = this.currentExpr.toFixed(3);
       }
-    },
-    handleReset: function () {
-      currentExpr = '0';
-      updateHTML();
-    },
-    clearLastInput: function () {
-      if(this.isResultNumerical()) {
-        if (currentExpr.length !== 1 && currentExpr !== '0') {
-          currentExpr = currentExpr.toString().slice(0, -1);
-          updateHTML();
-        } else {
-          this.handleReset();
-        }
+    }
+  };
+
+  clearLastInput = () => {
+    if (this.isResultNumerical()) {
+      if (this.currentExpr.length !== 1 && this.currentExpr !== '0') {
+        this.currentExpr = this.currentExpr.toString().slice(0, -1);
       } else {
-        this.handleReset();
+        this.reset();
       }
-    },
-    handleOperatorInput: function (val) {
-      // preventing multiple operators is succession
-      if (elements.operators.indexOf(currentExpr[currentExpr.length - 1]) === -1) {
-        currentExpr = math.eval(currentExpr);
+    } else {
+      this.reset();
+    }
+  };
 
-        if(methods.isResultNumerical()) {
-          if (currentExpr % 1 !== 0) {
-            currentExpr = currentExpr.toFixed(2);
-            currentExpr += val;
-            updateHTML();
+  handleOperatorInput = (val) => {
+    const lastChar = this.currentExpr[this.currentExpr.length - 1];
+
+    // preventing multiple operators is succession
+    if (!this.operators.includes(lastChar)) {
+      this.currentExpr = math.eval(this.currentExpr);
+
+      if (this.isResultNumerical()) {
+        if (this.currentExpr % 1 !== 0) {
+          this.currentExpr = this.currentExpr.toFixed(2);
+          this.currentExpr += val;
+        } else {
+          this.currentExpr += val;
+        }
+      }
+    }
+  };
+
+  handleOperandInput = (val) => {
+    const lastChar = this.currentExpr[this.currentExpr.length - 1];
+
+    if (this.isResultNumerical()) {
+      if (val === '.') {
+        if (!this.currentExpr.includes(val)) {
+          if (!this.operators.includes(lastChar)) {
+            this.currentExpr += val;
           } else {
-            currentExpr += val;
-            updateHTML();
+            this.currentExpr += `0${val}`;
           }
         } else {
-          updateHTML();
-        }
-      }
-    },
-    handleOperandInput: function (val) {
-      if(methods.isResultNumerical()) {
-        if (val === '.') {
-          if (currentExpr.indexOf(val) === -1) {
-            if (elements.operators.indexOf(currentExpr[currentExpr.length - 1]) === -1) {
-              currentExpr += val;
-              updateHTML();
-            } else {
-              currentExpr += '0' + val;
-              updateHTML();
-            }
-          } else {
-            const position = currentExpr.search(/[-/*+]/);
+          const position = this.currentExpr.search(/[-/*+]/);
 
-            if(position !== -1) {
-              const tmp = currentExpr.slice(position + 1);
+          if (position !== -1) {
+            const tmp = this.currentExpr.slice(position + 1);
 
-              if(tmp.search(/[.]/) === -1) {
-                if (elements.operators.indexOf(currentExpr[currentExpr.length - 1]) === -1) {
-                  currentExpr += val;
-                  updateHTML();
-                } else {
-                  currentExpr += '0' + val;
-                  updateHTML();
-                }
+            if (tmp.search(/[.]/) === -1) {
+              if (!this.operators.includes(lastChar)) {
+                this.currentExpr += val;
+              } else {
+                this.currentExpr += `0${val}`;
               }
             }
           }
-        } else {
-          // when currentExpr is 1 char long and parses to 0
-          if (parseInt(currentExpr) === 0 && currentExpr.toString().length === 1) {
-            currentExpr = val;
-            updateHTML();
-          } else {
-            currentExpr += val;
-            updateHTML();
-          }
         }
       } else {
-        methods.handleReset();
-      }
-    },
-    isResultNumerical: function () {
-      return !isNaN(parseInt(currentExpr)) && isFinite(parseInt(currentExpr));
-    }
-  };
-
-  function createLayout () {
-    const appContainer = createNode('div', 'app-container', null, null);
-
-    // output box
-    const outputBox = createNode('div', 'output-box', null, null);
-    elements.inputField = createNode('p', 'input-field', null, currentExpr);
-    outputBox.append(elements.inputField);
-
-    // controls box
-    const controlsBox = createNode('div', 'controls-box', null, null);
-    controlsBox.addEventListener('click', handleClick);
-
-    for (let i = 0, length = layoutBtnsArr.length; i < length; i++) {
-      let button;
-
-      switch (layoutBtnsArr[i]) {
-        case 'ac':
-          button = createNode('button', null, {class: 'btn btn--medium', value: layoutBtnsArr[i]}, layoutBtnsArr[i]);
-          controlsBox.appendChild(button);
-          break;
-        case 'ce':
-          button = createNode('button', null, {class: 'btn btn--medium', value: layoutBtnsArr[i]}, layoutBtnsArr[i]);
-          controlsBox.appendChild(button);
-          break;
-        case '0':
-          button = createNode('button', null, {class: 'btn btn--big', value: layoutBtnsArr[i]}, layoutBtnsArr[i]);
-          controlsBox.appendChild(button);
-          break;
-        default:
-          button = createNode('button', 'btn', {value: layoutBtnsArr[i]}, layoutBtnsArr[i]);
-          controlsBox.appendChild(button);
-          break;
-      }
-    }
-
-    appContainer.append(outputBox, controlsBox);
-
-    return appContainer;
-  }
-
-  function handleClick (event) {
-    const target = event.target,
-          value = target.value;
-
-    if ( target !== this ) {
-      if ( elements.operands.indexOf(value) !== -1 ) {
-        methods.handleOperandInput(value);
-      } else if ( elements.operators.indexOf(value) !== -1 ) {
-        methods.handleOperatorInput(value);
-      } else if ( elements.operations.indexOf(value) !== -1 ){
-        switch (value) {
-          case '=':
-            methods.handleEquals();
-            break;
-          case 'ac':
-            methods.handleReset();
-            break;
-          case 'ce':
-            methods.clearLastInput();
-            break;
+        // when currentExpr is 1 char long and parses to 0
+        if (parseInt(this.currentExpr) === 0 && this.currentExpr.toString().length === 1) {
+          this.currentExpr = val;
+        } else {
+          this.currentExpr += val;
         }
       }
+    } else {
+      this.reset();
     }
-  }
-
-  function updateHTML () {
-    elements.inputField.innerHTML = currentExpr;
-  }
-
-  function init (parent) {
-    const wrapper = createNode('div', 'wrapper', null, null);
-    wrapper.append(createLayout());
-    parent.appendChild(wrapper);
-  }
-
-  return {
-    init: init
   };
-})();
+}

@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-@import "core/core";
+@import "reset.scss";
 
 body {
   font-family: Roboto, Arial, sans-serif;
@@ -8,7 +7,7 @@ body {
 .wrapper {
   display: flex;
   min-height: 100vh;
-  background-color: #1B1B1E;
+  background: linear-gradient(to right bottom, #424242, #212121);
 }
 
 .app-container {
@@ -16,7 +15,7 @@ body {
   max-width: 20rem;
   padding: 0.5rem;
   margin: auto;
-  background-color: #FFFCF2;
+  background-color: #ffffff;
   border: 1px solid rgba(34, 36, 38, .15);
   border-radius: 0.25rem;
 }
@@ -25,18 +24,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #403D39;
+  border: 1px solid #424242;
   border-radius: 0.125rem;
-  p {
-    text-align: right;
+  .output-field {
     width: 95%;
+    padding: 0.25rem;
+    font-size: 2rem;
+    text-align: right;
+    user-select: none;
+    color: #424242;
   }
-}
-
-.input-field {
-  padding: 0.25rem;
-  font-size: 2rem;
-  user-select: none;
 }
 
 .controls-box {
@@ -46,14 +43,14 @@ body {
   margin-top: 0.5rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  border: 1px solid #403D39;
+  border: 1px solid #424242;
   border-radius: 0.125rem;
 }
 
 .btn {
   display: block;
-  background-color: #403D39;
-  color: #fefefe;
+  background-color: #424242;
+  color: #ffffff;
   width: 4rem;
   height: 4rem;
   font-size: 1.3rem;
@@ -61,8 +58,7 @@ body {
   user-select: none;
   border-radius: 0.125rem;
   &:hover {
-    background-color: #EB5E28;
-    color: #403D39;
+    background-color: #0091EA;
   }
   &--medium {
     width: 6.25rem;
@@ -70,8 +66,4 @@ body {
   &--big {
     width: 8.5rem;
   }
-}
-
-.author-field {
-
 }
