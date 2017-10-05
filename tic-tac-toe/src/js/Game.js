@@ -1,20 +1,12 @@
 export default class Game {
-  constructor(board) {
+  constructor({ board, huSymbol = '', aiSymbol = '' }) {
     this.winner = null;
     this.hasEnded = false;
     this.isTie = false;
     this.board = board;
-    this.boardState = {
-      0: '',
-      1: '',
-      2: '',
-      3: '',
-      4: '',
-      5: '',
-      6: '',
-      7: '',
-      8: '',
-    };
+    this.huSymbol = huSymbol;
+    this.aiSymbol = aiSymbol;
+    this.boardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     this.winConditions = [
       [0, 1, 2],
       [3, 4, 5],
@@ -40,21 +32,18 @@ export default class Game {
   reset() {
     this.winner = '';
     this.hasEnded = false;
-    this.boardState = { 0: '', 1: '', 2: '', 3: '', 4: '', 5: '', 6: '', 7: '', 8: '' };
+    this.boardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   }
 
-  computerCellChoice(board, curPlayer) {
-    const huSymbol = 'x';
-    const aiSymbol = 'o';
-
+  minmax(board, curPlayer) {
     const emptyCells = [];
-    Object.entries(board).forEach((entry) => {
-      if (entry[1] !== 'x' && entry[1] !== 'o') emptyCells.push(entry[0]);
+    board.forEach((cell) => {
+      if (cell !== 'x' && cell !== 'o') emptyCells.push(cell);
     });
 
-    if (this.checkForWin(huSymbol)) {
+    if (this.checkForWin(this.huSymbol)) {
       return { score: -10 };
-    } else if (this.checkForWin(aiSymbol)) {
+    } else if (this.checkForWin(this.aiSymbol)) {
       return { score: 10 };
     } else if (emptyCells.length === 0) {
       return { score: 0 };
@@ -66,10 +55,10 @@ export default class Game {
       move.index = cell;
       board[cell] = curPlayer;
 
-      if (curPlayer === aiSymbol) {
-        move.score = this.computerCellChoice(board, huSymbol).score;
+      if (curPlayer === this.aiSymbol) {
+        move.score = this.minmax(board, this.huSymbol).score;
       } else {
-        move.score = this.computerCellChoice(board, aiSymbol).score;
+        move.score = this.minmax(board, this.aiSymbol).score;
       }
 
       board[cell] = move.index;
@@ -77,7 +66,7 @@ export default class Game {
     });
 
     let bestMove;
-    if (curPlayer === aiSymbol) {
+    if (curPlayer === this.aiSymbol) {
       let bestScore = -10000;
 
       moves.forEach((move, idx) => {
@@ -100,6 +89,10 @@ export default class Game {
     return moves[bestMove];
   }
 
+  computerCellChoice(board, curPlayer) {
+    return this.minmax(board, curPlayer).index;
+  }
+
   checkForWin(symbol) {
     return this.winConditions.some((condition) => {
       let isVictory = true;
@@ -114,8 +107,9 @@ export default class Game {
   }
 
   checkForTie() {
-    this.isTie = Object.values(this.boardState)
-      .filter(value => value !== 'x' && value !== 'o').length === 0;
+    this.isTie = this.boardState.filter(value =>
+      value !== 'x' && value !== 'o',
+    ).length === 0;
   }
 
   isEmptyCell(cellId) {
