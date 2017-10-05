@@ -1,0 +1,34 @@
+.board {
+  border-collapse: collapse;
+  border-radius: 0.125rem;
+}
+
+.board__row {
+  &:first-child .board__cell {
+    border-top: 0;
+  }
+  &:last-child .board__cell {
+    border-bottom: 0;
+  }
+  .board__cell:first-child {
+    border-left: 0;
+  }
+  .board__cell:last-child {
+    border-right: 0;
+  }
+}
+
+.board__cell {
+  border: 1px solid #ffffff;
+  width: 6rem;
+  height: 6rem;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 5rem;
+  color: #ffffff;
+  user-select: none;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+  }
+}

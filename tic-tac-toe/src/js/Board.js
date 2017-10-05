@@ -3,16 +3,17 @@
  */
 
 export default class Board {
-  constructor(boardCellSelector) {
-    this.enabled = false;
-    this.boardSpaces = document.querySelectorAll(boardCellSelector);
+  constructor({ boardSelector, cellSelector }) {
+    this.isEnabled = false;
+    this.cells = document.querySelectorAll(cellSelector);
+    this.self = document.querySelector(boardSelector);
   }
 
   enable() {
-    this.enabled = true;
+    this.isEnabled = true;
   }
 
   disable() {
-    this.enabled = false;
+    this.isEnabled = false;
   }
 }

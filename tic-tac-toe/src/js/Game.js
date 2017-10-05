@@ -1,10 +1,9 @@
-import { forEach, random } from 'lodash';
-
 export default class Game {
-  constructor() {
-    this.winner = '';
-    this.enabled = false;
-    this.gameEnded = false;
+  constructor(board) {
+    this.winner = null;
+    this.hasEnded = false;
+    this.isTie = false;
+    this.board = board;
     this.boardState = {
       0: '',
       1: '',
@@ -26,34 +25,87 @@ export default class Game {
       [2, 4, 6],
       [0, 4, 8],
     ];
+    this.winCombo = null;
   }
 
-  computerTurn() {
-    let endTurn = false;
-    let num = null;
+  start() {
+    this.board.enable();
+  }
 
-    forEach(this.boardState, (state) => {
-      if (state === '') {
-        while (!endTurn) {
-          const rand = random(8);
+  finish() {
+    this.board.disable();
+    this.reset();
+  }
 
-          if (this.boardState[rand] === '') {
-            this.setBoardState(rand, 'o');
-            endTurn = true;
-            num = rand;
-          }
-        }
-      }
+  reset() {
+    this.winner = '';
+    this.hasEnded = false;
+    this.boardState = { 0: '', 1: '', 2: '', 3: '', 4: '', 5: '', 6: '', 7: '', 8: '' };
+  }
+
+  computerCellChoice(board, curPlayer) {
+    const huSymbol = 'x';
+    const aiSymbol = 'o';
+
+    const emptyCells = [];
+    Object.entries(board).forEach((entry) => {
+      if (entry[1] !== 'x' && entry[1] !== 'o') emptyCells.push(entry[0]);
     });
 
-    return num;
+    if (this.checkForWin(huSymbol)) {
+      return { score: -10 };
+    } else if (this.checkForWin(aiSymbol)) {
+      return { score: 10 };
+    } else if (emptyCells.length === 0) {
+      return { score: 0 };
+    }
+
+    const moves = [];
+    emptyCells.forEach((cell) => {
+      const move = {};
+      move.index = cell;
+      board[cell] = curPlayer;
+
+      if (curPlayer === aiSymbol) {
+        move.score = this.computerCellChoice(board, huSymbol).score;
+      } else {
+        move.score = this.computerCellChoice(board, aiSymbol).score;
+      }
+
+      board[cell] = move.index;
+      moves.push(move);
+    });
+
+    let bestMove;
+    if (curPlayer === aiSymbol) {
+      let bestScore = -10000;
+
+      moves.forEach((move, idx) => {
+        if (move.score > bestScore) {
+          bestScore = move.score;
+          bestMove = idx;
+        }
+      });
+    } else {
+      let bestScore = 10000;
+
+      moves.forEach((move, idx) => {
+        if (move.score < bestScore) {
+          bestScore = move.score;
+          bestMove = idx;
+        }
+      });
+    }
+
+    return moves[bestMove];
   }
 
-  checkWinCondition(symbol) {
+  checkForWin(symbol) {
     return this.winConditions.some((condition) => {
       let isVictory = true;
+      this.winCombo = condition;
 
-      forEach(condition, (x) => {
+      condition.forEach((x) => {
         if (this.boardState[x] !== symbol) isVictory = false;
       });
 
@@ -61,16 +113,26 @@ export default class Game {
     });
   }
 
-  setBoardState(index, symbol) {
-    this.boardState[index] = symbol;
-    this.gameEnded = this.checkWinCondition(symbol);
-    if (this.gameEnded) this.winner = symbol;
+  checkForTie() {
+    this.isTie = Object.values(this.boardState)
+      .filter(value => value !== 'x' && value !== 'o').length === 0;
   }
 
-  resetGame() {
-    this.winner = '';
-    this.gameEnded = false;
-    this.boardState = { 0: '', 1: '', 2: '', 3: '', 4: '', 5: '', 6: '', 7: '', 8: '' };
+  isEmptyCell(cellId) {
+    return this.boardState[cellId] !== 'x' && this.boardState[cellId] !== 'o';
+  }
+
+  setBoardState(idx, symbol) {
+    this.boardState[idx] = symbol;
+  }
+
+  playTurn(cellId, symbol) {
+    this.setBoardState(cellId, symbol);
+    this.hasEnded = this.checkForWin(symbol);
+    if (this.hasEnded) {
+      this.winner = symbol;
+    } else {
+      this.checkForTie();
+    }
   }
 }
-

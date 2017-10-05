@@ -1,0 +1,30 @@
+.symbol-choice {
+  outline: 1px solid #ffffff;
+  margin-top: 1rem;
+  color: #fefefe;
+  text-align: center;
+  &__header {
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  &__btn {
+    display: inline-block;
+    outline: 0;
+    border: 1px solid transparent;
+    height: 2.5rem;
+    width: 2.5rem;
+    padding: 0.25rem;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    &--cross {
+      background-image: url("../img/cross.svg");
+    }
+    &--circle {
+      background-image: url("../img/circle.svg");
+    }
+    &:hover {
+      outline: 1px solid #fefefe;
+    }
+  }
+}
