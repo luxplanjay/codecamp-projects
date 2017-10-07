@@ -1,11 +1,8 @@
 export default class Game {
   constructor({ board, huSymbol = '', aiSymbol = '' }) {
-    this.winner = null;
-    this.hasEnded = false;
-    this.isTie = false;
-    this.board = board;
     this.huSymbol = huSymbol;
     this.aiSymbol = aiSymbol;
+    this.board = board;
     this.boardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     this.winConditions = [
       [0, 1, 2],
@@ -18,6 +15,9 @@ export default class Game {
       [0, 4, 8],
     ];
     this.winCombo = null;
+    this.winner = null;
+    this.hasEnded = false;
+    this.isTie = false;
   }
 
   start() {

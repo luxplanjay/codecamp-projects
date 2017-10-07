@@ -1,0 +1,22 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+# Logs
+logs
+*.log
+
+# WebStorm files
+.idea/
+
+# Dependency directory
+node_modules/
+
+# Debug log from npm
+npm-debug.log
+
+# sass
+.sass-cache/
+*.css.map
+
+package-lock.json

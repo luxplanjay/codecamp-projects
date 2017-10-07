@@ -1,0 +1,17 @@
+.controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.controls p {
+  font-size: 2rem;
+}
+
+.controls label {
+}
+
+.controls button {
+  font-size: 1rem;
+  text-transform: uppercase;
+}

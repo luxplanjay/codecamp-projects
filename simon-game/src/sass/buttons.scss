@@ -1,0 +1,40 @@
+.buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: stretch;
+  width: 24rem;
+  height: 24rem;
+}
+
+.buttons button {
+  width: 50%;
+  border: 0.5rem solid #424242;
+  &:focus {
+    outline: 0;
+  }
+  &:nth-child(1) {
+    border-radius: 100% 0 0 0;
+    border-right: 0;
+    border-bottom: 0;
+    background-color: #2E7D32;
+  }
+  &:nth-child(2) {
+    border-radius: 0 100% 0 0;
+    border-bottom: 0;
+    background-color: #C62828;
+  }
+  &:nth-child(3) {
+    border-radius: 0 0 0 100%;
+    border-right: 0;
+    background-color: #F9A825;
+  }
+  &:nth-child(4) {
+    border-radius: 0 0 100% 0;
+    background-color: #1565C0;
+  }
+}
+
+.active {
+  background-color: aqua !important;
+}

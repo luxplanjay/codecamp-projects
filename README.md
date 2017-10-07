@@ -22,3 +22,8 @@
 ## Pomodoro Clock
 [Live page](https://axzerk.github.io/codecamp-projects/pomodoro-clock/dist/)
 
+## Tic Tac Toe
+[Live page](https://axzerk.github.io/codecamp-projects/tic-tac-toe/dist/)
+
+## Simon game
+[Live page](https://axzerk.github.io/codecamp-projects/simon-game/dist/)

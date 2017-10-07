@@ -1,9 +1,9 @@
 .symbol-choice {
-  outline: 1px solid #ffffff;
   margin-top: 1rem;
-  color: #fefefe;
+  color: #fff;
   text-align: center;
   &__header {
+    font-size: 1.5rem;
     margin-bottom: 1rem;
     text-transform: uppercase;
   }
@@ -11,11 +11,12 @@
     display: inline-block;
     outline: 0;
     border: 1px solid transparent;
-    height: 2.5rem;
-    width: 2.5rem;
-    padding: 0.25rem;
+    height: 3rem;
+    width: 3rem;
     background-color: transparent;
     background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: center;
     cursor: pointer;
     &--cross {
       background-image: url("../img/cross.svg");
@@ -24,7 +25,7 @@
       background-image: url("../img/circle.svg");
     }
     &:hover {
-      outline: 1px solid #fefefe;
+      border: 1px solid #fff;
     }
   }
 }

@@ -28,25 +28,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // if win then update UI and finish game
       if (game.hasEnded) {
-        View.showWin(game.winCombo, game.winner);
+        View.showWin(
+          game.winCombo,
+          game.winner,
+          game.winner === human.symbol ? 'You won' : 'You lost',
+        );
         game.finish();
       //  if not win then check for tie
       } else if (!game.isTie) {
         // if not tie then make computer turn
-        const cellId = game.computerCellChoice(
-          game.boardState,
-          computer.symbol,
-        );
+        const cellId = game.computerCellChoice(game.boardState, computer.symbol);
         game.playTurn(cellId, computer.symbol);
+
         View.updateBoardView(document.getElementById(cellId), computer.symbol);
 
         // if win then update UI and finish game
         if (game.hasEnded) {
-          View.showWin(game.winCombo, game.winner);
+          View.showWin(
+            game.winCombo,
+            game.winner,
+            game.winner === human.symbol ? 'You won' : 'You lost',
+          );
           game.finish();
         }
       } else if (game.isTie) {
-        alert('TIE');
+        View.showWin([], game.winner, 'Tie');
+        game.finish();
       }
     }
   });
