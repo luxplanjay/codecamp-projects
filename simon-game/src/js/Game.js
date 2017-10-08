@@ -1,9 +1,8 @@
 export default class Game {
   constructor() {
     this.sequence = [];
-    this.hasEnded = false;
-    this.nextTurn = false;
     this.userSequence = [];
+    this.hasEnded = false;
   }
 
   addStepToSequence() {
@@ -11,7 +10,7 @@ export default class Game {
   }
 
   addToUserSequence(val) {
-    this.userSequence.push(+val);
+    this.userSequence.push(val);
   }
 
   resetUserSequence() {
@@ -23,23 +22,26 @@ export default class Game {
     this.addStepToSequence();
   }
 
-  compareInput() {
-    const userLast = this.userSequence[this.userSequence.length - 1];
-    if (this.sequence[this.userSequence.length - 1] === userLast) {
-      return true;
-    }
-    return false;
+  replayTurn() {
+    this.resetUserSequence();
   }
 
-  compareSequences() {
-    let isEqual = true;
+  isValidInput(val) {
+    const idx = this.userSequence.length;
+
+    return this.sequence[idx] === val ? true : false;
+  }
+
+  isNextTurn() {
+    let isNext = true;
+
     this.sequence.forEach((x, idx) => {
       if (this.userSequence[idx] !== x) {
-        isEqual = false;
+        isNext = false;
       }
     });
 
-    this.nextTurn = isEqual;
+    return isNext;
   }
 
   reset() {
