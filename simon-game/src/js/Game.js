@@ -44,6 +44,10 @@ export default class Game {
     return isNext;
   }
 
+  isVictory() {
+    return this.sequence.length === 20;
+  }
+
   reset() {
     this.resetUserSequence();
     this.sequence = [];

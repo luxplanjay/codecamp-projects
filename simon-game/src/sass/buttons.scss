@@ -10,6 +10,7 @@
 .buttons button {
   width: 50%;
   border: 0.5rem solid #424242;
+  cursor: pointer;
   &:focus {
     outline: 0;
   }

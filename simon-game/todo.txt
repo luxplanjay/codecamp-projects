@@ -1,14 +1,2 @@
-User Story: I hear a sound that corresponds to each button both when the
- series of button presses plays, and when I personally press a button.
-
 User Story: I can play in strict mode where if I get a button press wrong,
  it notifies me that I have done so, and the game restarts at a new random series of button presses.
-
-User Story: I can win the game by getting a series of 20 steps correct.
- I am notified of my victory, then the game starts over.
-
-Hint: Here are mp3s you can use for each button:
- https://s3.amazonaws.com/freecodecamp/simonSound1.mp3,
-  https://s3.amazonaws.com/freecodecamp/simonSound2.mp3,
-   https://s3.amazonaws.com/freecodecamp/simonSound3.mp3,
-    https://s3.amazonaws.com/freecodecamp/simonSound4.mp3.

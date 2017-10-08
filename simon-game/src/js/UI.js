@@ -1,9 +1,16 @@
+import sounds from '../sounds';
+
+export const playSound = (id) => {
+  sounds[id].play();
+};
+
 export const showSequence = (sequence) => {
   let timeout = 0;
 
   sequence.forEach(x => {
     setTimeout(() => {
       document.getElementById(x).classList.add('active');
+      playSound(x);
     }, timeout);
     timeout += 500;
 
