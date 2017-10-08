@@ -2,7 +2,6 @@ export default class Game {
   constructor() {
     this.sequence = [];
     this.userSequence = [];
-    this.hasEnded = false;
   }
 
   addStepToSequence() {
@@ -29,7 +28,7 @@ export default class Game {
   isValidInput(val) {
     const idx = this.userSequence.length;
 
-    return this.sequence[idx] === val ? true : false;
+    return this.sequence[idx] === val;
   }
 
   isNextTurn() {

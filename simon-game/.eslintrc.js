@@ -7,6 +7,10 @@ module.exports = {
     "no-unused-vars": [2, {"args": "none"}],
     "radix": 0,
     "func-names": ["error", "never"],
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
   },
   "env": {
     "browser": true,

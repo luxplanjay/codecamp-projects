@@ -23,10 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (game.isNextTurn()) {
           if (game.isVictory()) {
-            alert('Victory!');
             game.reset();
             ui.updateStepCount(stepCount, game.sequence.length);
-            startBtn.disabled = false
+            startBtn.disabled = false;
             resetBtn.disabled = true;
           } else {
             isBoardActive = false;
@@ -66,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     game.reset();
     ui.updateStepCount(stepCount, game.sequence.length);
 
-    startBtn.disabled = false
+    startBtn.disabled = false;
     resetBtn.disabled = true;
-  })
+  });
 });
