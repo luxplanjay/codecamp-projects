@@ -5,12 +5,14 @@
 }
 
 body {
-  display: flex;
-  min-height: 100vh;
-  background: linear-gradient(#1B1B1E, #333);
+  background: linear-gradient(#263238, #212121);
   font-family: Roboto, -apple-system, sans-serif;
 }
 
 .container {
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 100vh;
 }

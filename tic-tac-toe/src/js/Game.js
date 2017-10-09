@@ -1,9 +1,7 @@
 export default class Game {
-  constructor({ board, huSymbol = '', aiSymbol = '' }) {
+  constructor({ huSymbol = '', aiSymbol = '' }) {
     this.huSymbol = huSymbol;
     this.aiSymbol = aiSymbol;
-    this.board = board;
-    this.boardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     this.winConditions = [
       [0, 1, 2],
       [3, 4, 5],
@@ -14,24 +12,18 @@ export default class Game {
       [2, 4, 6],
       [0, 4, 8],
     ];
+    this.boardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     this.winCombo = null;
     this.winner = null;
     this.hasEnded = false;
     this.isTie = false;
   }
 
-  start() {
-    this.board.enable();
-  }
-
-  finish() {
-    this.board.disable();
-    this.reset();
-  }
-
   reset() {
-    this.winner = '';
+    this.winner = null;
+    this.winCombo = null;
     this.hasEnded = false;
+    this.isTie = false;
     this.boardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   }
 
@@ -89,8 +81,8 @@ export default class Game {
     return moves[bestMove];
   }
 
-  computerCellChoice(board, curPlayer) {
-    return this.minmax(board, curPlayer).index;
+  computerCellChoice(curPlayer) {
+    return this.minmax(this.boardState, curPlayer).index;
   }
 
   checkForWin(symbol) {
@@ -108,12 +100,12 @@ export default class Game {
 
   checkForTie() {
     this.isTie = this.boardState.filter(value =>
-      value !== 'x' && value !== 'o',
+      value !== this.huSymbol && value !== this.aiSymbol,
     ).length === 0;
   }
 
   isEmptyCell(cellId) {
-    return this.boardState[cellId] !== 'x' && this.boardState[cellId] !== 'o';
+    return this.boardState[cellId] !== this.huSymbol && this.boardState[cellId] !== this.aiSymbol;
   }
 
   setBoardState(idx, symbol) {

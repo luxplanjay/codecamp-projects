@@ -1,0 +1,35 @@
+.result-modal {
+  position: absolute;
+  display: none;
+  width: 20rem;
+  text-align: center;
+  border-radius: 0.125rem;
+  padding: 2rem 0.5rem;
+  background-color: rgba(62, 39, 35, 0.9);
+  &__text {
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 2.5rem;
+    line-height: 2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  &__btn {
+    display: inline-block;
+    margin: 0;
+    outline: 0;
+    border: 0;
+    border-radius: 0.125rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.125rem;
+    background-color: #009688;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    &:hover {
+      background-color: #00BFA5;
+    }
+  }
+}

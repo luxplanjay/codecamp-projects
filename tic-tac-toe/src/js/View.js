@@ -1,25 +1,35 @@
-const showWinner = (message) => {
-  const el = document.getElementById('result');
+const updateWinner = (message) => {
+  const el = document.getElementById('result-text');
   el.textContent = message;
 };
 
-export const showWin = (winCombo, winnerSymbol, message) => {
-  showWinner(message);
+export const showWin = (winCombo, winnerSymbol, humanSymbol) => {
+  let message = '';
+
+  if (winnerSymbol === humanSymbol) {
+    message = 'you won';
+  } else if (winnerSymbol && winnerSymbol !== humanSymbol) {
+    message = 'you lost';
+  } else {
+    message = 'tie';
+  }
+
+  updateWinner(message);
+
   winCombo.forEach((val) => {
-    document.getElementById(val).style.backgroundColor =
-      winnerSymbol === 'x' ? 'green' : 'red';
+    document.getElementById(val).classList.add(
+      winnerSymbol === humanSymbol ? 'board__cell--green' : 'board__cell--red',
+    );
   });
 };
 
 export const resetView = (boardCells) => {
-  const resultField = document.getElementById('result');
-  resultField.textContent = '';
-
   boardCells.forEach((cell) => {
     cell.textContent = '';
+    cell.classList.remove('board__cell--green', 'board__cell--red');
   });
 };
 
-export const updateBoardView = (el, symbol) => {
-  el.textContent = symbol;
+export const updateBoardView = (cell, symbol) => {
+  cell.textContent = symbol;
 };
