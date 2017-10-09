@@ -10,19 +10,24 @@
 
 <body>
   <div class="container">
-    <div class="controls">
-      <p id="step-count">00</p>
-      <label for="check">
-        <input type="checkbox" id="check"> strict mode
-      </label>
-      <button id="start-btn">start</button>
-      <button id="reset-btn" disabled>reset</button>
-    </div>
-    <div class="buttons">
-      <button id="0"></button>
-      <button id="1"></button>
-      <button id="2"></button>
-      <button id="3"></button>
+    <div class="app">
+      <div class="controls">
+        <div class="controls-mode">
+          <input class="controls-check" type="checkbox" id="check">
+          <label for="check" class="controls-label">strict mode</label>
+        </div>
+        <p class="controls-count" id="step-count">00</p>
+        <div class="controls-buttons">
+          <button id="start-btn">start</button>
+          <button id="reset-btn" disabled>reset</button>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="btn unclickable" id="0"></button>
+        <button class="btn unclickable" id="1"></button>
+        <button class="btn unclickable" id="2"></button>
+        <button class="btn unclickable" id="3"></button>
+      </div>
     </div>
   </div>
 </body>

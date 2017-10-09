@@ -2,19 +2,20 @@ import Game from './js/Game';
 import * as ui from './js/UI';
 import './sass/index.scss';
 
+
 document.addEventListener('DOMContentLoaded', () => {
   const startBtn = document.querySelector('#start-btn');
   const resetBtn = document.querySelector('#reset-btn');
-  const buttons = document.querySelector('.buttons');
+  const buttonsBox = document.querySelector('.buttons');
   const stepCount = document.querySelector('#step-count');
   const game = new Game();
-  let isBoardActive = false;
+  // let isBoardActive = false;
 
-  buttons.addEventListener('click', (evt) => {
+  buttonsBox.addEventListener('click', (evt) => {
     const target = evt.target;
     const val = parseInt(evt.target.id);
 
-    if (target !== buttons && isBoardActive) {
+    if (target !== buttonsBox) {
       ui.highlightClickTarget(target);
       ui.playSound(val);
 
@@ -28,24 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
             startBtn.disabled = false;
             resetBtn.disabled = true;
           } else {
-            isBoardActive = false;
             game.playTurn();
 
             setTimeout(() => {
               ui.updateStepCount(stepCount, game.sequence.length);
               ui.showSequence(game.sequence);
-              isBoardActive = true;
             }, 1000);
           }
         }
       } else {
-        alert('Wrong color, replaying turn!');
-        isBoardActive = false;
+        console.log('Wrong color, replaying turn!');
         game.replayTurn();
 
         setTimeout(() => {
           ui.showSequence(game.sequence);
-          isBoardActive = true;
         }, 1000);
       }
     }
@@ -58,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startBtn.disabled = true;
     resetBtn.disabled = false;
-    isBoardActive = true;
   });
 
   resetBtn.addEventListener('click', () => {

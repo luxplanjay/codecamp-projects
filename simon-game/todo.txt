@@ -1,2 +1,5 @@
 User Story: I can play in strict mode where if I get a button press wrong,
- it notifies me that I have done so, and the game restarts at a new random series of button presses.
+ it notifies me that I have done so, and the game restarts at a new random
+ series of button presses.
+
+* need to reset intervals on RESET press

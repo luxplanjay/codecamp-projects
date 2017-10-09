@@ -1,41 +1,47 @@
 .buttons {
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: stretch;
-  width: 24rem;
-  height: 24rem;
+  width: 30rem;
+  height: 30rem;
+  padding: 1rem;
+  background-color: #424242;
+  border-radius: 0.125rem;
 }
 
-.buttons button {
-  width: 50%;
-  border: 0.5rem solid #424242;
-  cursor: pointer;
+.btn {
+  width: 49%;
+  border: 0;
+  border-radius: 0.125rem;
   &:focus {
     outline: 0;
   }
   &:nth-child(1) {
-    border-radius: 100% 0 0 0;
-    border-right: 0;
-    border-bottom: 0;
     background-color: #2E7D32;
+    margin-bottom: 2%;
   }
   &:nth-child(2) {
-    border-radius: 0 100% 0 0;
-    border-bottom: 0;
     background-color: #C62828;
+    margin-bottom: 2%;
   }
   &:nth-child(3) {
-    border-radius: 0 0 0 100%;
-    border-right: 0;
     background-color: #F9A825;
   }
   &:nth-child(4) {
-    border-radius: 0 0 100% 0;
     background-color: #1565C0;
   }
 }
 
+.clickable {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.unclickable {
+  pointer-events: none;
+}
+
 .active {
-  background-color: aqua !important;
+  filter: brightness(2);
 }

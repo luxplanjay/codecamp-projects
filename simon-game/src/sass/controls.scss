@@ -1,17 +1,61 @@
 .controls {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  border-radius: 0.125rem;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #424242;
+  color: #fff;
+  width: 30rem;
+  user-select: none;
 }
 
-.controls p {
+.controls-count {
   font-size: 2rem;
 }
 
-.controls label {
+.controls-mode {
+  border: 1px solid #fff;
+  padding: 0.5rem;
+  border-radius: 0.125rem;
 }
 
-.controls button {
-  font-size: 1rem;
+.controls-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &::before {
+    display: block;
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
+    border: 0.125rem solid #fff;
+  }
+}
+
+.controls-check {
+  display: none;
+  &:checked + .controls-label::before {
+    background-color: #009688;
+  }
+}
+
+.controls-buttons button {
+  margin: 0;
+  outline: 0;
+  border: 0;
+  border-radius: 0.125rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: #009688;
+  color: #fff;
+  font-size: 1.125rem;
   text-transform: uppercase;
+  &:disabled {
+    background-color: #B0BEC5;
+    cursor: default;
+  }
 }

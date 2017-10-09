@@ -4,10 +4,36 @@ export const playSound = (id) => {
   sounds[id].play();
 };
 
+const makeClickable = () => {
+  const buttons = document.querySelectorAll('.btn');
+
+  buttons.forEach((btn) => {
+    btn.classList.remove('unclickable');
+  });
+
+  buttons.forEach((btn) => {
+    btn.classList.add('clickable');
+  });
+};
+
+const makeNotClickable = () => {
+  const buttons = document.querySelectorAll('.btn');
+
+  buttons.forEach((btn) => {
+    btn.classList.remove('clickable');
+  });
+
+  buttons.forEach((btn) => {
+    btn.classList.add('unclickable');
+  });
+};
+
 export const showSequence = (sequence) => {
   let timeout = 0;
 
-  sequence.forEach(x => {
+  makeNotClickable();
+
+  sequence.forEach((x) => {
     setTimeout(() => {
       document.getElementById(x).classList.add('active');
       playSound(x);
@@ -19,10 +45,14 @@ export const showSequence = (sequence) => {
     }, timeout);
     timeout += 500;
   });
-}
+
+  setTimeout(() => {
+    makeClickable();
+  }, timeout);
+};
 
 export const updateStepCount = (el, val) => {
-  el.textContent = val;
+  el.textContent = val.length > 1 ? val : `0${val}`;
 };
 
 export const highlightClickTarget = (el) => {
@@ -30,4 +60,4 @@ export const highlightClickTarget = (el) => {
   setTimeout(() => {
     el.classList.remove('active');
   }, 200);
-}
+};
