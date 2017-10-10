@@ -1,10 +1,6 @@
-import sounds from '../sounds';
+import * as sound from './Sound';
 
-export const playSound = (id) => {
-  sounds[id].play();
-};
-
-const makeClickable = () => {
+export const makeClickable = () => {
   const buttons = document.querySelectorAll('.btn');
 
   buttons.forEach((btn) => {
@@ -16,7 +12,7 @@ const makeClickable = () => {
   });
 };
 
-const makeNotClickable = () => {
+export const makeNotClickable = () => {
   const buttons = document.querySelectorAll('.btn');
 
   buttons.forEach((btn) => {
@@ -30,25 +26,34 @@ const makeNotClickable = () => {
 
 export const showSequence = (sequence) => {
   let timeout = 0;
+  let timerId;
+  const idList = [];
 
   makeNotClickable();
 
   sequence.forEach((x) => {
-    setTimeout(() => {
+    timerId = setTimeout(() => {
       document.getElementById(x).classList.add('active');
-      playSound(x);
+      sound.playGoodTone(x);
     }, timeout);
     timeout += 500;
+    idList.push(timerId);
 
-    setTimeout(() => {
+    timerId = setTimeout(() => {
       document.getElementById(x).classList.remove('active');
+      sound.stopGoodTones();
     }, timeout);
     timeout += 500;
+    idList.push(timerId);
   });
 
-  setTimeout(() => {
+  timerId = setTimeout(() => {
     makeClickable();
   }, timeout);
+
+  idList.push(timerId);
+
+  return idList;
 };
 
 export const updateStepCount = (el, val) => {
@@ -59,5 +64,41 @@ export const highlightClickTarget = (el) => {
   el.classList.add('active');
   setTimeout(() => {
     el.classList.remove('active');
-  }, 200);
+  }, 500);
+};
+
+
+export const clearIntervals = (intervals) => {
+  intervals.forEach((id) => {
+    clearInterval(id);
+  });
+};
+
+export const resetButtons = (buttons) => {
+  buttons.forEach((button) => {
+    button.classList.remove('active');
+  });
+};
+
+export const playOnValidInput = (val) => {
+  makeNotClickable();
+  sound.playGoodTone(val);
+  setTimeout(() => {
+    sound.stopGoodTones();
+  }, 500);
+};
+
+export const playOnErrInput = () => {
+  makeNotClickable();
+  sound.playErrTone();
+  setTimeout(() => {
+    sound.stopErrTone();
+  }, 500);
+};
+
+export const showMessage = (el, msg, delay) => {
+  el.textContent = msg;
+  setTimeout(() => {
+    el.textContent = '';
+  }, delay);
 };

@@ -46,6 +46,10 @@ export default class Game {
     return this.sequence.length === 20;
   }
 
+  setStrictMode(state) {
+    this.isStrict = state;
+  }
+
   reset() {
     this.resetUserSequence();
     this.sequence = [];
