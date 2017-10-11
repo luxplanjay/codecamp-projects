@@ -1,17 +1,9 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Card, CardMedia, CardTitle } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import './styles.scss';
-
-const listStyles = {
-  display: 'flex',
-};
 
 const links = [
   {
@@ -23,7 +15,7 @@ const links = [
     label: 'Facebook',
   },
   {
-    url: 'www.linkedin.com/in/alex-repeta',
+    url: 'https://www.linkedin.com/in/alex-repeta',
     label: 'LinkedIn',
   },
   {
@@ -36,14 +28,23 @@ const links = [
   },
 ];
 
+const cardStyles = {
+  padding: '1rem 0.5rem',
+};
+
+const listStyles = {
+  display: 'flex',
+  justifyContent: 'space-between',
+};
+
 const SocialLinks = () => (
   <div className="social-links">
     <MuiThemeProvider>
-      <Card>
+      <Card style={cardStyles}>
         <CardTitle title="Social Links" />
         <div style={listStyles}>
           {links.map(link => (
-            <FlatButton
+            <RaisedButton
               key={link.label}
               href={link.url}
               target="_blank"

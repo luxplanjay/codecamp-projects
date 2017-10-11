@@ -1,0 +1,19 @@
+.gallery {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.gallery a {
+  padding: 0.5rem;
+  flex-basis: 33%;
+  &:hover img {
+    filter: opacity(0.8);
+  }
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

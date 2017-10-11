@@ -2,6 +2,7 @@ import React from 'react';
 import ProfileCard from './ProfileCard';
 import SocialLinks from './SocialLinks';
 import Stack from './Stack';
+import ProjectGallery from './ProjectGallery';
 
 const App = () => (
   <div className="container">
@@ -10,6 +11,7 @@ const App = () => (
       <SocialLinks />
       <Stack />
     </div>
+    <ProjectGallery />
   </div>
 );
 
