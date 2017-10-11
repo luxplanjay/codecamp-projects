@@ -1,0 +1,12 @@
+.container {
+  max-width: 60rem;
+  min-width: 20rem;
+  margin: auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.aside {
+  flex: 0 0 68%;
+}
