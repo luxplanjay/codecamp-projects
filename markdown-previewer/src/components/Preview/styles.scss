@@ -1,7 +1,14 @@
 .preview-pane {
   padding: 1rem 2rem 0;
-  width: 50%;
   overflow-y: auto;
   background-color: #FAFAFA;
+
+  @media (max-width: 768px) {
+    height: 46vh;
+  }
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 }
 

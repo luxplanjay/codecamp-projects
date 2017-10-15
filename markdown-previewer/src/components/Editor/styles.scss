@@ -1,10 +1,17 @@
 .editor-pane {
   position: relative;
-  width: 50%;
   font-size: 1.25rem;
   font-family: monospace;
-  box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.3);
   z-index: 1;
+
+  @media (max-width: 768px) {
+    height: 46vh;
+  }
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 
   .CodeMirror {
     padding-top: 1rem;

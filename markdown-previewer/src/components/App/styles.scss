@@ -5,24 +5,37 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
   &__heading {
     margin: 0;
-    padding: 1.5rem;
+    padding: 1rem;
     color: #fff;
     background-color: #212121;
+    font-size: 1.5rem;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      padding: 1rem 1.5rem;
+      font-size: 2rem;
+      text-align: left;
+    }
   }
   &__body {
-    display: flex;
     flex-grow: 1;
+
+    @media (min-width: 768px) {
+      display: flex;
+    }
   }
 }
-
 

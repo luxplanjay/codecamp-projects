@@ -20,5 +20,6 @@
 
 ## [Simon game](https://axzerk.github.io/codecamp-projects/simon-game/dist/)
 
-
 ## [Markdown Previewer](https://axzerk.github.io/codecamp-projects/markdown-previewer/dist/)
+
+## [Camper Leaderboard](https://axzerk.github.io/codecamp-projects/camper-leaderboard/dist/)
