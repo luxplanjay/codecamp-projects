@@ -9,21 +9,18 @@ const DIST_DIR = path.resolve(__dirname, 'dist');
 
 module.exports = {
   context: SRC_DIR,
-  entry: [
-    'babel-polyfill',
-    './index.js'
-  ],
+  entry: ['babel-polyfill', './index.js'],
   output: {
     path: DIST_DIR,
     filename: '[name].bundle.js',
-    publicPath: '',
+    publicPath: ''
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         include: SRC_DIR,
-        use: 'babel-loader',
+        use: 'babel-loader'
       },
       {
         test: /\.scss$/,
@@ -31,15 +28,15 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            {loader: 'css-loader', options: {sourceMap: true}},
-            {loader: 'postcss-loader', options: {sourceMap: true}},
-            {loader: 'sass-loader', options: {sourceMap: true}},
-          ],
-        }),
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'postcss-loader', options: { sourceMap: true } },
+            { loader: 'sass-loader', options: { sourceMap: true } }
+          ]
+        })
       },
       {
         test: /\.html$/,
-        use: ['html-loader'],
+        use: ['html-loader']
       },
       // multiple html excluding index.html
       {
@@ -49,10 +46,10 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
-            },
-          },
-        ],
+              name: '[name].[ext]'
+            }
+          }
+        ]
       },
       {
         test: /\.(jpeg|png)$/i,
@@ -63,13 +60,13 @@ module.exports = {
             options: {
               name: '[name].[ext]?[hash:5]',
               outputPath: 'img/',
-              limit: 10000,
-            },
+              limit: 10000
+            }
           },
           {
-            loader: 'img-loader',
-          },
-        ],
+            loader: 'img-loader'
+          }
+        ]
       },
       {
         test: /\.svg$/i,
@@ -79,22 +76,22 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]?[hash:5]',
-              outputPath: 'img/',
-            },
+              outputPath: 'img/'
+            }
           },
           {
             loader: 'img-loader',
             options: {
               svgo: {
                 plugins: [
-                  {removeTitle: true},
-                  {cleanupIDs: false},
-                  {convertPathData: false},
-                ],
-              },
-            },
-          },
-        ],
+                  { removeTitle: true },
+                  { cleanupIDs: false },
+                  { convertPathData: false }
+                ]
+              }
+            }
+          }
+        ]
       },
       {
         test: /\.(otf|ttf|eot)(\?[a-z0-9#=&.]+)?$/,
@@ -104,10 +101,10 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'fonts/',
-            },
-          },
-        ],
+              outputPath: 'fonts/'
+            }
+          }
+        ]
       },
       {
         test: /\.hbs$/,
@@ -116,42 +113,41 @@ module.exports = {
           {
             loader: 'handlebars-loader',
             options: {
-              helperDirs: path.resolve(__dirname, 'js/hbs-helpers'),
-            },
-          },
-        ],
-      },
-    ],
+              helperDirs: path.resolve(__dirname, 'js/hbs-helpers')
+            }
+          }
+        ]
+      }
+    ]
   },
   resolve: {
     extensions: ['.js', '.json', '.scss'],
     modules: [SRC_DIR, 'node_modules'],
     alias: {
-      '@': SRC_DIR,
-    },
+      '@': SRC_DIR
+    }
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Random Quote App',
       filename: 'index.html',
-      template: './index.ejs',
+      template: './index.html',
       favicon: './favicon.png',
       inject: true,
-      hash: true,
+      hash: true
     }),
     new ExtractTextPlugin({
       filename: 'styles.min.css',
       allChunks: true,
-      disable: false,
+      disable: false
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       minimize: true,
-      comments: false,
+      comments: false
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true,
+      minimize: true
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'commons',
@@ -159,6 +155,6 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-  ],
+    })
+  ]
 };

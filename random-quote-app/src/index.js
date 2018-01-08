@@ -1,13 +1,21 @@
-import createLayout from './js/createLayout';
-import getQuote from './js/getQuote';
-import updateView from './js/updateView';
-import './sass/main.scss';
+import * as View from './js/View';
+import fetchQuote from './js/fetchQuote';
+import './scss/main.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.querySelector('#root');
-  root.append(createLayout());
+  document.querySelector('#root').append(View.initLayout());
 
-  getQuote().then(data => updateView(data));
+  fetchQuote().then(data => {
+    View.updateView(data);
+  });
+
+  View.elements.quoteBtn.addEventListener('click', () => {
+    View.clearQuoteBox();
+
+    fetchQuote().then(data => {
+      View.updateView(data);
+    });
+  });
 });
 
 if (module.hot) {

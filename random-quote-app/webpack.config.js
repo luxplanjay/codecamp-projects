@@ -130,9 +130,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Random Quote App',
       filename: 'index.html',
-      template: './index.ejs',
+      template: './index.html',
       favicon: './favicon.png',
       inject: true,
       hash: true,
