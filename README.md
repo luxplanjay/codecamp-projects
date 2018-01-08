@@ -7,7 +7,7 @@
 ## [Random Quote App](https://axzerk.github.io/codecamp-projects/random-quote-app/dist/)
 
 ## [Weather App](https://axzerk.github.io/codecamp-projects/weather-app/dist/)
- 
+
 ## [Wiki Viewer App](https://axzerk.github.io/codecamp-projects/wiki-viewer/dist/)
 
 ## [Twitch.tv API app](https://axzerk.github.io/codecamp-projects/twitch-status-app/dist/)

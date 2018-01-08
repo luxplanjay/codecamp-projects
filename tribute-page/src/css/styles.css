@@ -97,6 +97,14 @@ img {
   margin: 0 auto 1rem;
 }
 
+.content-article__text {
+  margin-bottom: 1rem;
+}
+
+.content-article__text:last-child {
+  margin-bottom: 0;
+}
+
 /* page-footer */
 .page-footer {
   padding-bottom: 2rem;
