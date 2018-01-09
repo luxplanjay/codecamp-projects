@@ -1,0 +1,10 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0 10px;
+  font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue,
+    sans-serif;
+  background-color: #f5f5f5;
+}

@@ -37,7 +37,7 @@ export function updateView({ content, title }) {
 }
 
 function createSpinner() {
-  const spinner = createNode('div', { class: 'spinner sninner--hidden' });
+  const spinner = createNode('div', { class: 'spinner' });
 
   for (let i = 0; i < 5; i += 1) {
     const bar = createNode('div', { class: 'spinner__bar' });
@@ -75,10 +75,10 @@ function createButtonsBox() {
     target: '_blank',
     title: 'Tweet this quote'
   });
-  const tweetIcon = createNode('i', { class: 'tweet-btn__icon' });
+  const tweetIcon = createNode('i', { class: 'tweet-btn-icon' });
   const tweetText = createNode(
     'span',
-    { class: 'tweet-btn__text' },
+    { class: 'tweet-btn-text' },
     'Tweet this quote'
   );
 
