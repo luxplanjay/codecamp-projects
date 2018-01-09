@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
 const SRC_DIR = path.resolve(__dirname, 'src');
 const DIST_DIR = path.resolve(__dirname, 'dist');
@@ -105,7 +107,7 @@ module.exports = {
             }
           }
         ]
-      },
+      }
     ]
   },
   resolve: {
@@ -115,6 +117,7 @@ module.exports = {
       '@': SRC_DIR
     }
   },
+  devtool: 'cheap-module-source-map',
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
@@ -132,7 +135,13 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       minimize: true,
-      comments: false
+      comments: false,
+      mangle: true,
+      compress: {
+        warnings: false, // Suppress uglification warnings
+        unsafe_comps: true,
+        screw_ie8: true
+      }
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
@@ -142,7 +151,10 @@ module.exports = {
       filename: 'commons.js'
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    })
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new BundleAnalyzerPlugin()
   ]
 };
