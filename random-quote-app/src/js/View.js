@@ -71,8 +71,8 @@ function createButtonsBox() {
 
   const tweetBtn = createNode('a', {
     class: 'tweet-btn',
-    rel: 'nofollow',
     target: '_blank',
+    rel: 'noopener',
     title: 'Tweet this quote'
   });
   const tweetIcon = createNode('i', { class: 'tweet-btn-icon' });
