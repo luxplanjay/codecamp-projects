@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AppBar from 'components/AppBar';
-import Logo from 'components/Logo';
 import SearchForm from 'components/SearchForm';
 import Gallery from 'components/Gallery';
 import * as api from 'api';
@@ -38,10 +37,6 @@ export default class App extends Component {
     return (
       <div className="App">
         <AppBar>
-          <Logo
-            text="Viki Viewer"
-            link="https://axzerk.github.io/codecamp-projects/wiki-viewer/dist/"
-          />
           <SearchForm onSubmit={this.handleFormSubmit} />
         </AppBar>
         <Gallery articles={this.state.articles} />

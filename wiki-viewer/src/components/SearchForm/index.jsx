@@ -24,7 +24,7 @@ const SearchForm = ({ onSubmit }) => {
       <input
         type="text"
         className="SearchForm__input"
-        placeholder="Search wiki"
+        placeholder="Search wiki..."
         ref={x => (inputRef = x)}
       />
     </form>

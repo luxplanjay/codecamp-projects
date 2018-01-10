@@ -4,7 +4,7 @@ const format = '&format=json&formatversion=2';
 const action = '&action=query&generator=search';
 const props =
   '&prop=extracts|pageimages&exchars=300&exintro&explaintext&piprop=thumbnail&pithumbsize=600';
-const limit = '&gsrlimit=9';
+const limit = '&gsrlimit=10';
 
 export const fetchArticles = searchQuery => {
   const search = `&gsrsearch=${searchQuery}`;

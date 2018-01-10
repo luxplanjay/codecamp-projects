@@ -1,10 +1,17 @@
 import React from 'react';
+import Logo from 'components/Logo';
 import './styles.css';
 
 const AppBar = props => (
-  <div className="AppBar">
-    <header className="AppBar__container">{props.children}</header>
-  </div>
+  <header className="AppBar">
+    <div className="AppBar__logo">
+      <Logo
+        text="Viki Viewer"
+        link="https://axzerk.github.io/codecamp-projects/wiki-viewer/dist/"
+      />
+    </div>
+    <div className="AppBar__form">{props.children}</div>
+  </header>
 );
 
 export default AppBar;
