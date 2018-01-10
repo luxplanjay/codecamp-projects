@@ -15,7 +15,8 @@ export const fetchArticles = searchQuery => {
       if (response.ok) return response.json();
       throw Error(response.statusText);
     })
-    .catch(err => console.log(err));
+    .then(data => data.query.pages)
+    .catch(err => console.error(err));
 };
 
 export const extractArticles = articles =>

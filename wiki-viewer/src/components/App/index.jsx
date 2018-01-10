@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AppBar from 'components/AppBar';
 import SearchForm from 'components/SearchForm';
 import Gallery from 'components/Gallery';
+import NotFound from 'components/NotFound';
 import * as api from 'api';
 import * as storage from 'localStorage';
 import './styles.css';
@@ -13,6 +14,7 @@ export default class App extends Component {
 
   componentWillMount() {
     const data = storage.loadState('wiki-articles');
+
     if (data) {
       this.setState({
         articles: data
@@ -22,24 +24,32 @@ export default class App extends Component {
 
   handleFormSubmit = searchQuery => {
     api.fetchArticles(searchQuery).then(data => {
-      this.setState(
-        {
-          articles: api.extractArticles(data.query.pages)
-        },
-        () => {
-          storage.saveState('wiki-articles', this.state.articles);
-        }
-      );
+      if (data) {
+        this.setState(
+          {
+            articles: api.extractArticles(data)
+          },
+          () => {
+            storage.saveState('wiki-articles', this.state.articles);
+          }
+        );
+      } else {
+        this.setState({
+          articles: []
+        });
+      }
     });
   };
 
   render() {
+    const { articles } = this.state;
+
     return (
       <div className="App">
         <AppBar>
           <SearchForm onSubmit={this.handleFormSubmit} />
         </AppBar>
-        <Gallery articles={this.state.articles} />
+        {articles.length === 0 ? <NotFound /> : <Gallery articles={articles} />}
       </div>
     );
   }
