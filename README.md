@@ -8,7 +8,7 @@
 
 ## [Weather App](https://axzerk.github.io/codecamp-projects/weather-app/dist/)
 
-## [Wiki Viewer App](https://axzerk.github.io/codecamp-projects/wiki-viewer/dist/)
+## [Wiki Viewer App](https://axzerk.github.io/codecamp-projects/wiki-viewer/build/)
 
 ## [Twitch.tv API app](https://axzerk.github.io/codecamp-projects/twitch-status-app/dist/)
 
