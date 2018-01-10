@@ -1,0 +1,16 @@
+.Logo {
+  font-size: 36px;
+  line-height: 1;
+  text-align: center;
+}
+
+.Logo__link {
+  text-decoration: none;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .Logo {
+    font-size: 42px;
+  }
+}

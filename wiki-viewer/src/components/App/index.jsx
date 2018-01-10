@@ -1,59 +1,50 @@
-import React from 'react';
-import SearchForm from '@/components/SearchForm';
-import Gallery from '@/components/Gallery';
-import './styles.scss';
+import React, { Component } from 'react';
+import AppBar from 'components/AppBar';
+import Logo from 'components/Logo';
+import SearchForm from 'components/SearchForm';
+import Gallery from 'components/Gallery';
+import * as api from 'api';
+import * as storage from 'localStorage';
+import './styles.css';
 
-const extractArticles = (articles, query) => articles.map((article) => {
-  const img = article.thumbnail
-    ? article.thumbnail.source
-    : 'http://via.placeholder.com/640x480?text=image not found';
-
-  return {
-    title: article.title,
-    text: article.extract,
-    img,
-    url: `https://en.wikipedia.org/?curid=${article.pageid}`,
-    alt: `${query}`,
-  };
-});
-
-const fetchArticles = (searchQuery) => {
-  const endpoint = 'https://en.wikipedia.org/w/api.php?';
-  const origin = 'origin=*';
-  const format = '&format=json&formatversion=2';
-  const action = '&action=query&generator=search';
-  const props = '&prop=extracts|pageimages&exchars=300&exintro&explaintext&piprop=thumbnail&pithumbsize=600';
-  const limit = '&gsrlimit=9';
-  const search = `&gsrsearch=${searchQuery}`;
-  const apiUrl = endpoint + origin + format + action + limit + props + search;
-
-  return fetch(apiUrl)
-    .then((response) => {
-      if (response.ok) return response.json();
-      throw Error(response.statusText);
-    })
-    .catch(err => console.log(err));
-};
-
-export default class App extends React.Component {
+export default class App extends Component {
   state = {
-    articlesData: [],
+    articles: []
   };
 
-  handleSubmit = (searchQuery) => {
-    fetchArticles(searchQuery).then((data) => {
+  componentWillMount() {
+    const data = storage.loadState('wiki-articles');
+    if (data) {
       this.setState({
-        articlesData: extractArticles(data.query.pages, searchQuery),
+        articles: data
       });
+    }
+  }
+
+  handleFormSubmit = searchQuery => {
+    api.fetchArticles(searchQuery).then(data => {
+      this.setState(
+        {
+          articles: api.extractArticles(data.query.pages)
+        },
+        () => {
+          storage.saveState('wiki-articles', this.state.articles);
+        }
+      );
     });
   };
 
   render() {
     return (
-      <div className="app-container">
-        <h1 className="app-title">Wiki Viewer</h1>
-        <SearchForm onSubmit={this.handleSubmit} />
-        <Gallery articles={this.state.articlesData} />
+      <div className="App">
+        <AppBar>
+          <Logo
+            text="Viki Viewer"
+            link="https://axzerk.github.io/codecamp-projects/wiki-viewer/dist/"
+          />
+          <SearchForm onSubmit={this.handleFormSubmit} />
+        </AppBar>
+        <Gallery articles={this.state.articles} />
       </div>
     );
   }
