@@ -7,7 +7,7 @@ const AppBar = props => (
     <div className="AppBar__logo">
       <Logo
         text="Viki Viewer"
-        link="https://axzerk.github.io/codecamp-projects/wiki-viewer/dist/"
+        link="https://axzerk.github.io/codecamp-projects/wiki-viewer/build/"
       />
     </div>
     <div className="AppBar__form">{props.children}</div>
