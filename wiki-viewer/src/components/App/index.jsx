@@ -9,7 +9,8 @@ import './styles.css';
 
 export default class App extends Component {
   state = {
-    articles: []
+    articles: [],
+    requestErrored: false
   };
 
   componentWillMount() {
@@ -34,22 +35,22 @@ export default class App extends Component {
           }
         );
       } else {
-        this.setState({
-          articles: []
-        });
+        this.setState(prevState => ({
+          requestErrored: !prevState.requestErrored
+        }));
       }
     });
   };
 
   render() {
-    const { articles } = this.state;
+    const { articles, requestErrored } = this.state;
 
     return (
       <div className="App">
         <AppBar>
           <SearchForm onSubmit={this.handleFormSubmit} />
         </AppBar>
-        {articles.length === 0 ? <NotFound /> : <Gallery articles={articles} />}
+        {requestErrored ? <NotFound /> : <Gallery articles={articles} />}
       </div>
     );
   }
