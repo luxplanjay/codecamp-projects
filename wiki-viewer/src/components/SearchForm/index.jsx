@@ -26,6 +26,7 @@ const SearchForm = ({ onSubmit }) => {
         className="SearchForm__input"
         placeholder="Search wiki..."
         ref={x => (inputRef = x)}
+        autoFocus
       />
     </form>
   );
