@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
+import searchIcon from './assets/search.svg';
 
 const SearchForm = ({ onSubmit }) => {
   let inputRef = null;
@@ -15,15 +16,17 @@ const SearchForm = ({ onSubmit }) => {
 
   return (
     <form className="SearchForm" onSubmit={handleSubmit}>
+      <button type="submit" className="SearchForm__btn">
+        <svg className="SearchForm__icon">
+          <use href={`${searchIcon}#root`} />
+        </svg>
+      </button>
       <input
         type="text"
         className="SearchForm__input"
-        placeholder="Enter search query..."
+        placeholder="Search wiki"
         ref={x => (inputRef = x)}
       />
-      <button type="submit" className="SearchForm__btn">
-        search
-      </button>
     </form>
   );
 };
