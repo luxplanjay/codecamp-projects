@@ -415,16 +415,6 @@ var ChannelList_ChannelList = function ChannelList(_ref) {
   );
 };
 
-// const mapStateToProps = state => ({
-//   channels: getVisibleChannels(state.channels, state.visibilityFilter)
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   onDeleteCard(id) {
-//     dispatch(channelActions.removeChannel(id));
-//   }
-// });
-
 /* harmony default export */ var components_ChannelList = (ChannelList_ChannelList);
 // CONCATENATED MODULE: ./defaultChannels.js
 /* harmony default export */ var defaultChannels = (['freecodecamp', 'singsing', 'dreamhackcs', 'eslsc2', 'jacksofamerica', 'ogamingsc2', 'purgegamers', 'cretetion', 'habathcx', 'noobs2ninjas']);
@@ -558,6 +548,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var getVisibleChannels = function getVisibleChannels(channels, filter) {
+  console.log(channels);
   switch (filter) {
     case 'all':
       return channels;
@@ -674,7 +665,7 @@ var App_App = function (_Component) {
         }),
         Object(preact_min["h"])(components_SearchForm, { onSubmit: this.fetchData })
       ),
-      channels && Object(preact_min["h"])(components_ChannelList, {
+      channels.length > 0 && Object(preact_min["h"])(components_ChannelList, {
         channels: getVisibleChannels(channels, visibilityFilter),
         onDeleteCard: this.onRemoveChannel
       })

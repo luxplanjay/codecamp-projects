@@ -12,14 +12,4 @@ const ChannelList = ({ channels, onDeleteCard }) => (
   </ul>
 );
 
-// const mapStateToProps = state => ({
-//   channels: getVisibleChannels(state.channels, state.visibilityFilter)
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   onDeleteCard(id) {
-//     dispatch(channelActions.removeChannel(id));
-//   }
-// });
-
 export default ChannelList;

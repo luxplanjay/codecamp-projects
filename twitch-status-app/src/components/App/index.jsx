@@ -10,6 +10,7 @@ import { saveState, loadState } from '../../localStorage';
 import styles from './styles.css';
 
 const getVisibleChannels = (channels, filter) => {
+  console.log(channels);
   switch (filter) {
     case 'all':
       return channels;
@@ -111,7 +112,7 @@ export default class App extends Component {
           <SearchForm onSubmit={this.fetchData} />
         </AppBar>
 
-        {channels && (
+        {channels.length > 0 && (
           <ChannelList
             channels={getVisibleChannels(channels, visibilityFilter)}
             onDeleteCard={this.onRemoveChannel}
