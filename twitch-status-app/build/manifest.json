@@ -1,6 +1,6 @@
 {
-  "name": "twitch-status-app",
-  "short_name": "twitch-status-app",
+  "name": "Twitch Reporter",
+  "short_name": "Twitch Reporter",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
