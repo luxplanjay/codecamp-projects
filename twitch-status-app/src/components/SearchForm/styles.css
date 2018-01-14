@@ -1,0 +1,43 @@
+.form {
+  display: flex;
+  padding: 0.825rem;
+  background-color: #fff;
+}
+
+.input {
+  flex-grow: 1;
+  border: 0;
+  border-radius: 0.125rem;
+  font-size: 1rem;
+  background-color: transparent;
+  border-radius: 0.125rem;
+  color: rgb(33, 33, 33);
+}
+
+.input::placeholder {
+  color: rgba(33, 33, 33, 0.8);
+}
+
+.input:focus {
+  outline: 0;
+}
+
+.btn {
+  outline: 0;
+  border: none;
+  margin-right: 0.675rem;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  fill: rgb(51, 103, 214);
+  transition: transform 0.2s linear;
+}
+
+.btn:hover .icon {
+  transform: scale(1.1);
+}

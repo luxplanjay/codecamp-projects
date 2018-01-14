@@ -1,80 +1,70 @@
-const makeLoginList = (arr) => {
-  let result = '';
+const makeLoginList = arr =>
+  arr.reduce((acc, item) => acc + `login=${item}&`, '');
 
-  arr.forEach((item) => {
-    result += `login=${item}&`;
-  });
+const makeIdList = arr =>
+  arr.reduce((acc, item) => acc + `user_id=${item.id}&`, '');
 
-  return result;
-};
-
-const makeIdList = (arr) => {
-  let result = '';
-
-  arr.forEach((item) => {
-    result += `user_id=${item.id}&`;
-  });
-
-  return result;
-};
+const makeUserData = ({
+  id,
+  title = null,
+  display_name,
+  profile_image_url,
+  login
+}) => ({
+  id: id,
+  title: title,
+  name: display_name,
+  logo: profile_image_url,
+  url: `https://www.twitch.tv/${login}`,
+  isOnline: !!title
+});
 
 const makeChannelCardData = (streams, users) => {
-  const data = [];
-
   const onlineIds = streams.map(stream => stream.user_id);
 
   const onlineUsers = users
     .filter(user => onlineIds.includes(user.id))
     .map(user => ({
       ...user,
-      ...streams.filter(stream => stream.user_id === user.id)[0],
+      ...streams.find(stream => stream.user_id === user.id)
     }));
 
   const offlineUsers = users.filter(user => !onlineIds.includes(user.id));
 
-  [...onlineUsers, ...offlineUsers].forEach((user) => {
-    data.push({
-      id: user.id,
-      title: user.title || null,
-      name: user.display_name,
-      logo: user.profile_image_url,
-      url: `https://www.twitch.tv/${user.login}`,
-      isOnline: !!user.title,
-    });
-  });
+  const allUsers = [...onlineUsers, ...offlineUsers];
 
-  return data;
+  const cardData = allUsers.reduce(
+    (acc, user) => [...acc, makeUserData(user)],
+    []
+  );
+
+  return cardData;
 };
 
-export const fetchData = function (channels) {
+export const fetchData = function(channels) {
   const headers = new Headers({
-    'Client-ID': 'zw4ez3387m23jod5tuzeebtdbknd0b',
+    'Client-ID': 'zw4ez3387m23jod5tuzeebtdbknd0b'
   });
 
   const endpoint = 'https://api.twitch.tv/helix';
   const queryString = makeLoginList(channels);
 
-  return fetch(`${endpoint}/users?${queryString}`, {
-    headers,
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
+  return fetch(`${endpoint}/users?${queryString}`, { headers })
+    .then(response => {
+      if (response.ok) return response.json();
+
       throw Error(response.statusText);
     })
-    .then((users) => {
+    .then(users => {
       const idList = makeIdList(users.data);
 
-      return fetch(`${endpoint}/streams?${idList}`, {
-        headers,
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
+      return fetch(`${endpoint}/streams?${idList}`, { headers })
+        .then(response => {
+          if (response.ok) return response.json();
+
           throw Error(response.statusText);
         })
         .then(streams => makeChannelCardData(streams.data, users.data));
-    });
+    })
+    .catch(err => console.log(err));
 };

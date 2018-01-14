@@ -1,0 +1,16 @@
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 991px) {
+  .controls {
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .controls {
+    font-size: 1.3rem;
+  }
+}

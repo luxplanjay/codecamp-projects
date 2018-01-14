@@ -10,7 +10,7 @@
 
 ## [Wiki Viewer App](https://axzerk.github.io/codecamp-projects/wiki-viewer/build/)
 
-## [Twitch.tv API app](https://axzerk.github.io/codecamp-projects/twitch-status-app/dist/)
+## [Twitch.tv API app](https://axzerk.github.io/codecamp-projects/twitch-status-app/build/)
 
 ## [Calculator app](https://axzerk.github.io/codecamp-projects/calculator-app/dist/)
 

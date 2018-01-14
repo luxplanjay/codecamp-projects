@@ -1,10 +1,12 @@
-/**
- * Created by Zerk on 20-Sep-17.
- */
+import { h } from 'preact';
+import styles from './styles.css';
 
-import React from 'react';
-import './styles.scss';
-
-const Logo = props => <h1 className="logo">twitch.tv<span>status reporter</span></h1>;
+const Logo = ({ text, link }) => (
+  <h1 className={styles.logo}>
+    <a href={link} className={styles.link}>
+      {text}
+    </a>
+  </h1>
+);
 
 export default Logo;

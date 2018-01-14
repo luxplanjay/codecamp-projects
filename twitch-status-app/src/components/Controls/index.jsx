@@ -1,44 +1,28 @@
-/**
- * Created by Zerk on 20-Sep-17.
- */
-
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as actions from '@/actions/visibilityFilterActions';
+import { h } from 'preact';
 import Button from './Button';
-import './styles.scss';
+import styles from './styles.css';
 
-const propTypes = {
-  onChangeFilter: PropTypes.func.isRequired,
-};
-
-const Controls = ({ onChangeFilter }) => (
-  <div className="controls">
+const Controls = ({ onChangeFilter, currentFilter }) => (
+  <div className={styles.controls}>
     <Button
-      filter="SHOW_ALL"
+      filter="all"
       onClick={onChangeFilter}
       text="all"
+      currentFilter={currentFilter}
     />
     <Button
-      filter="SHOW_ONLINE"
+      filter="online"
       onClick={onChangeFilter}
       text="online"
+      currentFilter={currentFilter}
     />
     <Button
-      filter="SHOW_OFFLINE"
+      filter="offline"
       onClick={onChangeFilter}
       text="offline"
+      currentFilter={currentFilter}
     />
   </div>
 );
 
-Controls.propTypes = propTypes;
-
-const mapDispatchToProps = dispatch => ({
-  onChangeFilter(filter) {
-    dispatch(actions.setVisibilityFilter(filter));
-  },
-});
-
-export default connect(null, mapDispatchToProps)(Controls);
+export default Controls;

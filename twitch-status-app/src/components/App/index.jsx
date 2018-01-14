@@ -1,52 +1,122 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import AppHeader from '@/components/AppHeader';
-import Controls from '@/components/Controls';
-import Channels from '@/components/Channels';
-import * as apiActions from '@/actions/channelActions';
-import defaultChannels from '@/default-channels';
-import './styles.scss';
+import { h, Component } from 'preact';
+import AppBar from '../AppBar';
+import Logo from '../Logo';
+import SearchForm from '../SearchForm';
+import Controls from '../Controls';
+import ChannelList from '../ChannelList';
+import defaultChannels from '../../defaultChannels';
+import * as API from '../../API.js';
+import { saveState, loadState } from '../../localStorage';
+import styles from './styles.css';
 
-const mapStateToProps = state => ({
-  state,
-});
+const getVisibleChannels = (channels, filter) => {
+  switch (filter) {
+    case 'all':
+      return channels;
+    case 'online':
+      return channels.filter(channel => channel.isOnline);
+    case 'offline':
+      return channels.filter(channel => !channel.isOnline);
+    default:
+      return channels;
+  }
+};
 
-const mapDispatchToProps = dispatch => ({
-  dispatch,
-});
-
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...stateProps,
-  ...dispatchProps,
-  ...ownProps,
-  onFetchApiData() {
-    const state = stateProps.state;
-    const dispatch = dispatchProps.dispatch;
-
-    const channels = state.channels.length > 0
-    ? state.channels.map(channel => channel.name)
-      : defaultChannels;
-
-    dispatch(apiActions.fetchApiData(channels));
-  },
-});
-
-@connect(mapStateToProps, mapDispatchToProps, mergeProps)
 export default class App extends Component {
-  static propTypes = {
-    onFetchApiData: PropTypes.func.isRequired,
+  state = {
+    channels: [],
+    visibilityFilter: 'all'
   };
 
-  componentWillMount() {
-    this.props.onFetchApiData();
+  componentDidMount() {
+    const persistedState = loadState();
+
+    if (persistedState) {
+      this.setState({
+        channels: persistedState
+      });
+    } else {
+      const channelsList =
+        this.state.channels.length > 0
+          ? this.state.channels.map(channel => channel.name)
+          : defaultChannels;
+
+      this.fetchData(channelsList);
+    }
   }
+
+  fetchData = channels => {
+    const state = this.state.channels;
+
+    API.fetchData(channels).then(data => {
+      if (state.length > 0 && data.length === 1) {
+        const idList = state.map(channel => channel.id);
+        const channelID = data[0].id;
+
+        if (!idList.includes(channelID)) {
+          this.setState(
+            prevState => ({
+              channels: [...data, ...prevState.channels]
+            }),
+            () => {
+              saveState(this.state.channels);
+            }
+          );
+        }
+
+        return;
+      } else if (data.length > 1) {
+        this.setState(
+          {
+            channels: data
+          },
+          () => {
+            saveState(this.state.channels);
+          }
+        );
+      }
+    });
+  };
+
+  onRemoveChannel = id => {
+    this.setState(
+      prevState => ({
+        channels: prevState.channels.filter(channel => channel.id !== id)
+      }),
+      () => {
+        saveState(this.state.channels);
+      }
+    );
+  };
+
+  setVisibilityFilter = filter => {
+    this.setState({
+      visibilityFilter: filter
+    });
+  };
+
   render() {
+    const { channels, visibilityFilter } = this.state;
     return (
-      <div className="app-container">
-        <AppHeader />
-        <Controls />
-        <Channels />
+      <div className="app">
+        <AppBar>
+          <Logo
+            text="twitch.tv reporter"
+            link="https://axzerk.github.io/codecamp-projects/twitch-status-app/build/"
+          />
+          <Controls
+            onChangeFilter={this.setVisibilityFilter}
+            currentFilter={visibilityFilter}
+          />
+          <SearchForm onSubmit={this.fetchData} />
+        </AppBar>
+
+        {channels && (
+          <ChannelList
+            channels={getVisibleChannels(channels, visibilityFilter)}
+            onDeleteCard={this.onRemoveChannel}
+          />
+        )}
       </div>
     );
   }
