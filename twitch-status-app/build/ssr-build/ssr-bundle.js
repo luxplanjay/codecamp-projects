@@ -416,6 +416,32 @@ var ChannelList_ChannelList = function ChannelList(_ref) {
 };
 
 /* harmony default export */ var components_ChannelList = (ChannelList_ChannelList);
+// EXTERNAL MODULE: ./components/Loader/styles.css
+var Loader_styles = __webpack_require__("Sunz");
+var Loader_styles_default = /*#__PURE__*/__webpack_require__.n(Loader_styles);
+
+// CONCATENATED MODULE: ./components/Loader/index.jsx
+
+
+
+
+var Loader_Loader = function Loader() {
+  return Object(preact_min["h"])(
+    'div',
+    { className: Loader_styles_default.a.backdrop },
+    Object(preact_min["h"])(
+      'div',
+      { 'class': Loader_styles_default.a.loader },
+      Object(preact_min["h"])('div', { className: Loader_styles_default.a.bar }),
+      Object(preact_min["h"])('div', { className: Loader_styles_default.a.bar }),
+      Object(preact_min["h"])('div', { className: Loader_styles_default.a.bar }),
+      Object(preact_min["h"])('div', { className: Loader_styles_default.a.bar }),
+      Object(preact_min["h"])('div', { className: Loader_styles_default.a.bar })
+    )
+  );
+};
+
+/* harmony default export */ var components_Loader = (Loader_Loader);
 // CONCATENATED MODULE: ./defaultChannels.js
 /* harmony default export */ var defaultChannels = (['freecodecamp', 'singsing', 'dreamhackcs', 'eslsc2', 'jacksofamerica', 'ogamingsc2', 'purgegamers', 'cretetion', 'habathcx', 'noobs2ninjas']);
 // CONCATENATED MODULE: ./API.js
@@ -547,8 +573,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var getVisibleChannels = function getVisibleChannels(channels, filter) {
-  console.log(channels);
   switch (filter) {
     case 'all':
       return channels;
@@ -570,6 +596,8 @@ var App__ref = Object(preact_min["h"])(components_Logo, {
   link: 'https://axzerk.github.io/codecamp-projects/twitch-status-app/build/'
 });
 
+var App__ref2 = Object(preact_min["h"])(components_Loader, null);
+
 var App_App = function (_Component) {
   _inherits(App, _Component);
 
@@ -584,9 +612,12 @@ var App_App = function (_Component) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
       channels: [],
-      visibilityFilter: 'all'
+      visibilityFilter: 'all',
+      showLoader: false
     }, _this.fetchData = function (channels) {
       var state = _this.state.channels;
+
+      _this.toggleLoader();
 
       fetchData(channels).then(function (data) {
         if (state.length > 0 && data.length === 1) {
@@ -605,14 +636,19 @@ var App_App = function (_Component) {
             });
           }
 
+          _this.toggleLoader();
+
           return;
         } else if (data.length > 1) {
           _this.setState({
             channels: data
           }, function () {
             saveState(_this.state.channels);
+            _this.toggleLoader();
           });
         }
+
+        _this.toggleLoader();
       });
     }, _this.onRemoveChannel = function (id) {
       _this.setState(function (prevState) {
@@ -627,6 +663,12 @@ var App_App = function (_Component) {
     }, _this.setVisibilityFilter = function (filter) {
       _this.setState({
         visibilityFilter: filter
+      });
+    }, _this.toggleLoader = function () {
+      _this.setState(function (prevState) {
+        return {
+          showLoader: !prevState.showLoader
+        };
       });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -650,7 +692,8 @@ var App_App = function (_Component) {
   App.prototype.render = function render() {
     var _state = this.state,
         channels = _state.channels,
-        visibilityFilter = _state.visibilityFilter;
+        visibilityFilter = _state.visibilityFilter,
+        showLoader = _state.showLoader;
 
     return Object(preact_min["h"])(
       'div',
@@ -665,6 +708,7 @@ var App_App = function (_Component) {
         }),
         Object(preact_min["h"])(components_SearchForm, { onSubmit: this.fetchData })
       ),
+      showLoader && App__ref2,
       channels.length > 0 && Object(preact_min["h"])(components_ChannelList, {
         channels: getVisibleChannels(channels, visibilityFilter),
         onDeleteCard: this.onRemoveChannel
@@ -907,6 +951,14 @@ module.exports = {"form":"form__2BiXW","input":"input__wbg6F","btn":"btn__308E3"
 
 // removed by extract-text-webpack-plugin
 module.exports = {"logo":"logo__3i2KD","link":"link__1oVhZ"};
+
+/***/ }),
+
+/***/ "Sunz":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"backdrop":"backdrop__34Pzo","loader":"loader__18eXh","bar":"bar___iT9w","sk-stretchdelay":"sk-stretchdelay__3Nb-0"};
 
 /***/ }),
 

@@ -4,13 +4,13 @@ import Logo from '../Logo';
 import SearchForm from '../SearchForm';
 import Controls from '../Controls';
 import ChannelList from '../ChannelList';
+import Loader from '../Loader';
 import defaultChannels from '../../defaultChannels';
 import * as API from '../../API.js';
 import { saveState, loadState } from '../../localStorage';
 import styles from './styles.css';
 
 const getVisibleChannels = (channels, filter) => {
-  console.log(channels);
   switch (filter) {
     case 'all':
       return channels;
@@ -26,7 +26,8 @@ const getVisibleChannels = (channels, filter) => {
 export default class App extends Component {
   state = {
     channels: [],
-    visibilityFilter: 'all'
+    visibilityFilter: 'all',
+    showLoader: false
   };
 
   componentDidMount() {
@@ -49,6 +50,8 @@ export default class App extends Component {
   fetchData = channels => {
     const state = this.state.channels;
 
+    this.toggleLoader();
+
     API.fetchData(channels).then(data => {
       if (state.length > 0 && data.length === 1) {
         const idList = state.map(channel => channel.id);
@@ -65,6 +68,8 @@ export default class App extends Component {
           );
         }
 
+        this.toggleLoader();
+
         return;
       } else if (data.length > 1) {
         this.setState(
@@ -73,9 +78,12 @@ export default class App extends Component {
           },
           () => {
             saveState(this.state.channels);
+            this.toggleLoader();
           }
         );
       }
+
+      this.toggleLoader();
     });
   };
 
@@ -96,8 +104,14 @@ export default class App extends Component {
     });
   };
 
+  toggleLoader = () => {
+    this.setState(prevState => ({
+      showLoader: !prevState.showLoader
+    }));
+  };
+
   render() {
-    const { channels, visibilityFilter } = this.state;
+    const { channels, visibilityFilter, showLoader } = this.state;
     return (
       <div className="app">
         <AppBar>
@@ -111,6 +125,8 @@ export default class App extends Component {
           />
           <SearchForm onSubmit={this.fetchData} />
         </AppBar>
+
+        {showLoader && <Loader />}
 
         {channels.length > 0 && (
           <ChannelList

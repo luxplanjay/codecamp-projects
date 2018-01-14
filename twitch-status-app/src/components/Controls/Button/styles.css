@@ -4,14 +4,16 @@
   display: inline-block;
   padding: 0.625rem 1rem;
   flex-basis: 32%;
-  font-size: 1rem;
+  font-size: 0.825rem;
+  font-weight: 700;
   text-transform: uppercase;
   text-align: center;
-  font-weight: bold;
   color: #424242;
   background-color: #ffffff;
   cursor: pointer;
   border: 2px solid #ffffff;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease-out;
 }
 
 .active {
@@ -21,7 +23,7 @@
 
 @media (min-width: 992px) {
   .btn {
-    margin-right: 1rem;
+    margin-right: 0.625rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }

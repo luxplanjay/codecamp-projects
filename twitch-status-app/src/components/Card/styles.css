@@ -21,10 +21,10 @@
   position: absolute;
   outline: 0;
   border: 0;
-  top: 0.5rem;
-  right: 0.5rem;
-  height: 1rem;
-  width: 1rem;
+  top: 0.625rem;
+  right: 0.625rem;
+  height: 1.5rem;
+  width: 1.5rem;
   background-color: transparent;
   background-image: url('./img/trash-bin.svg');
   background-size: cover;
