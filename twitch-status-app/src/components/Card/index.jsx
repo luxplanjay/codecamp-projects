@@ -5,6 +5,8 @@ import offlineIcon from './img/offline.svg';
 import defaultLogo from './img/default-logo.png';
 import trashBinIcon from './img/trash-bin.svg';
 
+console.log(trashBinIcon);
+
 const Card = ({ id, title, logo, url, name, isOnline, onDelete }) => {
   const handleDelete = e => {
     e.preventDefault();

@@ -349,6 +349,8 @@ var trash_bin_default = /*#__PURE__*/__webpack_require__.n(trash_bin);
 
 
 
+console.log(trash_bin_default.a);
+
 var Card_Card = function Card(_ref) {
   var id = _ref.id,
       title = _ref.title,
@@ -978,7 +980,7 @@ module.exports = {"backdrop":"backdrop__34Pzo","loader":"loader__18eXh","bar":"b
 /***/ "W5no":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "9465bcd058e6aa199fb38b1482eccfa6.svg";
+module.exports = __webpack_require__.p + "29b019f46c65bdf3d2336e69f7832687.svg";
 
 /***/ }),
 
