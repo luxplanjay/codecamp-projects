@@ -349,8 +349,6 @@ var trash_bin_default = /*#__PURE__*/__webpack_require__.n(trash_bin);
 
 
 
-console.log(trash_bin_default.a);
-
 var Card_Card = function Card(_ref) {
   var id = _ref.id,
       title = _ref.title,
