@@ -1,24 +1,39 @@
 .btn {
+  position: relative;
+  display: inline-block;
   border: 0;
   outline: 0;
-  display: inline-block;
-  padding: 0.625rem 1rem;
-  flex-basis: 32%;
-  font-size: 0.825rem;
-  font-weight: 700;
+  border-radius: 3px;
+  padding: 0 1.5rem;
+  vertical-align: top;
+  font-size: 15px;
+  line-height: 2.8;
+  color: #222;
   text-transform: uppercase;
   text-align: center;
-  color: #424242;
+  white-space: nowrap;
   background-color: #ffffff;
+  overflow: hidden;
+  z-index: 0;
   cursor: pointer;
-  border: 2px solid #ffffff;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.1);
-  transition: 0.3s ease-out;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, box-shadow 0.3s, opacity 0.3s, color 0.3s;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.btn:hover {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .active {
-  box-shadow: 0px 3px 12px 3px rgba(0, 0, 0, 0.3);
   color: #009688;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 991px) {
+  .btn {
+    flex-basis: 32%;
+  }
 }
 
 @media (min-width: 992px) {
