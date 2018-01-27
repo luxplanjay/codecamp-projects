@@ -614,7 +614,11 @@ var App_App = function (_Component) {
       channels: [],
       visibilityFilter: 'all',
       showLoader: false
-    }, _this.fetchData = function (channels) {
+    }, _this.fetchData = function () {
+      var channels = _this.state.channels.length > 0 ? _this.state.channels.map(function (channel) {
+        return channel.name;
+      }) : defaultChannels;
+
       var state = _this.state.channels;
 
       _this.toggleLoader();
@@ -637,12 +641,9 @@ var App_App = function (_Component) {
           }
 
           _this.toggleLoader();
-
           return;
         } else if (data.length > 1) {
-          _this.setState({
-            channels: data
-          }, function () {
+          _this.setState({ channels: data }, function () {
             saveState(_this.state.channels);
             _this.toggleLoader();
           });
@@ -660,7 +661,7 @@ var App_App = function (_Component) {
           })
         };
       }, function () {
-        saveState(_this.state.channels);
+        return saveState(_this.state.channels);
       });
     }, _this.setVisibilityFilter = function (filter) {
       _this.setState({
@@ -676,19 +677,16 @@ var App_App = function (_Component) {
   }
 
   App.prototype.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+
     var persistedState = loadState();
 
     if (persistedState) {
-      this.setState({
-        channels: persistedState,
-        showLoader: false
+      this.setState({ channels: persistedState }, function () {
+        return _this2.fetchData();
       });
     } else {
-      var channelsList = this.state.channels.length > 0 ? this.state.channels.map(function (channel) {
-        return channel.name;
-      }) : defaultChannels;
-
-      this.fetchData(channelsList);
+      this.fetchData();
     }
   };
 

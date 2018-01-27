@@ -34,21 +34,18 @@ export default class App extends Component {
     const persistedState = loadState();
 
     if (persistedState) {
-      this.setState({
-        channels: persistedState,
-        showLoader: false
-      });
+      this.setState({ channels: persistedState }, () => this.fetchData());
     } else {
-      const channelsList =
-        this.state.channels.length > 0
-          ? this.state.channels.map(channel => channel.name)
-          : defaultChannels;
-
-      this.fetchData(channelsList);
+      this.fetchData();
     }
   }
 
-  fetchData = channels => {
+  fetchData = () => {
+    const channels =
+      this.state.channels.length > 0
+        ? this.state.channels.map(channel => channel.name)
+        : defaultChannels;
+
     const state = this.state.channels;
 
     this.toggleLoader();
@@ -70,18 +67,12 @@ export default class App extends Component {
         }
 
         this.toggleLoader();
-
         return;
       } else if (data.length > 1) {
-        this.setState(
-          {
-            channels: data
-          },
-          () => {
-            saveState(this.state.channels);
-            this.toggleLoader();
-          }
-        );
+        this.setState({ channels: data }, () => {
+          saveState(this.state.channels);
+          this.toggleLoader();
+        });
 
         return;
       }
@@ -95,9 +86,7 @@ export default class App extends Component {
       prevState => ({
         channels: prevState.channels.filter(channel => channel.id !== id)
       }),
-      () => {
-        saveState(this.state.channels);
-      }
+      () => saveState(this.state.channels)
     );
   };
 
