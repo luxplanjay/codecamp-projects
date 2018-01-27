@@ -43,7 +43,7 @@ export default class App extends Component {
   fetchData = () => {
     const channels =
       this.state.channels.length > 0
-        ? this.state.channels.map(channel => channel.name)
+        ? this.state.channels.map(channel => channel.name.toLowerCase())
         : defaultChannels;
 
     const state = this.state.channels;
@@ -51,7 +51,7 @@ export default class App extends Component {
     this.toggleLoader();
 
     API.fetchData(channels).then(data => {
-      if (state.length > 0 && data.length === 1) {
+      if (data.length === 1) {
         const idList = state.map(channel => channel.id);
         const channelID = data[0].id;
 
@@ -69,6 +69,7 @@ export default class App extends Component {
         this.toggleLoader();
         return;
       } else if (data.length > 1) {
+        console.log(data);
         this.setState({ channels: data }, () => {
           saveState(this.state.channels);
           this.toggleLoader();

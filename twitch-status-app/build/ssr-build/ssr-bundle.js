@@ -616,7 +616,7 @@ var App_App = function (_Component) {
       showLoader: false
     }, _this.fetchData = function () {
       var channels = _this.state.channels.length > 0 ? _this.state.channels.map(function (channel) {
-        return channel.name;
+        return channel.name.toLowerCase();
       }) : defaultChannels;
 
       var state = _this.state.channels;
@@ -624,7 +624,7 @@ var App_App = function (_Component) {
       _this.toggleLoader();
 
       fetchData(channels).then(function (data) {
-        if (state.length > 0 && data.length === 1) {
+        if (data.length === 1) {
           var idList = state.map(function (channel) {
             return channel.id;
           });
@@ -643,6 +643,7 @@ var App_App = function (_Component) {
           _this.toggleLoader();
           return;
         } else if (data.length > 1) {
+          console.log(data);
           _this.setState({ channels: data }, function () {
             saveState(_this.state.channels);
             _this.toggleLoader();
