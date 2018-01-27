@@ -13,33 +13,39 @@
 }
 
 .card:hover .btn {
-  display: block;
+  opacity: 1;
+  transform: translate(50%, -50%) scale(1);
 }
 
 .btn {
-  display: none;
   position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%) scale(0.25);
+
+  display: inline-block;
   outline: 0;
   border: 0;
-  top: 0.325rem;
-  right: 0.325rem;
-  background-color: transparent;
+  height: 1.75rem;
+  width: 1.75rem;
+
+  border-radius: 50%;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
   cursor: pointer;
+  opacity: 0;
+
+  transition-duration: 200ms;
+  transition-property: transform, opacity;
+
+  background-color: #ffffff;
+  background-image: url('./img/trash-bin.svg');
+  background-size: 65%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .btn:hover {
-  transform: scale(1.10);
-}
-
-.btn svg {
-  display: block;
-  height: 1.25rem;
-  width: 1.25rem;
-  fill: #212121;
-}
-
-.btn:hover svg {
-  fill: #f44336;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
 }
 
 .img {

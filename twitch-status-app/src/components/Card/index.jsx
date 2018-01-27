@@ -3,7 +3,6 @@ import styles from './styles.css';
 import onlineIcon from './img/online.svg';
 import offlineIcon from './img/offline.svg';
 import defaultLogo from './img/default-logo.png';
-import trashBinIcon from './img/trash-bin.svg';
 
 const Card = ({ id, title, logo, url, name, isOnline, onDelete }) => {
   const handleDelete = e => {
@@ -13,11 +12,7 @@ const Card = ({ id, title, logo, url, name, isOnline, onDelete }) => {
 
   return (
     <a className={styles.card} href={url} target="_blank">
-      <button className={styles.btn} onClick={handleDelete}>
-        <svg>
-          <use href={`${trashBinIcon}#root`} />
-        </svg>
-      </button>
+      <button className={styles.btn} onClick={handleDelete} />
       <img src={logo || defaultLogo} className={styles.img} alt="channel" />
       <div className={styles.info}>
         <h2 className={styles.name}>{name}</h2>

@@ -336,12 +336,7 @@ var offline_default = /*#__PURE__*/__webpack_require__.n(offline);
 var default_logo = __webpack_require__("cBpo");
 var default_logo_default = /*#__PURE__*/__webpack_require__.n(default_logo);
 
-// EXTERNAL MODULE: ./components/Card/img/trash-bin.svg
-var trash_bin = __webpack_require__("W5no");
-var trash_bin_default = /*#__PURE__*/__webpack_require__.n(trash_bin);
-
 // CONCATENATED MODULE: ./components/Card/index.jsx
-
 
 
 
@@ -366,15 +361,7 @@ var Card_Card = function Card(_ref) {
   return Object(preact_min["h"])(
     'a',
     { className: Card_styles_default.a.card, href: url, target: '_blank' },
-    Object(preact_min["h"])(
-      'button',
-      { className: Card_styles_default.a.btn, onClick: handleDelete },
-      Object(preact_min["h"])(
-        'svg',
-        null,
-        Object(preact_min["h"])('use', { href: trash_bin_default.a + '#root' })
-      )
-    ),
+    Object(preact_min["h"])('button', { className: Card_styles_default.a.btn, onClick: handleDelete }),
     Object(preact_min["h"])('img', { src: logo || default_logo_default.a, className: Card_styles_default.a.img, alt: 'channel' }),
     Object(preact_min["h"])(
       'div',
@@ -659,6 +646,8 @@ var App_App = function (_Component) {
             saveState(_this.state.channels);
             _this.toggleLoader();
           });
+
+          return;
         }
 
         _this.toggleLoader();
@@ -691,7 +680,8 @@ var App_App = function (_Component) {
 
     if (persistedState) {
       this.setState({
-        channels: persistedState
+        channels: persistedState,
+        showLoader: false
       });
     } else {
       var channelsList = this.state.channels.length > 0 ? this.state.channels.map(function (channel) {
@@ -972,13 +962,6 @@ module.exports = {"logo":"logo__3i2KD","link":"link__1oVhZ"};
 
 // removed by extract-text-webpack-plugin
 module.exports = {"backdrop":"backdrop__34Pzo","loader":"loader__18eXh","bar":"bar___iT9w","sk-stretchdelay":"sk-stretchdelay__3Nb-0"};
-
-/***/ }),
-
-/***/ "W5no":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "29b019f46c65bdf3d2336e69f7832687.svg";
 
 /***/ }),
 

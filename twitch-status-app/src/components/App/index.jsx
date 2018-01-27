@@ -35,7 +35,8 @@ export default class App extends Component {
 
     if (persistedState) {
       this.setState({
-        channels: persistedState
+        channels: persistedState,
+        showLoader: false
       });
     } else {
       const channelsList =
@@ -81,6 +82,8 @@ export default class App extends Component {
             this.toggleLoader();
           }
         );
+
+        return;
       }
 
       this.toggleLoader();
