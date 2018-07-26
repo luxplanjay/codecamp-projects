@@ -1,0 +1,30 @@
+https://tutorialzine.com/2016/06/quick-tip-detecting-your-location-with-javascript
+
+const promise = new Promise((resolve, reject) => {
+  navigator.geolocation.getCurrentPosition(pos => {
+    resolve(pos);
+  });
+});
+
+function getWeatherData() {
+  const endpoint = "https://api.apixu.com/v1/forecast.json?";
+  const key = "key=13e3751010cb4d9d946205535171506";
+  const days = "&days=7";
+  const apiUrl = endpoint + key + days;
+
+  promise.then(pos => {
+    const loc = `&q=${pos.coords.latitude},${pos.coords.longitude}`;
+
+    fetch(apiUrl + loc)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("ERROR while fetching!");
+      })
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  });
+}
+
+getWeatherData();
